@@ -19,6 +19,10 @@ public class MatrixTransformation : MonoBehaviour
 
     private bool cr_active;
 
+    [SerializeField] private TMP_Dropdown dropDown1;
+    [SerializeField] private TMP_Dropdown dropDown2;
+    [SerializeField] private TMP_Dropdown dropDown3;
+
     // ===================================== NOTES =====================================
     // General order for matrix transformations are
     // 1. scaling
@@ -77,11 +81,52 @@ public class MatrixTransformation : MonoBehaviour
         _transform.localRotation = Quaternion.LookRotation(newMatrix.GetColumn(2), newMatrix.GetColumn(1));
         _transform.position = newMatrix.GetPosition();
     }
+
+    #region Debugging
+
+    public void DebugFunction()
+    {
+        // Debug.Log(dropDown1.value);
+    }
     
-    
+    public void ApplyToMatrix(TMP_InputField rotateX, TMP_InputField rotateY, TMP_InputField rotateZ)
+    {
+        newMatrix = _transform.localToWorldMatrix;
+        
+        /*
+         * 0 = Not Used
+         * 1 = Translate
+         * 2 = Rotate
+         * 3 = Scale
+         */
+        switch (dropDown1.value)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                
+                break;
+        }
+
+        // newMatrix *= Translate(translationVector);
+        //
+        // newMatrix *= makeRotationX(float.Parse(rotateX.text));
+        // newMatrix *= makeRotationY(float.Parse(rotateY.text));
+        // newMatrix *= makeRotationZ(float.Parse(rotateZ.text));
+        //
+        // newMatrix *= Scale(scaleVector);
+
+        
+    }
+
+    #endregion
 
     #region OrderOfOperations
-    
+
     // apply our scale input
     public void ApplyScale()
     {
