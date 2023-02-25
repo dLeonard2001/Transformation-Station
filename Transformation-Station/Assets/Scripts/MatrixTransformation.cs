@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,133 +10,130 @@ using Vector3 = UnityEngine.Vector3;
 
 public class MatrixTransformation : MonoBehaviour
 {
+    // Unity uses a left-handed system
+        // multiple your matrices right to left in unity
+        // matrix4x4 m = rotMatrix * vector3 
+        // or 
+        // matrix4x4 m = translateMatrix * vector3
+        // or if you want a translation first then a rotation
+        // matrix4x4 m = rotMatrix * translateMatrix;
+    [Header("References")]
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _transform;
     [SerializeField] private Transform targetTransform;
+    [SerializeField] private TextMeshProUGUI transformationOrder;
+    private Queue<Matrix4x4> newMatrices;
+    
     private Vector3 translationVector;
+    private Vector3 rotationVector;
     private Vector3 scaleVector;
     private Vector3 originalScale;
 
-    private Matrix4x4 newMatrix;
+    private Matrix4x4 mainMatrix;
 
     private bool cr_active;
 
     // ===================================== NOTES =====================================
+    
     // General order for matrix transformations are
     // 1. scaling
     // 2. rotations
     // 3. translation
     // there is a specific order because
     // the order in which the transformations are done can affect the result
+
+    // Rotation Transformation
+    // Imagine a rotation by thinking of where the basis vectors should be
+        // To grab the x,y,z rotations and turn it into a Quaternion is done by grabbing the z-vector and y-vector of the matrix
+        // Quaterion.LookRotation(matrix.GetColumn(2), matrix.GetColumn(1));
+            // normalize your vectors!
+    
     // ===================================== NOTES =====================================
+    
+    // player inputs all their desired transformations
+    // apply it to a matrix at the end
+    // M = S * T * R
+    
+    // Overview of a matrix4x4
+        // | rx ry rz  t | 
+        // |  1  0  0  0 |
+        // |  0  1  0  0 |
+        // |  0  0  1  0 |
+        // |  0  0  0  1 |
+    
 
     // cache some data for later
     void Start()
     {
+        transformationOrder.text = "";
+        
         _transform = GetComponent<Transform>();
+
+        newMatrices = new Queue<Matrix4x4>();
+
+        // newMatrices.Enqueue(NewScaleMatrix(new Vector3(2, 2, 2)));
+        // newMatrices.Enqueue(makeRotationX(45f));
+        // newMatrices.Enqueue(Translate(new Vector3(1, 1, 1)));
+
 
         scaleVector = Vector3.one;
         originalScale = _transform.localScale;
     }
     
-    // a poor way to determine if we have won/beat the current level
-    private void Update()
+    // apply all the input transformations into here in an empty matrix
+    public void ApplyTransformations()
     {
-        if ((targetTransform.position - _transform.position).magnitude < 0.5f && !cr_active)
+        if (transformationOrder.text.Length == 0)
         {
-            StartCoroutine(Win());
+            Debug.Log("You have no transformations");
+            return;
         }
+
+        // could just initialize it to the identity matrix
+        Matrix4x4 m = _transform.localToWorldMatrix;
+        
+        // apply matrices from right to left
+        
+        // R * R * T
+        // first translate
+        // then rotate
+        // then rotate again
+        int max = newMatrices.Count;
+        for (int i = 0; i < max; i++)
+        {
+            m *= newMatrices.Dequeue();
+        }
+
+        transformationOrder.text = "";
+        
+        _transform.localScale = m.lossyScale;
+        _transform.rotation = m.rotation; // Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); works just fine as well
+        _transform.position = m.GetPosition();
     }
 
-    private IEnumerator Win()
+    public void AddTranslation()
     {
+        if (translationVector.magnitude == 0) return;
 
-        cr_active = true;
-        _animator.CrossFade("winAnimation", 0f, 0);
-
-        yield return new WaitForSeconds(3f);
-
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (transformationOrder.text.Length == 0)
         {
-            SceneManager.LoadScene(0);
+            transformationOrder.text = "T";
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            transformationOrder.text = "T * " + transformationOrder.text;
         }
-
-        cr_active = false;
-    }
-    
-    // reset our player's transformations to the beginning of the level
-    public void ResetPlayer()
-    {
-        StopAllCoroutines();
         
-        newMatrix = Matrix4x4.identity;
-
-        _transform.localScale = originalScale;
-        _transform.localRotation = Quaternion.LookRotation(newMatrix.GetColumn(2), newMatrix.GetColumn(1));
-        _transform.position = newMatrix.GetPosition();
+        newMatrices.Enqueue(Translate(translationVector));
     }
-    
-    
 
-    #region OrderOfOperations
-    
-    // apply our scale input
-    public void ApplyScale()
+    public void Reset()
     {
-        newMatrix = _transform.localToWorldMatrix;
-        newMatrix *= Scale(scaleVector);
-
-        _transform.localScale = newMatrix.lossyScale;
+        _transform.position = Matrix4x4.identity.GetPosition();
+        _transform.rotation = Matrix4x4.identity.rotation;
+        _transform.localScale = Matrix4x4.identity.lossyScale;
     }
 
-    // apply x rotation input
-    public void ApplyRotationX(TMP_InputField input)
-    {
-        if(input.text.Length == 0) return;
-        
-        newMatrix = _transform.localToWorldMatrix;
-        newMatrix *= makeRotationX(float.Parse(input.text));
-
-        _transform.rotation = Quaternion.LookRotation(newMatrix.GetColumn(2), newMatrix.GetColumn(1));
-    }
-    
-    // apply y rotation input
-    public void ApplyRotationY(TMP_InputField input)
-    {
-        if(input.text.Length == 0) return;
-        
-        newMatrix = _transform.localToWorldMatrix;
-        newMatrix *= makeRotationY(float.Parse(input.text));
-
-        _transform.rotation = Quaternion.LookRotation(newMatrix.GetColumn(2), newMatrix.GetColumn(1));
-    }
-    
-    // apply z rotation input
-    public void ApplyRotationZ(TMP_InputField input)
-    {
-        if(input.text.Length == 0) return;
-        
-        newMatrix = _transform.localToWorldMatrix;
-        newMatrix *= makeRotationZ(float.Parse(input.text));
-
-        _transform.rotation = Quaternion.LookRotation(newMatrix.GetColumn(2), newMatrix.GetColumn(1));
-    }
-    
-    // apply translation input
-    public void ApplyTranslation()
-    {
-        newMatrix = _transform.localToWorldMatrix;
-        newMatrix *= Translate(translationVector);
-
-        _transform.position = newMatrix.GetPosition();
-    }
-    
-    #endregion
-    
     #region makeScaleTransformation
 
     // scale transformation
@@ -142,15 +141,26 @@ public class MatrixTransformation : MonoBehaviour
         // | 0   sy  0   0 |
         // | 0   0   sz  0 |
         // | 0   0   0   1 |
-    private Matrix4x4 Scale(Vector3 scaleVec)
+    public void NewScaleMatrix()
     {
+        if (scaleVector == Vector3.one) return;
+        
+        if (transformationOrder.text.Length == 0)
+        {
+            transformationOrder.text = "S";
+        }
+        else
+        {
+            transformationOrder.text = "S * " + transformationOrder.text;
+        }
+        
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m00 = scaleVec.x;
-        m.m11 = scaleVec.y;
-        m.m22 = scaleVec.z;
+        m.m00 = scaleVector.x;
+        m.m11 = scaleVector.y;
+        m.m22 = scaleVector.z;
 
-        return m;
+        newMatrices.Enqueue(m);
     }
     
     public void SetXScale(TMP_InputField info)
@@ -191,9 +201,20 @@ public class MatrixTransformation : MonoBehaviour
     // apply the x then y then z
     // if you don't apply rotations in this order, you will get different results than you think
 
-    private Matrix4x4 makeRotationX(float degrees)
+    public void makeRotationX(TMP_InputField degrees)
     {
-        float radians = degrees * Mathf.Deg2Rad;
+        if (degrees.text.Length == 0) return;
+        
+        if (transformationOrder.text.Length == 0)
+        {
+            transformationOrder.text = "Rx";
+        }
+        else
+        {
+            transformationOrder.text = "Rx * " + transformationOrder.text;
+        }
+        
+        float radians = float.Parse(degrees.text) * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
         float c = Mathf.Cos(radians);
         Matrix4x4 matrix = Matrix4x4.identity;
@@ -203,17 +224,28 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m21 = s;
         matrix.m22 = c;
 
-        return matrix;
+        newMatrices.Enqueue(matrix);
     }
-
+    
     // here is how we rotate a matrix on the y-axis
     // | cos(theta)   0   sin(theta)   0 |
     // | 0            1   0              0 |
     // | -sin(theta)  0   cos(theta)   0 |
     // | 0            0   0              1 |
-    private Matrix4x4 makeRotationY(float degrees)
+    public void makeRotationY(TMP_InputField degrees)
     {
-        float radians = degrees * Mathf.Deg2Rad;
+        if (degrees.text.Length == 0) return;
+        
+        if (transformationOrder.text.Length == 0)
+        {
+            transformationOrder.text = "Ry";
+        }
+        else
+        {
+            transformationOrder.text = "Ry * " + transformationOrder.text;
+        }
+        
+        float radians = float.Parse(degrees.text) * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
         float c = Mathf.Cos(radians);
         Matrix4x4 matrix = Matrix4x4.identity;
@@ -223,26 +255,37 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m20 = -s;
         matrix.m22 = c;
 
-        return matrix;
+        newMatrices.Enqueue(matrix);
     }
 
     // here is how we rotate a matrix on the z-axis
-    // | cos(theta) -sin(theta)  0   0 |
+        // | cos(theta) -sin(theta)  0   0 |
         // | sin(theta)  cos(theta)  0   0 |
         // | 0           0           1   0 |
         // | 0           0           0   1 |
-    private Matrix4x4 makeRotationZ(float degrees)
+    public void makeRotationZ(TMP_InputField degrees)
     {
-            float s = Mathf.Sin(degrees * Mathf.Deg2Rad);
-            float c = Mathf.Cos(degrees * Mathf.Deg2Rad);
-            Matrix4x4 matrix = Matrix4x4.identity;
+        if(degrees.text.Length == 0) return;
 
-            matrix.m00 = c;
-            matrix.m01 = -s;
-            matrix.m10 = s;
-            matrix.m12 = c;
+            if (transformationOrder.text.Length == 0)
+        {
+            transformationOrder.text = "Rz";
+        }
+        else
+        {
+            transformationOrder.text = "Rz * " + transformationOrder.text;
+        }
+        
+        float s = Mathf.Sin(float.Parse(degrees.text) * Mathf.Deg2Rad);
+        float c = Mathf.Cos(float.Parse(degrees.text) * Mathf.Deg2Rad);
+        Matrix4x4 matrix = Matrix4x4.identity;
 
-            return matrix;
+        matrix.m00 = c;
+        matrix.m01 = -s;
+        matrix.m10 = s;
+        matrix.m12 = c;
+
+        newMatrices.Enqueue(matrix);
     }
 
     #endregion
@@ -260,16 +303,17 @@ public class MatrixTransformation : MonoBehaviour
     // and m33 represents a scaling factor
 
     // translation transformation
-    private Matrix4x4 Translate(Vector3 direction)
+    private Matrix4x4 Translate(Vector3 t)
     {
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m03 = direction.x;
-        m.m13 = direction.y;
-        m.m23 = direction.z;
+        m.m03 = t.x;
+        m.m13 = t.y;
+        m.m23 = t.z;
 
         // Debug.Log(newMatrix.MultiplyPoint3x4(Vector3.zero));
         // _transform.position = newMatrix.MultiplyPoint3x4(Vector3.zero);
+
         return m;
     }
     
