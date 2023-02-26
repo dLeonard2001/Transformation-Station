@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 2117836168974774485}
   m_Layer: 5
   m_Name: ControlBoard
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -225,7 +225,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICard: {fileID: 3806786738164801435, guid: e294797d3dd19e440bcd95c521d378c7, type: 3}
-  currentCards: []
 --- !u!1 &2117836169007758825
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class UIBoardControls : MonoBehaviour
     public GameObject UICard;
     
     // list of cards
-    public List<GameObject> currentCards;
+    private List<GameObject> currentCards;
     
     // max number of UI cards
     private int maxCards;
@@ -23,12 +23,8 @@ public class UIBoardControls : MonoBehaviour
         cardCount = 0;
         maxCards = 5;
         minCards = 1;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        currentCards = new List<GameObject>();
     }
 
     public void CreateNewCard()
