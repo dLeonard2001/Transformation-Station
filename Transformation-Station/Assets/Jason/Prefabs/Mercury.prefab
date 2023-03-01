@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3361007941143958393}
   - component: {fileID: 3361007941143958394}
   - component: {fileID: 3361007941143958395}
+  - component: {fileID: 3376560570954226466}
   m_Layer: 0
-  m_Name: Sun
+  m_Name: Mercury
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03d728060ddf72f43afbca160c0b103b, type: 2}
+  - {fileID: 2100000, guid: 643c2a651adeae947be4922cddaf31fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,3 +98,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3376560570954226466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361007941143958396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c0dce0eef12864480e2b1100be8def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowUI: {fileID: 7239411982753395678, guid: 2d23f2f0a0ff1974091da9bd19632200,
+    type: 3}

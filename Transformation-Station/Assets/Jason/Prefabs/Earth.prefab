@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3361007941143958393}
   - component: {fileID: 3361007941143958394}
   - component: {fileID: 3361007941143958395}
+  - component: {fileID: 6885976469867407814}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -98,6 +99,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6885976469867407814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361007941143958396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c0dce0eef12864480e2b1100be8def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowUI: {fileID: 7239411982753395678, guid: 2d23f2f0a0ff1974091da9bd19632200,
+    type: 3}
 --- !u!1 &7108255238402690549
 GameObject:
   m_ObjectHideFlags: 0

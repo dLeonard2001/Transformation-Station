@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7828541464213905850}
   - component: {fileID: 5952573619715044165}
   - component: {fileID: 1050060239271976800}
-  - component: {fileID: 7986865157533675215}
   m_Layer: 0
   m_Name: Venus Atmosphere
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7986865157533675215
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3220262891929798136}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3361007941143958396
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +95,7 @@ GameObject:
   - component: {fileID: 3361007941143958393}
   - component: {fileID: 3361007941143958394}
   - component: {fileID: 3361007941143958395}
+  - component: {fileID: 4510688991084247723}
   m_Layer: 0
   m_Name: Venus
   m_TagString: Untagged
@@ -195,3 +182,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4510688991084247723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361007941143958396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c0dce0eef12864480e2b1100be8def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowUI: {fileID: 7239411982753395678, guid: 2d23f2f0a0ff1974091da9bd19632200,
+    type: 3}
