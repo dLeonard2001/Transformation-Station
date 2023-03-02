@@ -1,11 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Matrix4x4 = UnityEngine.Matrix4x4;
-using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class MatrixTransformation : MonoBehaviour
@@ -28,10 +24,6 @@ public class MatrixTransformation : MonoBehaviour
     private Vector3 rotationVector;
     private Vector3 scaleVector;
     private Vector3 originalScale;
-
-    private Matrix4x4 mainMatrix;
-
-    private bool cr_active;
 
     // ===================================== NOTES =====================================
     
@@ -88,9 +80,9 @@ public class MatrixTransformation : MonoBehaviour
             Debug.Log("You have no transformations");
             return;
         }
-
+        
         // could just initialize it to the identity matrix
-        Matrix4x4 m = _transform.localToWorldMatrix;
+        Matrix4x4 m = newMatrices.Dequeue();
         
         // apply matrices from right to left
         
@@ -101,14 +93,19 @@ public class MatrixTransformation : MonoBehaviour
         int max = newMatrices.Count;
         for (int i = 0; i < max; i++)
         {
-            m *= newMatrices.Dequeue();
+            m = newMatrices.Dequeue() * m;
         }
+        
+        Debug.Log(m.GetPosition());
 
         transformationOrder.text = "";
         
-        _transform.localScale = m.lossyScale;
-        _transform.rotation = m.rotation; // Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); works just fine as well
-        _transform.position = m.GetPosition();
+        //_transform.localScale = m.lossyScale;
+        // _transform.rotation = m.rotation; // Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); works just fine as well
+        //_transform.position = m.GetPosition();
+        
+        _transform.Rotate(m.rotation.eulerAngles, Space.World);
+        _transform.Translate(m.GetPosition(), Space.World);
     }
 
     public void AddTranslation()
@@ -344,5 +341,4 @@ public class MatrixTransformation : MonoBehaviour
     }
     
     #endregion
-
 }
