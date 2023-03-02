@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8522838663998685374}
   - component: {fileID: 8522838663998685375}
   m_Layer: 5
-  m_Name: Add Card
+  m_Name: Execute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
