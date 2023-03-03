@@ -21,7 +21,7 @@ public class UIBoardControls : MonoBehaviour
     void Start()
     {
         cardCount = 0;
-        maxCards = 5;
+        maxCards = 10;
         minCards = 1;
 
         currentCards = new List<GameObject>();
