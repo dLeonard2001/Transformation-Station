@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIOnClick : MonoBehaviour
 {
     // UI Board
     public GameObject UIBoard;
+	public GameObject boardParent;
 
     // store what objects have boards made
     private List<GameObject> currentBoards;
@@ -37,10 +39,16 @@ public class UIOnClick : MonoBehaviour
             // make ray from camera to where mouseclick
             myRay = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(myRay, out hitTarget, 2000f))
+            if (Physics.Raycast(myRay, out hitTarget, Mathf.Infinity))
             {
+				// if the player clicks on a UI element
+				if (EventSystem.current.IsPointerOverGameObject())
+				{
+					return;
+				}
+
                 // check if clicked object should have a board
-                if (hitTarget.collider.tag == "Planet")
+                else if (hitTarget.collider.tag == "Planet")
                 {
                     foundName = false;
                     
@@ -70,12 +78,6 @@ public class UIOnClick : MonoBehaviour
                     }
                 }
                 
-                // blocks the ui section that player might click
-                else if (hitTarget.collider.tag == "Wall")
-                {
-                    
-                }
-                
                 // turn off all boards
                 else
                 {
@@ -86,18 +88,12 @@ public class UIOnClick : MonoBehaviour
                 }
             }
         }
-
-        /*if (Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log(objectNames.Count);
-        }*/
     }
 
     public void SpawnBoard(string newName)
     {
         // create position for the new board
-        Vector3 boardPosition = this.gameObject.transform.position;
-        boardPosition.y = -110f;
+		Vector3 boardPosition = boardParent.transform.position;
         
         // create board
         var newBoard = Instantiate(UIBoard, boardPosition, Quaternion.identity, this.gameObject.transform);
@@ -107,10 +103,5 @@ public class UIOnClick : MonoBehaviour
         
         // update list of names
         objectNames.Add(newName);
-    }
-
-    public void ShowBoard()
-    {
-
     }
 }
