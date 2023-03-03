@@ -36,7 +36,8 @@ public class UIBoardControls : MonoBehaviour
             Vector3 cardPosition = this.gameObject.transform.GetChild(0).position;
             
             // spawn the new card
-            var newCard = Instantiate(UICard, cardPosition, Quaternion.identity, this.gameObject.transform.GetChild(1));
+            //var newCard = Instantiate(UICard, cardPosition, Quaternion.identity, this.gameObject.transform.GetChild(1));
+			var newCard = Instantiate(UICard, cardPosition, Quaternion.identity, this.gameObject.transform.GetChild(1).GetChild(0).GetChild(0));
 
             // add the card to list
             currentCards.Add(newCard);

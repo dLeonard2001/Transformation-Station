@@ -368,7 +368,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4446f1e45f0c24f8545521b43260c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIBoard: {fileID: 2370686649986967911, guid: 788b3754b7424d84296f2ce658518ad9, type: 3}
+  UIBoard: {fileID: 8279557679541779075, guid: 788b3754b7424d84296f2ce658518ad9, type: 3}
   boardParent: {fileID: 2086920839}
 --- !u!1 &750444178
 GameObject:
@@ -1061,7 +1061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 40}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2086920841
