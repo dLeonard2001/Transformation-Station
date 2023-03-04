@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Object = System.Object;
 
 public class InputDataExtract : MonoBehaviour
 {
@@ -16,9 +17,9 @@ public class InputDataExtract : MonoBehaviour
     public void ReadPanelCardData()
     {
         int dropDownValue = new int();;
-        String inputField1 = null;
-        String inputField2 = null;
-        String inputField3 = null;
+        TMP_InputField inputField1 = null;
+        TMP_InputField inputField2 = null;
+        TMP_InputField inputField3 = null;
         
         for (int i = 0; i < panelsUI.Count; i++)
         {
@@ -33,13 +34,13 @@ public class InputDataExtract : MonoBehaviour
                         dropDownValue = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_Dropdown>().value;
                         break;
                     case 1:
-                        inputField1 = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_InputField>().text;
+                        inputField1 = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_InputField>();
                         break;
                     case 2:
-                        inputField2 = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_InputField>().text;
+                        inputField2 = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_InputField>();
                         break;
                     case 3:
-                        inputField3 = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_InputField>().text;
+                        inputField3 = panelsUI[i].transform.GetChild(x).gameObject.GetComponent<TMP_InputField>();
                         break;
                     default:
                         Debug.Log("Error");
@@ -49,16 +50,17 @@ public class InputDataExtract : MonoBehaviour
             StringBuilderOutput(cardNumber, dropDownValue, inputField1, inputField2, inputField3);
         }
     }
-
-    private void StringBuilderOutput(int a, int b, String c, String d, String e)
+    
+    // Debug.log() does not like to output a lot of stuff at once
+    private void StringBuilderOutput(int a, int b, TMP_InputField c, TMP_InputField d, TMP_InputField e)
     {
         Debug.Log(
-            Time.deltaTime + "\n" +
                   "Panel Card: " + a + "\n" +
-                  "TMP_Dropdown value: " + b + "\n" +
-                  "TMP_InputField value[1]: " + c + "\n" +
-                  "TMP_InputField value[2]: " + d + "\n" +
-                  "TMP_InputField value[3]: " + e
-            );
+                  "TMP_Dropdown value: " + b + "\n"
+                  );
+        Debug.Log("TMP_InputField value[1]: " + c.text + "\n" +
+                  "TMP_InputField value[2]: " + d.text + "\n"
+                  );
+        Debug.Log("TMP_InputField value[3]: " + e.text);
     }
 }
