@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,17 +11,12 @@ public class MatrixTransformation : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _transform;
     [SerializeField] private Transform targetTransform;
-    private Queue<Matrix4x4> newMatrices;
+    private List<Matrix4x4> currentTransformations;
     
     private Vector3 translationVector;
     private Vector3 rotationVector;
     private Vector3 scaleVector;
     private Vector3 originalScale;
-
-    public void Test()
-    {
-        Debug.Log("check");
-    }
 
     // Overview of a matrix4x4
         // |  x  y  z  t | 
@@ -34,7 +30,7 @@ public class MatrixTransformation : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
 
-        newMatrices = new Queue<Matrix4x4>();
+        currentTransformations = new List<Matrix4x4>();
 
         scaleVector = Vector3.one;
         originalScale = _transform.localScale;
@@ -43,14 +39,11 @@ public class MatrixTransformation : MonoBehaviour
     // apply all the input transformations into here in an empty matrix
     public void ApplyTransformations()
     {
-        if (newMatrices.Count == 0)
-        {
-            Debug.Log("You have no transformations");
-            return;
-        }
+        Debug.Log("You have no transformations");
+          
         
         // could just initialize it to the identity matrix
-        Matrix4x4 m = newMatrices.Dequeue();
+        //Matrix4x4 m = currentTransformations.Dequeue();
         
         // apply matrices from right to left
         
@@ -58,28 +51,24 @@ public class MatrixTransformation : MonoBehaviour
         // first translate
         // then rotate
         // then rotate again
-        int max = newMatrices.Count;
-        for (int i = 0; i < max; i++)
-        {
-            m = newMatrices.Dequeue() * m;
-        }
-        
-        Debug.Log(m.GetPosition());
+        //int max = newMatrices.Count;
+        //for (int i = 0; i < max; i++)
+        //{
+            //m = newMatrices.Dequeue() * m;
+        //}
 
-        //_transform.localScale = m.lossyScale;
-        // _transform.rotation = m.rotation; // Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); works just fine as well
-        //_transform.position = m.GetPosition();
-        
-        _transform.Rotate(m.rotation.eulerAngles, Space.World);
-        _transform.Translate(m.GetPosition(), Space.World);
+        //_transform.Rotate(m.rotation.eulerAngles, Space.World);
+        //_transform.Translate(m.GetPosition(), Space.World);
     }
 
-    public void AddTranslation()
+    public void AddMatrix()
     {
-        if (translationVector.magnitude == 0) return;
-        
-        
-        newMatrices.Enqueue(Translate(translationVector));
+        currentTransformations.Insert(0, Matrix4x4.identity);
+    }
+
+    public int getSize()
+    {
+        return currentTransformations.Count;
     }
 
     public void Reset()
@@ -107,7 +96,7 @@ public class MatrixTransformation : MonoBehaviour
         m.m11 = scaleVector.y;
         m.m22 = scaleVector.z;
 
-        newMatrices.Enqueue(m);
+        //newMatrices.Enqueue(m);
     }
     
     public void SetXScale(TMP_InputField info)
@@ -164,7 +153,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m21 = s;
         matrix.m22 = c;
 
-        newMatrices.Enqueue(matrix);
+        //newMatrices.Enqueue(matrix);
     }
     
     // here is how we rotate a matrix on the y-axis
@@ -188,7 +177,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m20 = -s;
         matrix.m22 = c;
 
-        newMatrices.Enqueue(matrix);
+        //newMatrices.Enqueue(matrix);
     }
 
     // here is how we rotate a matrix on the z-axis
@@ -211,7 +200,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m10 = s;
         matrix.m12 = c;
 
-        newMatrices.Enqueue(matrix);
+        //newMatrices.Enqueue(matrix);
     }
 
     #endregion
@@ -249,6 +238,8 @@ public class MatrixTransformation : MonoBehaviour
             translationVector.x = 0;
         else
             translationVector.x = float.Parse(info.text);
+        
+        Debug.Log("Edit has been changed");
     }
 
     public void SetYPosition(TMP_InputField info)
@@ -270,10 +261,5 @@ public class MatrixTransformation : MonoBehaviour
     }
     
     #endregion
-
-    private Queue<Matrix4x4> getMatrices()
-    {
-        return newMatrices;
-    }
-
+    
 }
