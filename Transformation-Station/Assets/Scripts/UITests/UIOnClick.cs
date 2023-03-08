@@ -87,21 +87,75 @@ public class UIOnClick : MonoBehaviour
                     }
                 }
             }
+            ShowBoard();
         }
     }
 
     public void SpawnBoard(string newName)
     {
         // create position for the new board
-		Vector3 boardPosition = boardParent.transform.position;
+		    Vector3 boardPosition = boardParent.transform.position;
+        boardPosition.y = -110f;
         
         // create board
-        var newBoard = Instantiate(UIBoard, boardPosition, Quaternion.identity, this.gameObject.transform);
+        var newBoard = Instantiate(UIBoard, boardPosition, Quaternion.identity, gameObject.transform);
         
         // add the board to list
         currentBoards.Add(newBoard);
         
         // update list of names
         objectNames.Add(newName);
+    }
+
+    private void ShowBoard()
+    {
+        // make ray from camera to where mouseclick
+        myRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (!Physics.Raycast(myRay, out hitTarget, 2000f)) return;
+        
+        // check if clicked object should have a board
+        if (hitTarget.collider.CompareTag("Planet")) 
+        {
+            foundName = false;
+            // check if the name already has a board
+            for (int i = 0; i < objectNames.Count; i++) 
+            {
+                // finds a match
+                if (hitTarget.collider.gameObject.name == objectNames[i])
+                {
+                    foundName = true;
+                    nameNum = i;
+                }
+            }
+                
+            // turn on the found board
+            if (foundName == true)
+            {
+                currentBoards[nameNum].SetActive(true);
+            }
+                    
+            // if there was not match
+            if (foundName == false)
+            {
+                // spawn the new board
+                targetName = hitTarget.collider.gameObject.name;
+                SpawnBoard(targetName);
+            }
+        }
+                
+        // blocks the ui section that player might click
+        else if (hitTarget.collider.CompareTag("Wall"))
+        {
+        }
+                
+        // turn off all boards
+        else
+        {
+            for (int i = 0; i < objectNames.Count; i++)
+            { 
+                currentBoards[i].SetActive(false);
+            }
+        }
     }
 }
