@@ -21,7 +21,7 @@ public class UIBoardControls : MonoBehaviour
     void Start()
     {
         cardCount = 0;
-        maxCards = 5;
+        maxCards = 10;
         minCards = 1;
 
         currentCards = new List<GameObject>();
@@ -36,18 +36,13 @@ public class UIBoardControls : MonoBehaviour
             Vector3 cardPosition = this.gameObject.transform.GetChild(0).position;
             
             // spawn the new card
-            var newCard = Instantiate(UICard, cardPosition, Quaternion.identity, this.gameObject.transform);
+            //var newCard = Instantiate(UICard, cardPosition, Quaternion.identity, this.gameObject.transform.GetChild(1));
+			var newCard = Instantiate(UICard, cardPosition, Quaternion.identity, this.gameObject.transform.GetChild(1).GetChild(0).GetChild(0));
 
             // add the card to list
             currentCards.Add(newCard);
 
             cardCount++;
-            
-            // move the parent to the left
-            Vector3 newParentPosition = cardPosition;
-            newParentPosition.x -= 200.0f;
-
-            this.gameObject.transform.GetChild(0).position = newParentPosition;
         }
     }
 
@@ -60,12 +55,6 @@ public class UIBoardControls : MonoBehaviour
             GameObject.Destroy(currentCards[cardCount-1]);
             currentCards.RemoveAt(cardCount-1);
             cardCount--;
-            
-            // move the parent to the right
-            Vector3 newParentPosition = this.gameObject.transform.GetChild(0).position;;
-            newParentPosition.x += 200.0f;
-
-            this.gameObject.transform.GetChild(0).position = newParentPosition;
         }
     }
 }

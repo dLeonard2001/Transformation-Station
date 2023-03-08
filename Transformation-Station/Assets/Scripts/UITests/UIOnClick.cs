@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIOnClick : MonoBehaviour
 {
     // UI Board
     public GameObject UIBoard;
+	public GameObject boardParent;
 
     // store what objects have boards made
     private List<GameObject> currentBoards;
@@ -34,19 +36,65 @@ public class UIOnClick : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            // make ray from camera to where mouseclick
+            myRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(myRay, out hitTarget, Mathf.Infinity))
+            {
+				// if the player clicks on a UI element
+				if (EventSystem.current.IsPointerOverGameObject())
+				{
+					return;
+				}
+
+                // check if clicked object should have a board
+                else if (hitTarget.collider.tag == "Planet")
+                {
+                    foundName = false;
+                    
+                    // check if the name already has a board
+                    for (int i = 0; i < objectNames.Count; i++)
+                    {
+                        // finds a match
+                        if (hitTarget.collider.gameObject.name == objectNames[i])
+                        {
+                            foundName = true;
+                            nameNum = i;
+                        }
+                    }
+                    
+                    // turn on the found board
+                    if (foundName == true)
+                    {
+                        currentBoards[nameNum].SetActive(true);
+                    }
+                    
+                    // if there was not match
+                    if (foundName == false)
+                    {
+                        // spawn the new board
+                        targetName = hitTarget.collider.gameObject.name;
+                        SpawnBoard(targetName);
+                    }
+                }
+                
+                // turn off all boards
+                else
+                {
+                    for (int i = 0; i < objectNames.Count; i++)
+                    {
+                        currentBoards[i].SetActive(false);
+                    }
+                }
+            }
             ShowBoard();
         }
-
-        /*if (Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log(objectNames.Count);
-        }*/
     }
 
     public void SpawnBoard(string newName)
     {
         // create position for the new board
-        Vector3 boardPosition = gameObject.transform.position;
+		    Vector3 boardPosition = boardParent.transform.position;
         boardPosition.y = -110f;
         
         // create board
