@@ -39,7 +39,7 @@ public class MatrixTransformation : MonoBehaviour
     // apply all the input transformations into here in an empty matrix
     public void ApplyTransformations()
     {
-        Debug.Log("You have no transformations");
+        Debug.Log(getSize());
           
         
         // could just initialize it to the identity matrix

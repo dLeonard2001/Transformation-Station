@@ -1725,7 +1725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c8880922e48394d92e2d221a220441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeBtn: {fileID: 2038039060}
   canvas: {fileID: 2060465108}
   cardParent: {fileID: 923516721}
   ui_card_prefab: {fileID: 5870896989571884974, guid: e0ce2463cc3b19c4a8a61e84e62d4484,
