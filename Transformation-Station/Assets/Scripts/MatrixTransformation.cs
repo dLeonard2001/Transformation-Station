@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Matrix4x4 = UnityEngine.Matrix4x4;
 using Vector3 = UnityEngine.Vector3;
 
@@ -39,26 +40,44 @@ public class MatrixTransformation : MonoBehaviour
     // apply all the input transformations into here in an empty matrix
     public void ApplyTransformations()
     {
-        Debug.Log(getSize());
-          
-        
-        // could just initialize it to the identity matrix
-        //Matrix4x4 m = currentTransformations.Dequeue();
-        
-        // apply matrices from right to left
-        
-        // R * R * T
-        // first translate
-        // then rotate
-        // then rotate again
-        //int max = newMatrices.Count;
-        //for (int i = 0; i < max; i++)
-        //{
-            //m = newMatrices.Dequeue() * m;
-        //}
+        // Debug.Log(getSize());
 
-        //_transform.Rotate(m.rotation.eulerAngles, Space.World);
-        //_transform.Translate(m.GetPosition(), Space.World);
+        Matrix4x4 m = Matrix4x4.identity;
+
+
+        for (int i = getSize() - 1; i >= 0; i--)
+        {
+            m = currentTransformations[i] * m;
+        }
+
+        _transform.Rotate(m.rotation.eulerAngles, Space.World);
+        _transform.Translate(m.GetPosition(), Space.World);
+    }
+
+    public void EditMatrix(Vector3 vec, string transformation, int index)
+    {
+        switch (transformation)
+        {
+            case "Translate":
+                currentTransformations[index] = Translate(vec);
+                break;
+            case "Rotate":
+                
+                if (vec.x == 0 && vec.z == 0)
+                {
+                    currentTransformations[index] = makeRotationY(vec.y);
+                }else if (vec.x == 0 && vec.y == 0)
+                {
+                    currentTransformations[index] = makeRotationZ(vec.z);
+                }else if (vec.y == 0 && vec.z == 0)
+                {
+                    currentTransformations[index] = makeRotationX(vec.x);
+                }
+                break;
+            case "Scale":
+                Debug.Log("scale edit");
+                break;
+        }
     }
 
     public void AddMatrix()
@@ -98,32 +117,7 @@ public class MatrixTransformation : MonoBehaviour
 
         //newMatrices.Enqueue(m);
     }
-    
-    public void SetXScale(TMP_InputField info)
-    {
-        if (info.text.Length == 0)
-            scaleVector.x = 1;
-        else
-            scaleVector.x = float.Parse(info.text);
-    }
 
-    public void SetYScale(TMP_InputField info)
-    {
-
-        if (info.text.Length == 0)
-            scaleVector.y = 1;
-        else
-            scaleVector.y = float.Parse(info.text);
-    }
-
-    public void SetZScale(TMP_InputField info)
-    {
-        if (info.text.Length == 0)
-            scaleVector.z = 1;
-        else
-            scaleVector.z = float.Parse(info.text);
-    }
-    
     #endregion
     
     #region MakeRotationTransformation
@@ -137,13 +131,9 @@ public class MatrixTransformation : MonoBehaviour
     // apply the x then y then z
     // if you don't apply rotations in this order, you will get different results than you think
 
-    public void makeRotationX(TMP_InputField degrees)
+    public Matrix4x4 makeRotationX(float degrees)
     {
-        if (degrees.text.Length == 0) return;
-        
-        
-        
-        float radians = float.Parse(degrees.text) * Mathf.Deg2Rad;
+        float radians = degrees * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
         float c = Mathf.Cos(radians);
         Matrix4x4 matrix = Matrix4x4.identity;
@@ -153,7 +143,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m21 = s;
         matrix.m22 = c;
 
-        //newMatrices.Enqueue(matrix);
+        return matrix;
     }
     
     // here is how we rotate a matrix on the y-axis
@@ -161,13 +151,9 @@ public class MatrixTransformation : MonoBehaviour
     // | 0            1   0              0 |
     // | -sin(theta)  0   cos(theta)   0 |
     // | 0            0   0              1 |
-    public void makeRotationY(TMP_InputField degrees)
+    public Matrix4x4 makeRotationY(float degrees)
     {
-        if (degrees.text.Length == 0) return;
-        
-        
-        
-        float radians = float.Parse(degrees.text) * Mathf.Deg2Rad;
+        float radians = degrees * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
         float c = Mathf.Cos(radians);
         Matrix4x4 matrix = Matrix4x4.identity;
@@ -177,7 +163,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m20 = -s;
         matrix.m22 = c;
 
-        //newMatrices.Enqueue(matrix);
+        return matrix;
     }
 
     // here is how we rotate a matrix on the z-axis
@@ -185,14 +171,11 @@ public class MatrixTransformation : MonoBehaviour
         // | sin(theta)  cos(theta)  0   0 |
         // | 0           0           1   0 |
         // | 0           0           0   1 |
-    public void makeRotationZ(TMP_InputField degrees)
+    public Matrix4x4 makeRotationZ(float degrees)
     {
-        if(degrees.text.Length == 0) return;
-
-          
-        
-        float s = Mathf.Sin(float.Parse(degrees.text) * Mathf.Deg2Rad);
-        float c = Mathf.Cos(float.Parse(degrees.text) * Mathf.Deg2Rad);
+        float radians = degrees * Mathf.Deg2Rad;
+        float s = Mathf.Sin(radians);
+        float c = Mathf.Cos(radians);
         Matrix4x4 matrix = Matrix4x4.identity;
 
         matrix.m00 = c;
@@ -200,7 +183,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m10 = s;
         matrix.m12 = c;
 
-        //newMatrices.Enqueue(matrix);
+        return matrix;
     }
 
     #endregion
@@ -231,35 +214,7 @@ public class MatrixTransformation : MonoBehaviour
 
         return m;
     }
-    
-    public void SetXPosition(TMP_InputField info)
-    {
-        if (info.text.Length == 0)
-            translationVector.x = 0;
-        else
-            translationVector.x = float.Parse(info.text);
-        
-        Debug.Log("Edit has been changed");
-    }
 
-    public void SetYPosition(TMP_InputField info)
-    {
-
-        if (info.text.Length == 0)
-            translationVector.y = 0;
-        else
-            translationVector.y = float.Parse(info.text);
-    }
-
-    public void SetZPosition(TMP_InputField info)
-    {
-
-        if (info.text.Length == 0)
-            translationVector.z = 0;
-        else
-            translationVector.z = float.Parse(info.text);
-    }
-    
     #endregion
     
 }

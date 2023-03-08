@@ -69,11 +69,25 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    // [1_card, 0_card]
     public void Execute()
     {
+        Vector3 currentInput;
+        
+        int count = 0;
         foreach (var c in cards)
         {
-            Debug.Log(c.transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text);
+            currentInput = new Vector3();
+            
+            string transformation = c.transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text;
+            TMP_InputField[] array = c.GetComponentsInChildren<TMP_InputField>();
+
+            currentInput.x = array[0].text.Length == 0 ? 0 : float.Parse(array[0].text);
+            currentInput.y = array[1].text.Length == 0 ? 0 : float.Parse(array[1].text);
+            currentInput.z = array[2].text.Length == 0 ? 0 : float.Parse(array[2].text);
+            
+            currentObject.EditMatrix(currentInput, transformation, count);
+            count++;
         }
         
         
