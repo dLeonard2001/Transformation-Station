@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ChangeCard : MonoBehaviour
+public class ChangeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Input Fields Per Card")]
     [SerializeField] private GameObject x_input_field;
@@ -12,7 +13,11 @@ public class ChangeCard : MonoBehaviour
     [SerializeField] private GameObject z_input_field;
     [SerializeField] private TextMeshProUGUI transformation_type;
 
+    public GameObject testMatrix;
+
     private UI_Manager ui_manager;
+    
+    public bool textSelected;
 
     private void Start()
     {
@@ -60,4 +65,21 @@ public class ChangeCard : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (eventData.pointerEnter.transform.name == "transformation_type_display")
+        {
+            textSelected = true;
+            Debug.Log(eventData.pointerEnter.transform);
+            Debug.Log(eventData.pointerEnter.transform.parent.name);
+            
+            // returns the current selected values
+            ui_manager.ReturnObject();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData) 
+    {
+        textSelected = false;
+    }
 }

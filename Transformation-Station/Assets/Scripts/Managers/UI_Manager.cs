@@ -156,7 +156,10 @@ public class UI_Manager : MonoBehaviour
                 vec.z = value;
                 break;
         }
-        
     }
 
+    public MatrixTransformation ReturnObject()
+    {
+        return currentObject;
+    }
 }
