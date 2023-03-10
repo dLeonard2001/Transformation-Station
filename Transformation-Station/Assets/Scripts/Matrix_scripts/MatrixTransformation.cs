@@ -1,10 +1,5 @@
-using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Matrix4x4 = UnityEngine.Matrix4x4;
-using Vector3 = UnityEngine.Vector3;
 
 public class MatrixTransformation : MonoBehaviour
 {
@@ -13,18 +8,14 @@ public class MatrixTransformation : MonoBehaviour
     [SerializeField] private Transform _transform;
     [SerializeField] private Transform targetTransform;
     private List<Matrix4x4> currentTransformations;
-    
-    private Vector3 translationVector;
-    private Vector3 rotationVector;
-    private Vector3 scaleVector;
-    private Vector3 originalScale;
+    private List<GameObject> currentCards;
 
     // Overview of a matrix4x4
-        // |  x  y  z  t | 
-        // |  1  0  0  0 |
-        // |  0  1  0  0 |
-        // |  0  0  1  0 |
-        // |  0  0  0  1 |
+        // |  Xv  Yv  Zv  Tv | 
+        // |  1   0   0   0  |
+        // |  0   1   0   0  |
+        // |  0   0   1   0  |
+        // |  0   0   0   1  |
         
     // initialize and cache some data for later
     void Start()
@@ -32,24 +23,26 @@ public class MatrixTransformation : MonoBehaviour
         _transform = GetComponent<Transform>();
 
         currentTransformations = new List<Matrix4x4>();
-
-        scaleVector = Vector3.one;
-        originalScale = _transform.localScale;
+        currentCards = new List<GameObject>();
     }
 
     // apply all the input transformations into here in an empty matrix
     public void ApplyTransformations()
     {
-        // Debug.Log(getSize());
-
-        Matrix4x4 m = Matrix4x4.identity;
-
-
-        for (int i = getSize() - 1; i >= 0; i--)
+        if (GetSize() == 0)
+            return;
+        
+        // first matrix in sequence
+        Matrix4x4 m = currentTransformations[0];
+        
+        // multiply all matrices into one matrix, right to left style
+        for (int i = 1; i < GetSize(); i++)
         {
+            // second transformation * first transformation
             m = currentTransformations[i] * m;
         }
 
+        _transform.localScale = m.lossyScale;
         _transform.Rotate(m.rotation.eulerAngles, Space.World);
         _transform.Translate(m.GetPosition(), Space.World);
     }
@@ -61,33 +54,45 @@ public class MatrixTransformation : MonoBehaviour
             case "Translate":
                 currentTransformations[index] = Translate(vec);
                 break;
-            case "Rotate":
-                
-                if (vec.x == 0 && vec.z == 0)
-                {
-                    currentTransformations[index] = makeRotationY(vec.y);
-                }else if (vec.x == 0 && vec.y == 0)
-                {
-                    currentTransformations[index] = makeRotationZ(vec.z);
-                }else if (vec.y == 0 && vec.z == 0)
-                {
-                    currentTransformations[index] = makeRotationX(vec.x);
-                }
+            case "Rotate X":
+                currentTransformations[index] = makeRotationX(vec.x);
+                break;
+            case "Rotate Y":
+                currentTransformations[index] = makeRotationY(vec.y);
+                break;
+            case "Rotate Z":
+                currentTransformations[index] = makeRotationZ(vec.z);
                 break;
             case "Scale":
-                Debug.Log("scale edit");
+                currentTransformations[index] = NewScaleMatrix(vec);
                 break;
         }
     }
 
     public void AddMatrix()
     {
-        currentTransformations.Insert(0, Matrix4x4.identity);
+        currentTransformations.Add(Matrix4x4.identity);
     }
 
-    public int getSize()
+    public void RemoveMatrix(int index)
+    {
+        currentTransformations.RemoveAt(index);
+        currentCards.RemoveAt(index);
+    }
+    
+    public void AddCard(GameObject newCard)
+    {
+        currentCards.Add(newCard);
+    }
+
+    public int GetSize()
     {
         return currentTransformations.Count;
+    }
+    
+    public List<GameObject> GetCurrentCards()
+    {
+        return currentCards;
     }
 
     public void Reset()
@@ -104,18 +109,15 @@ public class MatrixTransformation : MonoBehaviour
         // | 0   sy  0   0 |
         // | 0   0   sz  0 |
         // | 0   0   0   1 |
-    public void NewScaleMatrix()
+    private Matrix4x4 NewScaleMatrix(Vector3 vec)
     {
-        if (scaleVector == Vector3.one) return;
-        
-        
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m00 = scaleVector.x;
-        m.m11 = scaleVector.y;
-        m.m22 = scaleVector.z;
+        m.m00 = vec.x == 0 ? 1 : vec.x;
+        m.m11 = vec.y == 0 ? 1 : vec.y;
+        m.m22 = vec.z == 0 ? 1 : vec.z;
 
-        //newMatrices.Enqueue(m);
+        return m;
     }
 
     #endregion
@@ -131,7 +133,7 @@ public class MatrixTransformation : MonoBehaviour
     // apply the x then y then z
     // if you don't apply rotations in this order, you will get different results than you think
 
-    public Matrix4x4 makeRotationX(float degrees)
+    private Matrix4x4 makeRotationX(float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
@@ -151,7 +153,7 @@ public class MatrixTransformation : MonoBehaviour
     // | 0            1   0              0 |
     // | -sin(theta)  0   cos(theta)   0 |
     // | 0            0   0              1 |
-    public Matrix4x4 makeRotationY(float degrees)
+    private Matrix4x4 makeRotationY(float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
@@ -171,7 +173,7 @@ public class MatrixTransformation : MonoBehaviour
         // | sin(theta)  cos(theta)  0   0 |
         // | 0           0           1   0 |
         // | 0           0           0   1 |
-    public Matrix4x4 makeRotationZ(float degrees)
+        private Matrix4x4 makeRotationZ(float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
         float s = Mathf.Sin(radians);
