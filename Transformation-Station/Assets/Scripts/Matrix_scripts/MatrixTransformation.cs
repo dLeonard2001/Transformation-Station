@@ -4,9 +4,7 @@ using UnityEngine;
 public class MatrixTransformation : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Animator _animator;
     [SerializeField] private Transform _transform;
-    [SerializeField] private Transform targetTransform;
     private List<Matrix4x4> currentTransformations;
     private List<GameObject> currentCards;
 

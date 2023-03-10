@@ -34,9 +34,6 @@ public class UI_Manager : MonoBehaviour
 
             if (Physics.Raycast(myRay, out hitTarget, Mathf.Infinity))
             {
-                // if the player clicks on a UI element
-                
-
                 // check if clicked object should have a board
                 if (hitTarget.collider.GetComponent<MatrixTransformation>())
                 {
@@ -50,13 +47,13 @@ public class UI_Manager : MonoBehaviour
             }
             else
             {
+                // if the player clicks on a UI element
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
                     return;
                 }
                 
                 ui_animator.CrossFade("UI_slide_out", 0f, 0);
-                
             }
 
         }
@@ -69,6 +66,8 @@ public class UI_Manager : MonoBehaviour
         GameObject newCard = Instantiate(ui_card_prefab, cardParent);
 
         newCard.transform.name = $"{currentObject.GetSize()}_card";
+        
+        newCard.GetComponent<ChangeCard>().UpdateCard(newCard.transform.GetChild(0).GetComponent<TMP_Dropdown>());
 
         currentObject.AddCard(newCard);
         currentObject.AddMatrix();
