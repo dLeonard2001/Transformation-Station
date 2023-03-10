@@ -8,19 +8,26 @@ public class UIOnClick : MonoBehaviour
     // UI Board
     public GameObject UIBoard;
 	public GameObject boardParent;
+    public GameObject indicatorHolder;
 
     // store what objects have boards made
     private List<GameObject> currentBoards;
     private List<string> objectNames;
 
+    private List<GameObject> targets;
+
     private bool foundName;
     private int nameNum;
     private string targetName;
+    private GameObject targetObject;
     
     // needed for raycast
     private Camera mainCamera;
     private Ray myRay;
     private RaycastHit hitTarget;
+    
+    // needed for indicator holder
+    public IndicatorHolderScript indicatorScript;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +35,7 @@ public class UIOnClick : MonoBehaviour
         mainCamera = Camera.main;
 
         currentBoards = new List<GameObject>();
+        targets = new List<GameObject>();
         objectNames = new List<string>();
     }
 
@@ -41,6 +49,7 @@ public class UIOnClick : MonoBehaviour
 
             if (Physics.Raycast(myRay, out hitTarget, Mathf.Infinity))
             {
+                //Debug.Log(hitTarget.collider.gameObject);
 				// if the player clicks on a UI element
 				if (EventSystem.current.IsPointerOverGameObject())
 				{
@@ -72,9 +81,13 @@ public class UIOnClick : MonoBehaviour
                     // if there was not match
                     if (foundName == false)
                     {
+                        // add the new target
+                        targets.Add(hitTarget.collider.gameObject);
+                        
                         // spawn the new board
                         targetName = hitTarget.collider.gameObject.name;
-                        SpawnBoard(targetName);
+                        targetObject = hitTarget.collider.gameObject;
+                        SpawnBoard(targetName, targetObject, (targets.Count - 1));
                     }
                 }
                 
@@ -87,15 +100,15 @@ public class UIOnClick : MonoBehaviour
                     }
                 }
             }
-            ShowBoard();
+            //ShowBoard();
         }
     }
 
-    public void SpawnBoard(string newName)
+    public void SpawnBoard(string newName, GameObject target, int listNum)
     {
         // create position for the new board
-		    Vector3 boardPosition = boardParent.transform.position;
-        boardPosition.y = -110f;
+        Vector3 boardPosition = boardParent.transform.position;
+        //boardPosition.y = -110f;
         
         // create board
         var newBoard = Instantiate(UIBoard, boardPosition, Quaternion.identity, gameObject.transform);
@@ -105,9 +118,31 @@ public class UIOnClick : MonoBehaviour
         
         // update list of names
         objectNames.Add(newName);
+        
+        // create a new spawnIndicatorZone
+        //SpawnIndicatorZone(target);
+        // get the location of the holder
+        Vector3 spawnLocation = target.transform.GetChild(0).transform.position;
+        
+        // create the holder
+        var newHolder = Instantiate(indicatorHolder, spawnLocation, Quaternion.identity, newBoard.transform);
+        
+        // pass the objects location to the holder
+        indicatorScript = (IndicatorHolderScript)newHolder.GetComponent(typeof(IndicatorHolderScript));
+        indicatorScript.setTracker(target);
     }
+    
+    // will create a scroll view to hold the indicators
+    // indicator zone will be a child of the control board
+    
+    /*private void SpawnIndicatorZone(GameObject target)
+    {
+        // get the location of the holder
+        Vector3 spawnLocation = target.transform.GetChild(0).transform.position;
+        
+    }*/
 
-    private void ShowBoard()
+    /*private void ShowBoard()
     {
         // make ray from camera to where mouseclick
         myRay = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -157,5 +192,5 @@ public class UIOnClick : MonoBehaviour
                 currentBoards[i].SetActive(false);
             }
         }
-    }
+    }*/
 }
