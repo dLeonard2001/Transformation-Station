@@ -93,6 +93,19 @@ public class MatrixTransformation : MonoBehaviour
         return currentCards;
     }
 
+    public Matrix4x4 GetMatrix(int index)
+    {
+        return currentTransformations[index];
+    }
+
+    public void ResetTransformations()
+    {
+        for (int i = 0; i < GetSize(); i++)
+        {
+            currentTransformations[i] = Matrix4x4.identity;
+        }
+    }
+
     public void Reset()
     {
         _transform.position = Matrix4x4.identity.GetPosition();

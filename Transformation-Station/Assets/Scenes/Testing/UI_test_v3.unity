@@ -292,7 +292,7 @@ RectTransform:
   - {fileID: 536900038}
   - {fileID: 82429793}
   m_Father: {fileID: 423405726}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -492,7 +492,7 @@ RectTransform:
   - {fileID: 106635471}
   - {fileID: 1816373685}
   m_Father: {fileID: 423405726}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -662,12 +662,12 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 978101169}
-  - {fileID: 1503105832}
   - {fileID: 110464620}
   - {fileID: 1865079683}
   - {fileID: 815665227}
   - {fileID: 99962754}
+  - {fileID: 978101169}
+  - {fileID: 1503105832}
   m_Father: {fileID: 662735241}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1332,7 +1332,7 @@ RectTransform:
   - {fileID: 1485911322}
   - {fileID: 651729060}
   m_Father: {fileID: 423405726}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1395,6 +1395,7 @@ MonoBehaviour:
   cardParent: {fileID: 2485671710851640150}
   ui_card_prefab: {fileID: 8562319326803130994, guid: 7da1380ce9fdbb247b2e2d85e32fcc09,
     type: 3}
+  matrix_value_preview: {fileID: 423405725}
   ui_animator: {fileID: 2485671709785991512}
 --- !u!4 &845903801
 Transform:
@@ -1577,7 +1578,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 423405726}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2304,7 +2305,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 423405726}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3018,7 +3019,7 @@ RectTransform:
   - {fileID: 650425815}
   - {fileID: 1635177150}
   m_Father: {fileID: 423405726}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4945,7 +4946,7 @@ MonoBehaviour:
   m_ChildAlignment: 2
   m_StartCorner: 1
   m_StartAxis: 0
-  m_CellSize: {x: 170.5, y: 190.92}
+  m_CellSize: {x: 170.5, y: 169.73}
   m_Spacing: {x: -48.3, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 5
@@ -5404,7 +5405,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -33.4804, y: -8.2522}
-  m_SizeDelta: {x: 712.8242, y: 173.13}
+  m_SizeDelta: {x: 712.8242, y: 144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2485671711272594123
 GameObject:

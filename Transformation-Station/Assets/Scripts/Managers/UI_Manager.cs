@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
     [Header("References")]
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
+    [SerializeField] private GameObject matrix_value_preview;
 
     private MatrixTransformation currentObject;
     
@@ -116,8 +117,42 @@ public class UI_Manager : MonoBehaviour
     {
         currentObject.Reset();
     }
+    
+    public Matrix4x4 PreviewValues(int index)
+    {
+        Vector3 input;
+        
+        List<GameObject> cards = currentObject.GetCurrentCards();
+        for (int c =0; c <= index; c++)
+        {
+            input = new Vector3();
+            
+            string transformation = cards[c].transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text;
+            TMP_InputField[] array = cards[c].GetComponentsInChildren<TMP_InputField>();
+            
+            foreach (var a in array)
+            {
+                EditVector(ref input, a.text.Length == 0 ? 0 : float.Parse(a.text), a.transform.name[0]);
+            }
+            
+            currentObject.EditMatrix(input, transformation, c);
+        }
+        
+        Matrix4x4 m = currentObject.GetMatrix(0);
 
-    // [1_card, 0_card]
+        for (int i=1; i <= index; i++)
+        {
+           m = currentObject.GetMatrix(i) * m;
+        }
+
+        return m;
+    }
+
+    public GameObject GetMatrixPreviewObject()
+    {
+        return matrix_value_preview;
+    }
+    
     public void Execute()
     {
         Vector3 input;
@@ -158,7 +193,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    public MatrixTransformation ReturnObject()
+    public MatrixTransformation GetCurrentObject()
     {
         return currentObject;
     }

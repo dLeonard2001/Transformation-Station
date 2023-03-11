@@ -70,16 +70,18 @@ public class ChangeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (eventData.pointerEnter.transform.name == "transformation_type_display")
         {
             textSelected = true;
-            Debug.Log(eventData.pointerEnter.transform);
-            Debug.Log(eventData.pointerEnter.transform.parent.name);
             
-            // returns the current selected values
-            ui_manager.ReturnObject();
+            Matrix4x4 m = ui_manager.PreviewValues((int) Char.GetNumericValue(transform.name[0]));
+            GameObject previewObject = ui_manager.GetMatrixPreviewObject();
+            
+            
         }
     }
 
     public void OnPointerExit(PointerEventData eventData) 
     {
         textSelected = false;
+        
+        ui_manager.GetCurrentObject().ResetTransformations();
     }
 }
