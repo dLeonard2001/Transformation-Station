@@ -25,21 +25,45 @@ public class MatrixTransformation : MonoBehaviour
     }
 
     // apply all the input transformations into here in an empty matrix
-    public void ApplyTransformations()
+    public void ApplyTransformations(int index)
     {
         if (GetSize() == 0)
             return;
         
         // first matrix in sequence
-        Matrix4x4 m = currentTransformations[0];
+        Matrix4x4 m = Matrix4x4.identity;
         
         // multiply all matrices into one matrix, right to left style
-        for (int i = 1; i < GetSize(); i++)
+        for (int i = 0; i < index; i++)
         {
             // second transformation * first transformation
             m = currentTransformations[i] * m;
         }
 
+        _transform.localScale = m.lossyScale;
+        _transform.Rotate(m.rotation.eulerAngles, Space.World);
+        _transform.Translate(m.GetPosition(), Space.World);
+    }
+
+    public void RevertTransformation(int index)
+    {
+        // to revert multiple transformations
+        // you must find the inverse of each transformation then apply them 
+        // this is because matrix multiplication is not communtative
+        
+        // ex. We have matrix A, B, C
+            // our final matrix would be the multiplication of A * (B * C)
+            // to inverse this transformation
+                // we perform A^-1 * (B^-1 * C^-1) on a new matrix
+        // then apply that new transformation to inverse/revert the previous transformation
+
+        Matrix4x4 m = Matrix4x4.identity;
+
+        for (int i = 0; i < index; i++)
+        {
+            m = currentTransformations[i].inverse * m;
+        }
+            
         _transform.localScale = m.lossyScale;
         _transform.Rotate(m.rotation.eulerAngles, Space.World);
         _transform.Translate(m.GetPosition(), Space.World);
@@ -104,6 +128,11 @@ public class MatrixTransformation : MonoBehaviour
         {
             currentTransformations[i] = Matrix4x4.identity;
         }
+    }
+
+    public Matrix4x4 BeforePreviewMatrix()
+    {
+        return transform.localToWorldMatrix;
     }
 
     public void Reset()

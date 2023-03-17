@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ChangeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ChangeCard : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 {
     [Header("Input Fields Per Card")]
     [SerializeField] private GameObject x_input_field;
@@ -13,11 +13,7 @@ public class ChangeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] private GameObject z_input_field;
     [SerializeField] private TextMeshProUGUI transformation_type;
 
-    public GameObject testMatrix;
-
     private UI_Manager ui_manager;
-    
-    public bool textSelected;
 
     private void Start()
     {
@@ -65,23 +61,20 @@ public class ChangeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         Destroy(gameObject);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.pointerEnter.transform.name == "transformation_type_display")
         {
-            textSelected = true;
-            
-            Matrix4x4 m = ui_manager.PreviewValues((int) Char.GetNumericValue(transform.name[0]));
-            GameObject previewObject = ui_manager.GetMatrixPreviewObject();
-            
-            
+            ui_manager.PreviewValues((int) Char.GetNumericValue(transform.name[0]));
         }
     }
 
     public void OnPointerExit(PointerEventData eventData) 
     {
-        textSelected = false;
+        if (eventData.pointerEnter.transform.name == "transformation_type_display")
+        {
+            ui_manager.GetCurrentObject().RevertTransformation(1 + (int) Char.GetNumericValue(transform.name[0]));
+        }
         
-        ui_manager.GetCurrentObject().ResetTransformations();
     }
 }
