@@ -84,6 +84,11 @@ public class MatrixTransformation : MonoBehaviour
     {
         currentTransformations.Insert(0, Matrix4x4.identity);
     }
+    
+    public void DeleteMatrix()
+    {
+        currentTransformations.RemoveAt(currentTransformations.Count-1);
+    }
 
     public int getSize()
     {
