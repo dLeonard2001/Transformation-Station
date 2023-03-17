@@ -1,97 +1,200 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEditor.Events;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-
+using UnityEngine.EventSystems;
 
 public class UI_Manager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject canvas;
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
-    [SerializeField] private float x_offset;
-    [SerializeField] private float y_offset;
-    [SerializeField] private float changePos_offset;
-    private List<GameObject> cards;
+    [SerializeField] private GameObject matrix_value_preview;
+
     private MatrixTransformation currentObject;
     
-    private RaycastHit hit;
+    [Header("Animations")] 
+    [SerializeField] private Animator ui_animator;
+
+    // needed for raycast
+    private Camera mainCamera;
+    private Ray myRay;
+    private RaycastHit hitTarget;
 
     private void Start()
     {
-        cards = new List<GameObject>();
-        canvas.SetActive(false);
+        mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        if (Input.GetMouseButtonDown(0))
         {
-            currentObject = hit.transform.GetComponent<MatrixTransformation>();
-            
-            canvas.SetActive(true);
-            DisplayInfo(); 
+            // make ray from camera to where mouseclick
+            myRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(myRay, out hitTarget, Mathf.Infinity))
+            {
+                // check if clicked object should have a board
+                if (hitTarget.collider.GetComponent<MatrixTransformation>())
+                {
+                    UnloadCards();
+                    currentObject = hitTarget.collider.GetComponent<MatrixTransformation>();
+                    LoadCards(); // load cards
+                    
+                    // display cards
+                    ui_animator.CrossFade("UI_slide_in", 0f, 0);
+                }
+            }
+            else
+            {
+                // if the player clicks on a UI element
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
+                
+                ui_animator.CrossFade("UI_slide_out", 0f, 0);
+            }
+
         }
     }
+
+    #region CardFunctions
 
     public void AddCard()
     {
-        x_offset += changePos_offset;
-
         GameObject newCard = Instantiate(ui_card_prefab, cardParent);
-        cards.Insert(0, newCard);
+
+        newCard.transform.name = $"{currentObject.GetSize()}_card";
         
-        newCard.transform.localPosition = new Vector3(x_offset, 0f, 0f);
-        newCard.transform.name = $"{currentObject.getSize()}_card";
-        
+        newCard.GetComponent<ChangeCard>().UpdateCard(newCard.transform.GetChild(0).GetComponent<TMP_Dropdown>());
+
+        currentObject.AddCard(newCard);
         currentObject.AddMatrix();
     }
 
-    private void DisplayInfo()
+    // add remove button to individual cards
+    public void RemoveCard(int index)
     {
-        if (currentObject == null)
+        currentObject.RemoveMatrix(index);
+        
+        UpdateCardNames();
+    }
+
+    private void UpdateCardNames()
+    {
+        int count = 0;
+        foreach (var c in currentObject.GetCurrentCards())
         {
-            // interpolate UI to be turned off
-            
-            
-            canvas.SetActive(false);
+            c.transform.name = $"{count}_card";
+            count++;
         }
-        else
+    }
+    
+    #endregion
+
+    private void LoadCards()
+    {
+        foreach (var c in currentObject.GetCurrentCards())
         {
-            // interpolate UI to be turned on
-            // display all current cards (matrices) for this object
+            c.SetActive(true);
         }
     }
 
-    // [1_card, 0_card]
+    private void UnloadCards()
+    {
+        if (currentObject == null)
+            return;
+
+        foreach (var c in currentObject.GetCurrentCards())
+        {
+            c.SetActive(false);
+        }
+    }
+
+    public void Reset()
+    {
+        currentObject.Reset();
+    }
+    
+    public Matrix4x4 PreviewValues(int index)
+    {
+        Vector3 input;
+        
+        List<GameObject> cards = currentObject.GetCurrentCards();
+        for (int c =0; c <= index; c++)
+        {
+            input = new Vector3();
+            
+            string transformation = cards[c].transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text;
+            TMP_InputField[] array = cards[c].GetComponentsInChildren<TMP_InputField>();
+            
+            foreach (var a in array)
+            {
+                EditVector(ref input, a.text.Length == 0 ? 0 : float.Parse(a.text), a.transform.name[0]);
+            }
+            
+            currentObject.EditMatrix(input, transformation, c);
+        }
+        
+        Matrix4x4 m = currentObject.GetMatrix(0);
+
+        for (int i=1; i <= index; i++)
+        {
+           m = currentObject.GetMatrix(i) * m;
+        }
+
+        return m;
+    }
+
+    public GameObject GetMatrixPreviewObject()
+    {
+        return matrix_value_preview;
+    }
+    
     public void Execute()
     {
-        Vector3 currentInput;
+        Vector3 input;
         
         int count = 0;
-        foreach (var c in cards)
+        foreach (var c in currentObject.GetCurrentCards())
         {
-            currentInput = new Vector3();
+            input = new Vector3();
             
             string transformation = c.transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text;
             TMP_InputField[] array = c.GetComponentsInChildren<TMP_InputField>();
 
-            currentInput.x = array[0].text.Length == 0 ? 0 : float.Parse(array[0].text);
-            currentInput.y = array[1].text.Length == 0 ? 0 : float.Parse(array[1].text);
-            currentInput.z = array[2].text.Length == 0 ? 0 : float.Parse(array[2].text);
+            foreach (var a in array)
+            {
+                EditVector(ref input, a.text.Length == 0 ? 0 : float.Parse(a.text), a.transform.name[0]);
+            }
             
-            currentObject.EditMatrix(currentInput, transformation, count);
+            currentObject.EditMatrix(input, transformation, count);
             count++;
         }
-        
         
         currentObject.ApplyTransformations();
     }
 
+    private void EditVector(ref Vector3 vec, float value, char c)
+    {
+        switch (c)
+        {
+            case 'X':
+                vec.x = value;
+                break;
+            case 'Y':
+                vec.y = value;
+                break;
+            case 'Z':
+                vec.z = value;
+                break;
+        }
+    }
+
+    public MatrixTransformation GetCurrentObject()
+    {
+        return currentObject;
+    }
 }
