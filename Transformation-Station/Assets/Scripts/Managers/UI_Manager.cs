@@ -9,7 +9,6 @@ public class UI_Manager : MonoBehaviour
     [Header("References")]
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
-    [SerializeField] private GameObject matrix_value_preview;
 
     private MatrixTransformation currentObject;
     
@@ -118,7 +117,7 @@ public class UI_Manager : MonoBehaviour
         currentObject.Reset();
     }
     
-    public Matrix4x4 PreviewValues(int index)
+    public void PreviewValues(int index)
     {
         Vector3 input;
         
@@ -138,21 +137,9 @@ public class UI_Manager : MonoBehaviour
             currentObject.EditMatrix(input, transformation, c);
         }
         
-        Matrix4x4 m = currentObject.GetMatrix(0);
-
-        for (int i=1; i <= index; i++)
-        {
-           m = currentObject.GetMatrix(i) * m;
-        }
-
-        return m;
+        currentObject.ApplyTransformations(index + 1);
     }
 
-    public GameObject GetMatrixPreviewObject()
-    {
-        return matrix_value_preview;
-    }
-    
     public void Execute()
     {
         Vector3 input;
@@ -174,7 +161,7 @@ public class UI_Manager : MonoBehaviour
             count++;
         }
         
-        currentObject.ApplyTransformations();
+        currentObject.ApplyTransformations(currentObject.GetSize());
     }
 
     private void EditVector(ref Vector3 vec, float value, char c)
