@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private GameObject ui_card_prefab;
 
     private MatrixTransformation currentObject;
+    private GameObject selectedCard;
     
     [Header("Animations")] 
     [SerializeField] private Animator ui_animator;
@@ -66,8 +66,6 @@ public class UI_Manager : MonoBehaviour
         GameObject newCard = Instantiate(ui_card_prefab, cardParent);
 
         newCard.transform.name = $"{currentObject.GetSize()}_card";
-        
-        newCard.GetComponent<ChangeCard>().UpdateCard(newCard.transform.GetChild(0).GetComponent<TMP_Dropdown>());
 
         currentObject.AddCard(newCard);
         currentObject.AddMatrix();
@@ -116,29 +114,6 @@ public class UI_Manager : MonoBehaviour
     {
         currentObject.Reset();
     }
-    
-    public void PreviewValues(int index)
-    {
-        Vector3 input;
-        
-        List<GameObject> cards = currentObject.GetCurrentCards();
-        for (int c =0; c <= index; c++)
-        {
-            input = new Vector3();
-            
-            string transformation = cards[c].transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text;
-            TMP_InputField[] array = cards[c].GetComponentsInChildren<TMP_InputField>();
-            
-            foreach (var a in array)
-            {
-                EditVector(ref input, a.text.Length == 0 ? 0 : float.Parse(a.text), a.transform.name[0]);
-            }
-            
-            currentObject.EditMatrix(input, transformation, c);
-        }
-        
-        currentObject.ApplyTransformations(index + 1);
-    }
 
     public void Execute()
     {
@@ -183,5 +158,21 @@ public class UI_Manager : MonoBehaviour
     public MatrixTransformation GetCurrentObject()
     {
         return currentObject;
+    }
+
+    public void SetCurrentCard(GameObject t)
+    {
+        if (selectedCard == null)
+        {
+            selectedCard = t;
+            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+            selectedCard = t;
+            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
+        }
+        
     }
 }

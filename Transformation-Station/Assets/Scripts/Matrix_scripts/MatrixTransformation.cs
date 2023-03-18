@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -251,12 +252,15 @@ public class MatrixTransformation : MonoBehaviour
         m.m13 = t.y;
         m.m23 = t.z;
 
-        // Debug.Log(newMatrix.MultiplyPoint3x4(Vector3.zero));
-        // _transform.position = newMatrix.MultiplyPoint3x4(Vector3.zero);
-
         return m;
     }
 
     #endregion
     
+    
+
+    private void OnMouseDrag()
+    {
+        Debug.Log("testing");
+    }
 }
