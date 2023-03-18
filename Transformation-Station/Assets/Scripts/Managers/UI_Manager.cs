@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,6 +21,9 @@ public class UI_Manager : MonoBehaviour
     private Ray myRay;
     private RaycastHit hitTarget;
 
+    // Stores current transformation type of selected object
+    public String currentTransformationType;
+    
     private void Start()
     {
         mainCamera = Camera.main;
@@ -160,8 +164,11 @@ public class UI_Manager : MonoBehaviour
         return currentObject;
     }
 
-    public void SetCurrentCard(GameObject t)
+    public void SetCurrentCard(GameObject t, String transformationType)
     {
+        // It's weird but using this function I am able to get the Transformation Type from the card when selected
+        currentTransformationType = transformationType;
+        
         if (selectedCard == null)
         {
             selectedCard = t;

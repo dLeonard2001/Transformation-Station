@@ -15,10 +15,14 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject z_input_field;
 
     private UI_Manager ui_manager;
+    
+    // Stores current dropdown text value
+    private String transformationType;
 
     private void Start()
     {
         ui_manager = FindObjectOfType<UI_Manager>();
+        transformationType = transform.GetChild(1).GetComponent<TMP_Dropdown>().captionText.text;
     }
 
     public void RemoveCard(Transform obj)
@@ -30,6 +34,9 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ui_manager.SetCurrentCard(transform.gameObject);
+        // When selecting a card, get it's dropdown text value and send it along with the card UI
+        transformationType = transform.GetChild(1).GetComponent<TMP_Dropdown>().captionText.text;
+        ui_manager.SetCurrentCard(transform.gameObject, transformationType);
+        Debug.Log(transformationType);
     }
 }

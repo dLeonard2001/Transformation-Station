@@ -256,11 +256,21 @@ public class MatrixTransformation : MonoBehaviour
     }
 
     #endregion
-    
-    
 
+    
+    // How scripts are communicating/depending on one another to perform object movement
+    // ChangeCard.cs >>> UI_Manager.cs >>> MatrixTransformation.cs
     private void OnMouseDrag()
     {
-        Debug.Log("testing");
+        /*
+         * Finds the UI manager in the game which has the current transformation type
+         * and uses it to verify what transformation are we applying to the object using the Matrix4x4 related functions
+         */
+        if (FindObjectOfType<UI_Manager>().currentTransformationType.Equals("Translate"))
+        {
+            // Debug.Log(Input.GetAxis("Mouse X"));
+            currentTransformations.Add(Translate(new Vector3(Input.GetAxis("Mouse X") * 0.01f, transform.position.y, transform.position.z)));
+            ApplyTransformations(GetSize());
+        }
     }
 }
