@@ -29,22 +29,22 @@ public class CameraController : MonoBehaviour
         yAngle = eulerAngles.y;
     }
 
-    private void Update()
-    {
-        // pressing space brings the camera back to the "world origin"
-        if (Input.GetKey(KeyCode.Space)) target = targetOrigin;
-        
-        if (!Input.GetMouseButtonDown(0)) return;
-        
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); // creating a ray from camera to mouse position
-
-        // change pivot object to the object that was clicked on, specifically tagged 'Planet'
-        if (Physics.Raycast(ray, out var hit, Mathf.Infinity) && hit.collider.CompareTag(detectTagObject))
-        {
-            Debug.Log("Hit object: " + hit.collider.gameObject.name);
-            target = hit.transform;
-        }
-    }
+    // private void Update()
+    // {
+    //     // pressing space brings the camera back to the "world origin"
+    //     if (Input.GetKey(KeyCode.Space)) target = targetOrigin;
+    //     
+    //     if (!Input.GetMouseButtonDown(0)) return;
+    //     
+    //     Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); // creating a ray from camera to mouse position
+    //
+    //     // change pivot object to the object that was clicked on, specifically tagged 'Planet'
+    //     if (Physics.Raycast(ray, out var hit, Mathf.Infinity) && hit.collider.CompareTag(detectTagObject))
+    //     {
+    //         Debug.Log("Hit object: " + hit.collider.gameObject.name);
+    //         target = hit.transform;
+    //     }
+    // }
 
     void LateUpdate()
     {
