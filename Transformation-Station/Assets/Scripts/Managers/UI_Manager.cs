@@ -10,7 +10,11 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
 
+    [SerializeField] private GameObject ui_matrix_values;
+
     private MatrixTransformation currentObject;
+
+    private Matrix4x4 matrix_total;
     
     [Header("Animations")] 
     [SerializeField] private Animator ui_animator;
@@ -23,6 +27,8 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+        
+        matrix_total = Matrix4x4.identity;
     }
 
     private void Update()
@@ -112,9 +118,23 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    private void LoadMatrixValues()
+    {
+        
+    }
+
+    private void UnloadMatrixValues()
+    {
+        
+    }
+
     public void Reset()
     {
         currentObject.Reset();
+        
+        // adjust the second screen
+        matrix_total = currentObject.GetTotal();
+        SetValues();
     }
     
     public void PreviewValues(int index)
@@ -162,6 +182,10 @@ public class UI_Manager : MonoBehaviour
         }
         
         currentObject.ApplyTransformations(currentObject.GetSize());
+        
+        // adjust the second screen
+        matrix_total = currentObject.GetTotal();
+        SetValues();
     }
 
     private void EditVector(ref Vector3 vec, float value, char c)
@@ -183,5 +207,41 @@ public class UI_Manager : MonoBehaviour
     public MatrixTransformation GetCurrentObject()
     {
         return currentObject;
+    }
+
+    private void SetValues()
+    {
+        ui_matrix_values.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m00.ToString("F2");
+        ui_matrix_values.transform.GetChild(0).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m00.ToString("F2");
+        ui_matrix_values.transform.GetChild(0).GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m00.ToString("F2");
+        ui_matrix_values.transform.GetChild(0).GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m00.ToString("F2");
+        ui_matrix_values.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m10.ToString("F2");
+        ui_matrix_values.transform.GetChild(1).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m11.ToString("F2");
+        ui_matrix_values.transform.GetChild(1).GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m12.ToString("F2");
+        ui_matrix_values.transform.GetChild(1).GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m13.ToString("F2");
+        ui_matrix_values.transform.GetChild(2).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m20.ToString("F2");
+        ui_matrix_values.transform.GetChild(2).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m21.ToString("F2");
+        ui_matrix_values.transform.GetChild(2).GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m22.ToString("F2");
+        ui_matrix_values.transform.GetChild(2).GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m23.ToString("F2");
+        ui_matrix_values.transform.GetChild(3).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m30.ToString("F2");
+        ui_matrix_values.transform.GetChild(3).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m31.ToString("F2");
+        ui_matrix_values.transform.GetChild(3).GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m32.ToString("F2");
+        ui_matrix_values.transform.GetChild(3).GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text =
+            matrix_total.m33.ToString("F2");
     }
 }

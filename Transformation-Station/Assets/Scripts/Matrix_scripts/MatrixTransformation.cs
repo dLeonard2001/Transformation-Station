@@ -7,6 +7,9 @@ public class MatrixTransformation : MonoBehaviour
     [SerializeField] private Transform _transform;
     private List<Matrix4x4> currentTransformations;
     private List<GameObject> currentCards;
+    
+    // keeps track of all transformations
+    private Matrix4x4 totalTransformations;
 
     // Overview of a matrix4x4
         // |  Xv  Yv  Zv  Tv | 
@@ -22,6 +25,8 @@ public class MatrixTransformation : MonoBehaviour
 
         currentTransformations = new List<Matrix4x4>();
         currentCards = new List<GameObject>();
+
+        totalTransformations = Matrix4x4.identity;
     }
 
     // apply all the input transformations into here in an empty matrix
@@ -39,6 +44,8 @@ public class MatrixTransformation : MonoBehaviour
             // second transformation * first transformation
             m = currentTransformations[i] * m;
         }
+
+        AdjustTotal(m);
 
         _transform.localScale = m.lossyScale;
         _transform.Rotate(m.rotation.eulerAngles, Space.World);
@@ -63,7 +70,7 @@ public class MatrixTransformation : MonoBehaviour
         {
             m = currentTransformations[i].inverse * m;
         }
-            
+
         _transform.localScale = m.lossyScale;
         _transform.Rotate(m.rotation.eulerAngles, Space.World);
         _transform.Translate(m.GetPosition(), Space.World);
@@ -140,6 +147,8 @@ public class MatrixTransformation : MonoBehaviour
         _transform.position = Matrix4x4.identity.GetPosition();
         _transform.rotation = Matrix4x4.identity.rotation;
         _transform.localScale = Matrix4x4.identity.lossyScale;
+        
+        totalTransformations = Matrix4x4.identity;
     }
 
     #region makeScaleTransformation
@@ -258,5 +267,21 @@ public class MatrixTransformation : MonoBehaviour
     }
 
     #endregion
-    
+
+    private void AdjustTotal(Matrix4x4 m)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                totalTransformations[i, j] += m[i, j];
+            }
+        }
+        totalTransformations[3, 3] = 1;
+    }
+
+    public Matrix4x4 GetTotal()
+    {
+        return totalTransformations;
+    }
 }
