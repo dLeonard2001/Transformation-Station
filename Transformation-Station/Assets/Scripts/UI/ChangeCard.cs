@@ -9,20 +9,15 @@ using UnityEngine.UI;
 
 public class ChangeCard : MonoBehaviour, IPointerClickHandler
 {
-    [Header("Input Fields Per Card")]
-    [SerializeField] private GameObject x_input_field;
-    [SerializeField] private GameObject y_input_field;
-    [SerializeField] private GameObject z_input_field;
-
-    private UI_Manager ui_manager;
+    [SerializeField] private TMP_Dropdown dropdown;
     
-    // Stores current dropdown text value
-    private String transformationType;
+    private UI_Manager ui_manager;
 
     private void Start()
     {
         ui_manager = FindObjectOfType<UI_Manager>();
-        transformationType = transform.GetChild(1).GetComponent<TMP_Dropdown>().captionText.text;
+        
+        ChangeTransformationValue();
     }
 
     public void RemoveCard(Transform obj)
@@ -34,9 +29,25 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // When selecting a card, get it's dropdown text value and send it along with the card UI
-        transformationType = transform.GetChild(1).GetComponent<TMP_Dropdown>().captionText.text;
-        ui_manager.SetCurrentCard(transform.gameObject, transformationType);
-        Debug.Log(transformationType);
+        ui_manager.SetCurrentCard(gameObject);
+    }
+
+    public void ChangeTransformationValue()
+    {
+        char value = dropdown.captionText.text[^1];
+        TextMeshProUGUI tmp = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        
+        switch (value)
+        {
+            case 'X':
+                tmp.text = "X: 0";
+                break;
+            case 'Y':
+                tmp.text = "Y: 0";
+                break;
+            case 'Z':
+                tmp.text = "Z: 0";
+                break;
+        }
     }
 }

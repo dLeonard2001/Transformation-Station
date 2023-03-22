@@ -35,7 +35,7 @@ public class MatrixTransformation : MonoBehaviour
         Matrix4x4 m = Matrix4x4.identity;
         
         // multiply all matrices into one matrix, right to left style
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < index + 1; i++)
         {
             // second transformation * first transformation
             m = currentTransformations[i] * m;
@@ -43,51 +43,41 @@ public class MatrixTransformation : MonoBehaviour
 
         _transform.localScale = m.lossyScale;
         _transform.Rotate(m.rotation.eulerAngles, Space.World);
-        _transform.Translate(m.GetPosition(), Space.World);
+        _transform.position = m.GetPosition();
     }
 
-    public void RevertTransformation(int index)
+    public void ResetMatrices()
     {
-        // to revert multiple transformations
-        // you must find the inverse of each transformation then apply them 
-        // this is because matrix multiplication is not communtative
-        
-        // ex. We have matrix A, B, C
-            // our final matrix would be the multiplication of A * (B * C)
-            // to inverse this transformation
-                // we perform A^-1 * (B^-1 * C^-1) on a new matrix
-        // then apply that new transformation to inverse/revert the previous transformation
-
-        Matrix4x4 m = Matrix4x4.identity;
-
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < GetSize(); i++)
         {
-            m = currentTransformations[i].inverse * m;
+            currentTransformations[i] = Matrix4x4.identity;
         }
-            
-        _transform.localScale = m.lossyScale;
-        _transform.Rotate(m.rotation.eulerAngles, Space.World);
-        _transform.Translate(m.GetPosition(), Space.World);
     }
 
-    public void EditMatrix(Vector3 vec, string transformation, int index)
+    public void EditMatrix(float num, string transformation, int index)
     {
         switch (transformation)
         {
-            case "Translate":
-                currentTransformations[index] = Translate(vec);
+            case "Translate X":
+                currentTransformations[index] = TranslateX(num);
+                break;
+            case "Translate Y":
+                currentTransformations[index] = TranslateY(num);
+                break;
+            case "Translate Z":
+                currentTransformations[index] = TranslateZ(num);
                 break;
             case "Rotate X":
-                currentTransformations[index] = makeRotationX(vec.x);
+                currentTransformations[index] = makeRotationX(num);
                 break;
             case "Rotate Y":
-                currentTransformations[index] = makeRotationY(vec.y);
+                currentTransformations[index] = makeRotationY(num);
                 break;
             case "Rotate Z":
-                currentTransformations[index] = makeRotationZ(vec.z);
+                currentTransformations[index] = makeRotationZ(num);
                 break;
             case "Scale":
-                currentTransformations[index] = NewScaleMatrix(vec);
+                // currentTransformations[index] = NewScaleMatrix(num);
                 break;
         }
     }
@@ -116,24 +106,6 @@ public class MatrixTransformation : MonoBehaviour
     public List<GameObject> GetCurrentCards()
     {
         return currentCards;
-    }
-
-    public Matrix4x4 GetMatrix(int index)
-    {
-        return currentTransformations[index];
-    }
-
-    public void ResetTransformations()
-    {
-        for (int i = 0; i < GetSize(); i++)
-        {
-            currentTransformations[i] = Matrix4x4.identity;
-        }
-    }
-
-    public Matrix4x4 BeforePreviewMatrix()
-    {
-        return transform.localToWorldMatrix;
     }
 
     public void Reset()
@@ -244,13 +216,29 @@ public class MatrixTransformation : MonoBehaviour
     // and m33 represents a scaling factor
 
     // translation transformation
-    private Matrix4x4 Translate(Vector3 t)
+    private Matrix4x4 TranslateX(float num)
     {
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m03 = t.x;
-        m.m13 = t.y;
-        m.m23 = t.z;
+        m.m03 = num;
+        // m.m13 = t.y;
+        // m.m23 = t.z;
+
+        return m;
+    }
+    private Matrix4x4 TranslateY(float num)
+    {
+        Matrix4x4 m = Matrix4x4.identity;
+        
+        m.m13 = num;
+        
+        return m;
+    }
+    private Matrix4x4 TranslateZ(float num)
+    {
+        Matrix4x4 m = Matrix4x4.identity;
+
+        m.m23 = num;
 
         return m;
     }
@@ -266,11 +254,19 @@ public class MatrixTransformation : MonoBehaviour
          * Finds the UI manager in the game which has the current transformation type
          * and uses it to verify what transformation are we applying to the object using the Matrix4x4 related functions
          */
-        if (FindObjectOfType<UI_Manager>().currentTransformationType.Equals("Translate"))
+        // if (FindObjectOfType<UI_Manager>().currentTransformationType.Equals("Translate"))
+        // {
+        //     // Debug.Log(Input.GetAxis("Mouse X"));
+        //     currentTransformations.Add(Translate(new Vector3(Input.GetAxis("Mouse X") * 0.01f, transform.position.y, transform.position.z)));
+        //     ApplyTransformations(GetSize());
+        // }
+
+        if (UI_Manager.HasCardSelected())
         {
-            // Debug.Log(Input.GetAxis("Mouse X"));
-            currentTransformations.Add(Translate(new Vector3(Input.GetAxis("Mouse X") * 0.01f, transform.position.y, transform.position.z)));
-            ApplyTransformations(GetSize());
+            // float direction = Input.GetAxis("Mouse X") > 0
+            
+            UI_Manager.UpdateCardValue(Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1));
+            
         }
     }
 }

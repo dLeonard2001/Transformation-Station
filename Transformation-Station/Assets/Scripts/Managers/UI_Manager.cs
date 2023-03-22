@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,12 +7,18 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
-    [Header("References")]
+    [Header("References")] 
+    
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
+    
+    [Header("Animation References")]
+    [SerializeField] private RectTransform uiControlBoard;
+    [SerializeField] private Vector3 animStartPosition;
+    [SerializeField] private Vector3 animEndPosition;
 
-    private MatrixTransformation currentObject;
-    private GameObject selectedCard;
+    private static MatrixTransformation currentObject;
+    private static GameObject selectedCard;
     
     [Header("Animations")] 
     [SerializeField] private Animator ui_animator;
@@ -21,9 +28,6 @@ public class UI_Manager : MonoBehaviour
     private Ray myRay;
     private RaycastHit hitTarget;
 
-    // Stores current transformation type of selected object
-    public String currentTransformationType;
-    
     private void Start()
     {
         mainCamera = Camera.main;
@@ -56,7 +60,8 @@ public class UI_Manager : MonoBehaviour
                 {
                     return;
                 }
-                
+
+                currentObject = null;
                 ui_animator.CrossFade("UI_slide_out", 0f, 0);
             }
 
@@ -119,67 +124,64 @@ public class UI_Manager : MonoBehaviour
         currentObject.Reset();
     }
 
-    public void Execute()
+    public static void UpdateCardValue(float num)
     {
-        Vector3 input;
+        if (num == 0)
+            return;
         
-        int count = 0;
-        foreach (var c in currentObject.GetCurrentCards())
-        {
-            input = new Vector3();
-            
-            string transformation = c.transform.GetChild(0).GetComponent<TMP_Dropdown>().captionText.text;
-            TMP_InputField[] array = c.GetComponentsInChildren<TMP_InputField>();
+        // change the current cards value
+        // combine/transform any transformations before 
+        // then apply the transformations up until the current card selected
 
-            foreach (var a in array)
-            {
-                EditVector(ref input, a.text.Length == 0 ? 0 : float.Parse(a.text), a.transform.name[0]);
-            }
-            
-            currentObject.EditMatrix(input, transformation, count);
-            count++;
-        }
+        int cardNum = (int) Char.GetNumericValue(selectedCard.name[0]);
+
+        List<GameObject> cards = currentObject.GetCurrentCards();
+        TextMeshProUGUI tmp = selectedCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        string[] strCards = tmp.text.Split(' ');
         
-        currentObject.ApplyTransformations(currentObject.GetSize());
+        // Debug.Log(num);
+        
+        float newNum = float.Parse(strCards[1]) + num;
+        tmp.text = $"{strCards[0]} {String.Format("{0:F2}", newNum)}";
+
+        for (int i = 0; i < cardNum + 1; i++)
+        {
+            currentObject.EditMatrix(newNum, cards[i].GetComponentInChildren<TMP_Dropdown>().captionText.text, i);
+        }
+
+        currentObject.ApplyTransformations(cardNum);
+        currentObject.ResetMatrices();
+        
     }
 
-    private void EditVector(ref Vector3 vec, float value, char c)
+    public static bool HasCardSelected()
     {
-        switch (c)
-        {
-            case 'X':
-                vec.x = value;
-                break;
-            case 'Y':
-                vec.y = value;
-                break;
-            case 'Z':
-                vec.z = value;
-                break;
-        }
-    }
+        return selectedCard != null;
+    } 
 
     public MatrixTransformation GetCurrentObject()
     {
         return currentObject;
     }
 
-    public void SetCurrentCard(GameObject t, String transformationType)
+    public void SetCurrentCard(GameObject t)
     {
-        // It's weird but using this function I am able to get the Transformation Type from the card when selected
-        currentTransformationType = transformationType;
-        
         if (selectedCard == null)
         {
             selectedCard = t;
             selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
         }
-        else
+        else if(t != null)
         {
-            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.gray;
             selectedCard = t;
             selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
         }
-        
+        else
+        {
+            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.gray;
+            selectedCard = t;
+        }
     }
 }
