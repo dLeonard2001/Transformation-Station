@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,21 +8,19 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
-    [Header("References")] 
-    
+    [Header("References")]
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
-    
-    [Header("Animation References")]
-    [SerializeField] private RectTransform uiControlBoard;
-    [SerializeField] private Vector3 animStartPosition;
-    [SerializeField] private Vector3 animEndPosition;
+
+    [Header("Animation References")] 
+    [SerializeField] private Animator animControlBoard;
 
     private static MatrixTransformation currentObject;
-    private static GameObject selectedCard;
-    
-    [Header("Animations")] 
-    [SerializeField] private Animator ui_animator;
+    private static GameObject currentCard;
+
+    [Header("Color References")] 
+    [SerializeField] private Color defaultColor;
+    [SerializeField] private Color selectedColor;
 
     // needed for raycast
     private Camera mainCamera;
@@ -31,6 +30,8 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+
+        animControlBoard.CrossFade("UI_slide_out", 0f, 0);
     }
 
     private void Update()
@@ -48,9 +49,9 @@ public class UI_Manager : MonoBehaviour
                     UnloadCards();
                     currentObject = hitTarget.collider.GetComponent<MatrixTransformation>();
                     LoadCards(); // load cards
-                    
+
                     // display cards
-                    ui_animator.CrossFade("UI_slide_in", 0f, 0);
+                    animControlBoard.CrossFade("UI_slide_in", 0f, 0);
                 }
             }
             else
@@ -60,9 +61,10 @@ public class UI_Manager : MonoBehaviour
                 {
                     return;
                 }
-
+                
+                // if we are here, then we have selected a false object to edit
                 currentObject = null;
-                ui_animator.CrossFade("UI_slide_out", 0f, 0);
+                animControlBoard.CrossFade("UI_slide_out", 0f, 0);
             }
 
         }
@@ -70,6 +72,7 @@ public class UI_Manager : MonoBehaviour
 
     #region CardFunctions
 
+    // adds a card to the UI and current object's cards
     public void AddCard()
     {
         GameObject newCard = Instantiate(ui_card_prefab, cardParent);
@@ -88,6 +91,8 @@ public class UI_Manager : MonoBehaviour
         UpdateCardNames();
     }
 
+    // update card names to match the correct index position
+        // (could be changed if using a different way to get the current index position)
     private void UpdateCardNames()
     {
         int count = 0;
@@ -100,6 +105,7 @@ public class UI_Manager : MonoBehaviour
     
     #endregion
 
+    // loads any cards, when selecting an object
     private void LoadCards()
     {
         foreach (var c in currentObject.GetCurrentCards())
@@ -108,6 +114,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    // unloads any cards, when de-selecting an object
     private void UnloadCards()
     {
         if (currentObject == null)
@@ -119,69 +126,96 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    // resets the object to its origin
     public void Reset()
     {
         currentObject.Reset();
     }
 
+    // updates the current card's value to correspond with the input
     public static void UpdateCardValue(float num)
     {
-        if (num == 0)
+        if (num == 0) // if no input then do nothing
             return;
         
-        // change the current cards value
-        // combine/transform any transformations before 
-        // then apply the transformations up until the current card selected
+        // get the current index in the sequence
+        int cardNum = (int) Char.GetNumericValue(currentCard.name[0]); 
 
-        int cardNum = (int) Char.GetNumericValue(selectedCard.name[0]);
-
+        // get the cards from the current object for later use
         List<GameObject> cards = currentObject.GetCurrentCards();
-        TextMeshProUGUI tmp = selectedCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        
+        // the currently selected card's text
+        TextMeshProUGUI tmp = currentCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
-        string[] strCards = tmp.text.Split(' ');
-        
-        // Debug.Log(num);
-        
+        // gets the current value of the selected card
+        string[] strCards = tmp.text.Split(' '); 
+
+        // adds the input value to the current value
+            // then assigns it to the current card's text
         float newNum = float.Parse(strCards[1]) + num;
         tmp.text = $"{strCards[0]} {String.Format("{0:F2}", newNum)}";
 
-        for (int i = 0; i < cardNum + 1; i++)
-        {
-            currentObject.EditMatrix(newNum, cards[i].GetComponentInChildren<TMP_Dropdown>().captionText.text, i);
-        }
+        // edit the matrix at the current index/element within the sequence
+        currentObject.EditMatrix(newNum, cards[cardNum].GetComponentInChildren<TMP_Dropdown>().captionText.text, cardNum);
 
+        // apply the new transformations
         currentObject.ApplyTransformations(cardNum);
-        currentObject.ResetMatrices();
-        
     }
 
+    // returns if a card is selected 
     public static bool HasCardSelected()
     {
-        return selectedCard != null;
+        return currentCard != null;
     } 
 
+    // returns the currentObject that is selected
     public MatrixTransformation GetCurrentObject()
     {
         return currentObject;
     }
 
+    // assigns the selected card for overall use 
     public void SetCurrentCard(GameObject t)
     {
-        if (selectedCard == null)
-        {
-            selectedCard = t;
-            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
-        }
-        else if(t != null)
-        {
-            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.gray;
-            selectedCard = t;
-            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
-        }
-        else
-        {
-            selectedCard.transform.GetChild(0).GetComponent<Image>().color = Color.gray;
-            selectedCard = t;
-        }
+        // selected 
+            // set current card = t 
+            // change image color to selectedColor
+        // de-selected
+            // change image color to defaultColor;
+            // set current card to null
+
+            if (t != null && currentCard == null)
+            {
+                currentCard = t;
+                currentCard.GetComponentInChildren<Image>().color = selectedColor;
+
+                currentObject.ApplyTransformations((int) Char.GetNumericValue(currentCard.name[0]));
+            }
+            else if (currentCard != null)
+            {
+                currentCard.GetComponentInChildren<Image>().color = defaultColor;
+                currentCard = t;
+                currentCard.GetComponentInChildren<Image>().color = selectedColor;
+                
+                currentObject.ApplyTransformations((int) Char.GetNumericValue(currentCard.name[0]));
+            }
+            else
+            {
+                currentCard.GetComponentInChildren<Image>().color = defaultColor;
+                currentCard = t;
+            }
+    }
+
+    // returns the type of transformation on the current card
+        // Translate, Rotate, Scale
+    public static String TransformationType()
+    {
+        return currentCard.GetComponentInChildren<TMP_Dropdown>().captionText.text;
+    }
+
+    // returns the current direction to use the input on
+    public static Char CardDirection()
+    {
+        return currentCard.GetComponentInChildren<TMP_Dropdown>().captionText.text[^1];
     }
 }

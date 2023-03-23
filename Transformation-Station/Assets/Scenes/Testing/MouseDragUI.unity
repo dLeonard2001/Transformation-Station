@@ -1539,6 +1539,71 @@ PrefabInstance:
       propertyPath: ui_animator
       value: 
       objectReference: {fileID: 752712950}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: animDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: defaultColor.a
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: defaultColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: defaultColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: defaultColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: uiControlBoard
+      value: 
+      objectReference: {fileID: 752712948}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: selectedColor.a
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: selectedColor.b
+      value: 0.2216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: selectedColor.g
+      value: 0.86857516
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: selectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: animControlBoard
+      value: 
+      objectReference: {fileID: 752712950}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: animEndPosition.y
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386602344498084739, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
+        type: 3}
+      propertyPath: animStartPosition.y
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 2386602344498084748, guid: 44abc6c4a1a89c44a938592f43a1f2ea,
         type: 3}
       propertyPath: m_Name
@@ -2032,7 +2097,7 @@ PrefabInstance:
     - target: {fileID: 8279557679541779074, guid: 788b3754b7424d84296f2ce658518ad9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 165
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 8279557679541779074, guid: 788b3754b7424d84296f2ce658518ad9,
         type: 3}

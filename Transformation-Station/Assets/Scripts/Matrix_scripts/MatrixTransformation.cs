@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MatrixTransformation : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class MatrixTransformation : MonoBehaviour
         
         // first matrix in sequence
         Matrix4x4 m = Matrix4x4.identity;
-        
+
         // multiply all matrices into one matrix, right to left style
         for (int i = 0; i < index + 1; i++)
         {
@@ -42,18 +43,12 @@ public class MatrixTransformation : MonoBehaviour
         }
 
         _transform.localScale = m.lossyScale;
-        _transform.Rotate(m.rotation.eulerAngles, Space.World);
+        _transform.rotation = Quaternion.Euler(m.rotation.eulerAngles);
         _transform.position = m.GetPosition();
     }
 
-    public void ResetMatrices()
-    {
-        for (int i = 0; i < GetSize(); i++)
-        {
-            currentTransformations[i] = Matrix4x4.identity;
-        }
-    }
-
+    // edit any matrix at a certain index 
+        // (Not very scalable/readability later on because this function will get messy the more transformations we 
     public void EditMatrix(float num, string transformation, int index)
     {
         switch (transformation)
@@ -82,32 +77,38 @@ public class MatrixTransformation : MonoBehaviour
         }
     }
 
+    // add a matrix to the end of the list for this object
     public void AddMatrix()
     {
         currentTransformations.Add(Matrix4x4.identity);
     }
 
+    // remove a matrix at a certain index within the list
     public void RemoveMatrix(int index)
     {
         currentTransformations.RemoveAt(index);
         currentCards.RemoveAt(index);
     }
     
+    // adds a card to object's current card
     public void AddCard(GameObject newCard)
     {
         currentCards.Add(newCard);
     }
 
+    // returns the size of transformations
     public int GetSize()
     {
         return currentTransformations.Count;
     }
     
+    // returns the current cards correlated with this object
     public List<GameObject> GetCurrentCards()
     {
         return currentCards;
     }
 
+    // simple reset function (doesn't account for the origin)
     public void Reset()
     {
         _transform.position = Matrix4x4.identity.GetPosition();
@@ -246,27 +247,39 @@ public class MatrixTransformation : MonoBehaviour
     #endregion
 
     
-    // How scripts are communicating/depending on one another to perform object movement
-    // ChangeCard.cs >>> UI_Manager.cs >>> MatrixTransformation.cs
+    // move an object according to the mouse input, while the object is selected
     private void OnMouseDrag()
     {
-        /*
-         * Finds the UI manager in the game which has the current transformation type
-         * and uses it to verify what transformation are we applying to the object using the Matrix4x4 related functions
-         */
-        // if (FindObjectOfType<UI_Manager>().currentTransformationType.Equals("Translate"))
-        // {
-        //     // Debug.Log(Input.GetAxis("Mouse X"));
-        //     currentTransformations.Add(Translate(new Vector3(Input.GetAxis("Mouse X") * 0.01f, transform.position.y, transform.position.z)));
-        //     ApplyTransformations(GetSize());
-        // }
-
-        if (UI_Manager.HasCardSelected())
+        // must have a card selected to edit
+            // also cannot have zero transformations
+        if (UI_Manager.HasCardSelected() && GetSize() != 0)
         {
-            // float direction = Input.GetAxis("Mouse X") > 0
+            // gets the current input
+            float inputVal = DirectionalInput();
             
-            UI_Manager.UpdateCardValue(Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1));
-            
+            // apply the current input
+            UI_Manager.UpdateCardValue(Mathf.Clamp(inputVal, -1, 1));
         }
+    }
+
+    // get directional input depending on the type of transformation
+    private float DirectionalInput()
+    {
+        float num = 0;
+
+        switch (UI_Manager.TransformationType().Split(' ')[0])
+        {
+            case "Translate":
+                num = UI_Manager.CardDirection() == 'X' ? Input.GetAxis("Mouse X") : Input.GetAxis("Mouse Y");
+                break;
+            case "Rotate":
+                num = UI_Manager.CardDirection() == 'X' ? Input.GetAxis("Mouse Y") : Input.GetAxis("Mouse X");
+                break;
+            case "Scale":
+                num = UI_Manager.CardDirection() == 'X' ? Input.GetAxis("Mouse X") : Input.GetAxis("Mouse Y");
+                break;
+        }
+
+        return num;
     }
 }

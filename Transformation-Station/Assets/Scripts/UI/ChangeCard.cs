@@ -20,6 +20,7 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
         ChangeTransformationValue();
     }
 
+    // when the "x" button is clicked, remove this card from the UI
     public void RemoveCard(Transform obj)
     {
         ui_manager.RemoveCard((int) Char.GetNumericValue(obj.name[0]));
@@ -27,11 +28,13 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
         Destroy(gameObject);
     }
 
+    // set the current card to this card, whenever it is selected
     public void OnPointerClick(PointerEventData eventData)
     {
         ui_manager.SetCurrentCard(gameObject);
     }
 
+    // changes the UI depending on the direction
     public void ChangeTransformationValue()
     {
         char value = dropdown.captionText.text[^1];
