@@ -9,7 +9,7 @@ public class MatrixTransformation : MonoBehaviour
     private List<GameObject> currentCards;
     
     // keeps track of all transformations
-    private Matrix4x4 totalTransformations;
+    public Matrix4x4 totalTransformations;
 
     // Overview of a matrix4x4
         // |  Xv  Yv  Zv  Tv | 
@@ -44,8 +44,6 @@ public class MatrixTransformation : MonoBehaviour
             // second transformation * first transformation
             m = currentTransformations[i] * m;
         }
-
-        AdjustTotal(m);
 
         _transform.localScale = m.lossyScale;
         _transform.Rotate(m.rotation.eulerAngles, Space.World);
@@ -148,6 +146,7 @@ public class MatrixTransformation : MonoBehaviour
         _transform.rotation = Matrix4x4.identity.rotation;
         _transform.localScale = Matrix4x4.identity.lossyScale;
         
+        // reset the total
         totalTransformations = Matrix4x4.identity;
     }
 
@@ -165,6 +164,11 @@ public class MatrixTransformation : MonoBehaviour
         m.m00 = vec.x == 0 ? 1 : vec.x;
         m.m11 = vec.y == 0 ? 1 : vec.y;
         m.m22 = vec.z == 0 ? 1 : vec.z;
+
+        // apply to totals
+        totalTransformations[0, 0] *= m.m00;
+        totalTransformations[1, 1] *= m.m11;
+        totalTransformations[2, 2] *= m.m22;
 
         return m;
     }
@@ -193,6 +197,12 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m12 = -s;
         matrix.m21 = s;
         matrix.m22 = c;
+        
+        // apply to totals
+        totalTransformations[1, 1] += matrix.m11;
+        totalTransformations[1, 2] += matrix.m12;
+        totalTransformations[2, 1] += matrix.m21;
+        totalTransformations[2, 2] += matrix.m22;
 
         return matrix;
     }
@@ -213,6 +223,12 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m02 = s;
         matrix.m20 = -s;
         matrix.m22 = c;
+        
+        // apply to totals
+        totalTransformations[0, 0] += matrix.m00;
+        totalTransformations[0, 2] += matrix.m02;
+        totalTransformations[2, 0] += matrix.m20;
+        totalTransformations[2, 2] += matrix.m22;
 
         return matrix;
     }
@@ -233,6 +249,12 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m01 = -s;
         matrix.m10 = s;
         matrix.m12 = c;
+        
+        // apply to totals
+        totalTransformations[0, 0] += matrix.m00;
+        totalTransformations[0, 1] += matrix.m01;
+        totalTransformations[1, 0] += matrix.m10;
+        totalTransformations[1, 1] += matrix.m11;
 
         return matrix;
     }
@@ -259,6 +281,11 @@ public class MatrixTransformation : MonoBehaviour
         m.m03 = t.x;
         m.m13 = t.y;
         m.m23 = t.z;
+        
+        // apply to totals
+        totalTransformations[0, 3] += m.m03;
+        totalTransformations[1, 3] += m.m13;
+        totalTransformations[2, 3] += m.m23;
 
         // Debug.Log(newMatrix.MultiplyPoint3x4(Vector3.zero));
         // _transform.position = newMatrix.MultiplyPoint3x4(Vector3.zero);
@@ -268,7 +295,7 @@ public class MatrixTransformation : MonoBehaviour
 
     #endregion
 
-    private void AdjustTotal(Matrix4x4 m)
+    /*private void AdjustTotal(Matrix4x4 m)
     {
         for (int i = 0; i < 4; i++)
         {
@@ -278,10 +305,15 @@ public class MatrixTransformation : MonoBehaviour
             }
         }
         totalTransformations[3, 3] = 1;
-    }
+    }*/
 
     public Matrix4x4 GetTotal()
     {
         return totalTransformations;
+    }
+
+    public void ResetTotal()
+    {
+        totalTransformations = Matrix4x4.identity;
     }
 }
