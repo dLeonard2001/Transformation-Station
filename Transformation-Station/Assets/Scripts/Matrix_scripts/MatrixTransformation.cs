@@ -318,6 +318,7 @@ public class MatrixTransformation : MonoBehaviour
         }
 
         return num;
+    }
 
     /*private void AdjustTotal(Matrix4x4 m)
     {
@@ -330,6 +331,7 @@ public class MatrixTransformation : MonoBehaviour
         }
         totalTransformations[3, 3] = 1;
     }*/
+    
 
     public Matrix4x4 GetTotal()
     {

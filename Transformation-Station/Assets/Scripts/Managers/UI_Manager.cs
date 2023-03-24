@@ -23,8 +23,6 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private Color selectedColor;
     [SerializeField] private GameObject ui_matrix_values;
 
-    private MatrixTransformation currentObject;
-
     private Matrix4x4 matrix_total;
 
     // needed for raycast
@@ -223,14 +221,8 @@ public class UI_Manager : MonoBehaviour
                 currentCard.GetComponentInChildren<Image>().color = defaultColor;
                 currentCard = t;
             }
-            
-            currentObject.EditMatrix(input, transformation, count);
-            count++;
-        }
-        
-        currentObject.ApplyTransformations(currentObject.GetSize());
-        
-        // adjust the second screen
+
+            // adjust the second screen
         matrix_total = currentObject.GetTotal();
         SetValues();
     }
