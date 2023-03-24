@@ -197,7 +197,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m00 = c;
         matrix.m01 = -s;
         matrix.m10 = s;
-        matrix.m12 = c;
+        matrix.m11 = c;
 
         return matrix;
     }
