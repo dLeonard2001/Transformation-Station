@@ -21,6 +21,11 @@ public class UI_Manager : MonoBehaviour
     [Header("Color References")] 
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color selectedColor;
+    [SerializeField] private GameObject ui_matrix_values;
+
+    private MatrixTransformation currentObject;
+
+    private Matrix4x4 matrix_total;
 
     // needed for raycast
     private Camera mainCamera;
@@ -30,8 +35,9 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-
         animControlBoard.CrossFade("UI_slide_out", 0f, 0);
+        
+        matrix_total = Matrix4x4.identity;
     }
 
     private void Update()
@@ -52,6 +58,10 @@ public class UI_Manager : MonoBehaviour
 
                     // display cards
                     animControlBoard.CrossFade("UI_slide_in", 0f, 0);
+                    
+                    // display the totals
+                    matrix_total = currentObject.GetTotal();
+                    SetValues();
                 }
             }
             else
@@ -65,6 +75,10 @@ public class UI_Manager : MonoBehaviour
                 // if we are here, then we have selected a false object to edit
                 currentObject = null;
                 animControlBoard.CrossFade("UI_slide_out", 0f, 0);
+                
+                // hide the totals
+                matrix_total = Matrix4x4.identity;
+                SetValues();
             }
 
         }
@@ -130,6 +144,11 @@ public class UI_Manager : MonoBehaviour
     public void Reset()
     {
         currentObject.Reset();
+        
+        // adjust the second screen
+        currentObject.ResetTotal();
+        matrix_total = currentObject.GetTotal();
+        SetValues();
     }
 
     // updates the current card's value to correspond with the input
@@ -204,6 +223,16 @@ public class UI_Manager : MonoBehaviour
                 currentCard.GetComponentInChildren<Image>().color = defaultColor;
                 currentCard = t;
             }
+            
+            currentObject.EditMatrix(input, transformation, count);
+            count++;
+        }
+        
+        currentObject.ApplyTransformations(currentObject.GetSize());
+        
+        // adjust the second screen
+        matrix_total = currentObject.GetTotal();
+        SetValues();
     }
 
     // returns the type of transformation on the current card
@@ -217,5 +246,17 @@ public class UI_Manager : MonoBehaviour
     public static Char CardDirection()
     {
         return currentCard.GetComponentInChildren<TMP_Dropdown>().captionText.text[^1];
+    }
+
+    // sets the total values in the ui
+    private void SetValues()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                ui_matrix_values.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
+            }
+        }
     }
 }
