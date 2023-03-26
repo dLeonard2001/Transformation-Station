@@ -1166,7 +1166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553282523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -14.21}
+  m_LocalPosition: {x: 0, y: 0, z: -16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1678,7 +1678,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 198917991}
   - {fileID: 487398148}
@@ -3129,7 +3129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852620020}
   - component: {fileID: 1852620021}
-  - component: {fileID: 1852620022}
+  - component: {fileID: 1852620023}
   m_Layer: 0
   m_Name: Camera Parent
   m_TagString: Untagged
@@ -3144,15 +3144,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852620018}
-  m_LocalRotation: {x: 0.29412773, y: 0.36127236, z: -0.12123066, w: 0.87651265}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 553282526}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 37.1, y: 44.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!114 &1852620021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3167,7 +3167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraAdjustmentSpeed: 3
   projectionTransitionSpeed: 2
---- !u!114 &1852620022
+--- !u!114 &1852620023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3176,10 +3176,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1852620018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c487c921f8deb41b9ceffb3b68077e, type: 3}
+  m_Script: {fileID: 11500000, guid: 261b445efd382d04eb6c99b9c77f068c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.5
+  mainCamera: {fileID: 553282526}
+  maxDistance: -10
+  minDistance: -20
+  sensitivity: 100
+  rotationSpeed: 50
 --- !u!1001 &1924149215
 PrefabInstance:
   m_ObjectHideFlags: 0
