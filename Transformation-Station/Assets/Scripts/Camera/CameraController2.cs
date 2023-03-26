@@ -12,13 +12,10 @@ namespace RuntimeSceneGizmo
         [SerializeField] private float rotationSpeed = 50f;
 
         private Transform mainCamParent;
-        private float localDistance;
 
         private void Awake()
         {
             mainCamParent = Camera.main.transform.parent;
-            
-            localDistance = mainCamera.transform.localPosition.z;
         }
 
         private void Update()
