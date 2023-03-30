@@ -95,6 +95,11 @@ public class MatrixTransformation : MonoBehaviour
     {
         currentTransformations.Add(Matrix4x4.identity);
     }
+    
+    public void DeleteMatrix()
+    {
+        currentTransformations.RemoveAt(currentTransformations.Count-1);
+    }
 
     public void RemoveMatrix(int index)
     {
