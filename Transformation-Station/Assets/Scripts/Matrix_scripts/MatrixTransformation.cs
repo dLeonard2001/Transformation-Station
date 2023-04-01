@@ -88,6 +88,11 @@ public class MatrixTransformation : MonoBehaviour
     {
         currentTransformations.Add(Matrix4x4.identity);
     }
+    
+    public void DeleteMatrix()
+    {
+        currentTransformations.RemoveAt(currentTransformations.Count-1);
+    }
 
     // remove a matrix at a certain index within the list
     public void RemoveMatrix(int index)

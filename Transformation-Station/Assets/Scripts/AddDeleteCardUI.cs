@@ -5,6 +5,7 @@ using UnityEngine;
 public class AddDeleteCardUI : MonoBehaviour
 {
     [SerializeField] private List<GameObject> CardsUI;
+    [SerializeField] private InputDataExtract _dataExtract;
     
     private int maxCards = 4;
     private int currNumCards = 1;
@@ -15,6 +16,8 @@ public class AddDeleteCardUI : MonoBehaviour
         
         CardsUI[currNumCards-1].gameObject.SetActive(true);
         currNumCards += 1;
+        
+        _dataExtract.planet.GetComponent<MatrixTransformation>().AddMatrix();
     }
 
     public void DeactivateCards()
@@ -23,5 +26,7 @@ public class AddDeleteCardUI : MonoBehaviour
         
         CardsUI[currNumCards-2].gameObject.SetActive(false);
         currNumCards -= 1;
+        
+        _dataExtract.planet.GetComponent<MatrixTransformation>().DeleteMatrix();
     }
 }
