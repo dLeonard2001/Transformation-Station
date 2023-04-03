@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class ObjectChecker : MonoBehaviour
 {
-    public Transform targetObject; // the identical object the player needs to move and rotate to match
+    public Transform targetObject;
 
-    public float positionThreshold = 0.2f; // how close the object needs to be in position to be considered a match
-    public float rotationThreshold = 0.2f; // how close the object needs to be in rotation to be considered a match
+    public float positionThreshold = 0.2f;
+    public float rotationThreshold = 0.2f;
 
     private void Update()
     {
@@ -15,7 +15,6 @@ public class ObjectChecker : MonoBehaviour
         if (positionDistance <= positionThreshold && rotationDistance <= rotationThreshold)
         {
             Debug.Log("Object is in the same position and rotation as the target object!");
-            // code to trigger success condition here
         }
     }
 }
