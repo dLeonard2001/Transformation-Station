@@ -27,6 +27,12 @@ public class LevelLoader : MonoBehaviour
 
     IEnumerator LoadLevel(string sceneName)
     {
+        if (sceneName.Equals("Debug"))
+        {
+            Debug.Log("Debugging: Choose scene name to transition");
+            yield break;
+        }
+        
         transition.SetTrigger(Start);
 
         yield return new WaitForSeconds(transitionTime);
