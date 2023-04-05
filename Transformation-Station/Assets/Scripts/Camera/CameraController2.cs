@@ -6,10 +6,18 @@ namespace RuntimeSceneGizmo
     public class CameraController2 : MonoBehaviour
     {
         [SerializeField] private Transform mainCamera;
-        [SerializeField] private float maxDistance = 20.0f;
-        [SerializeField] private float minDistance = 1.0f;
+        
+        // Negative values so the camera faces and sees the mapOrigin rather than overshooting it (using positive values) 
+        [SerializeField] private float maxCamDistance = -10f;
+        [SerializeField] private float minCamDistance = -50f;
+        
         [SerializeField] private float sensitivity = 3.0f;
         [SerializeField] private float rotationSpeed = 50f;
+
+        [SerializeField] private float maxShiftDistance = 100f;
+        [SerializeField] private float minShiftDistance = 10f;
+        [SerializeField] private float downShiftSpeed = 10f;
+        [SerializeField] private float upShiftSpeed = 10f;
 
         private Transform mainCamParent;
 
@@ -20,6 +28,8 @@ namespace RuntimeSceneGizmo
 
         private void Update()
         {
+            CameraShift();
+            
             float horizontal = -Input.GetAxis("Horizontal");
             float vertical = -Input.GetAxis("Vertical");
 
@@ -54,7 +64,37 @@ namespace RuntimeSceneGizmo
                 camLocalPos += Vector3.forward * sensitivity * Time.deltaTime;
             }
 
-            mainCamera.localPosition = new Vector3(0, 0, Math.Clamp(camLocalPos.z, minDistance, maxDistance));
+            mainCamera.localPosition = new Vector3(0, 0, Math.Clamp(camLocalPos.z, minCamDistance, maxCamDistance));
+        }
+
+        private void CameraShift()
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                Vector3 mPos = mainCamParent.position;
+                mPos = new Vector3(
+                    mPos.x,
+                    mPos.y - (Time.deltaTime * downShiftSpeed),
+                    mPos.z
+                );
+
+                if (mPos.y < minShiftDistance) mPos.y = minShiftDistance;
+                
+                mainCamParent.position = mPos;
+            }
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                Vector3 mPos = mainCamParent.position;
+                mPos = new Vector3(
+                    mPos.x,
+                    mPos.y + (Time.deltaTime * upShiftSpeed),
+                    mPos.z
+                );
+                
+                if (mPos.y > maxShiftDistance) mPos.y = maxShiftDistance;
+                
+                mainCamParent.position = mPos;
+            }
         }
     }
 }
