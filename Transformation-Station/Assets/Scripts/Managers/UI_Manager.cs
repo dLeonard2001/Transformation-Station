@@ -18,12 +18,20 @@ public class UI_Manager : MonoBehaviour
     private static MatrixTransformation currentObject;
     private static GameObject currentCard;
 
+    [SerializeField] private Camera valueCamera;
+    [SerializeField] private Camera subvalueCamera;
+
     [Header("Color References")] 
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color selectedColor;
+    
+    [Header("Matrix Values")]
     [SerializeField] private GameObject ui_matrix_values;
 
+    [SerializeField] private GameObject ui_matrix_subvalues;
+
     private Matrix4x4 matrix_total;
+    private Matrix4x4 matrix_subtotal;
 
     // needed for raycast
     private Camera mainCamera;
@@ -36,6 +44,11 @@ public class UI_Manager : MonoBehaviour
         animControlBoard.CrossFade("UI_slide_out", 0f, 0);
         
         matrix_total = Matrix4x4.identity;
+        matrix_subtotal = Matrix4x4.identity;
+        
+        // hides screen values
+        valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
+        subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);
     }
 
     private void Update()
@@ -60,6 +73,10 @@ public class UI_Manager : MonoBehaviour
                     // display the totals
                     matrix_total = currentObject.GetTotal();
                     SetValues();
+                    
+                    // show screen values
+                    valueCamera.rect = new Rect (-0.8f, 0.7f, 1, 1);
+                    subvalueCamera.rect = new Rect(-0.82f, -0.8f, 1, 1);
                 }
             }
             else
@@ -76,10 +93,31 @@ public class UI_Manager : MonoBehaviour
                 
                 // hide the totals
                 matrix_total = Matrix4x4.identity;
+                matrix_subtotal = Matrix4x4.identity;
                 SetValues();
+                SetSubtotal();
+                
+                // hide screen values
+                valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
+                subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);
             }
 
         }
+        // set screen values
+        if (currentObject != null)
+        {
+            matrix_total = currentObject.GetTotal();
+            SetValues();
+            
+            // set the subvalues
+            if (currentCard != null)
+            {
+                matrix_subtotal = currentObject.GetSubtotal((int) Char.GetNumericValue(currentCard.name[0]));
+                SetSubtotal();
+            }
+        }
+
+        
     }
 
     #region CardFunctions
@@ -248,6 +286,17 @@ public class UI_Manager : MonoBehaviour
             for (int j = 0; j < 4; j++)
             {
                 ui_matrix_values.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
+            }
+        }
+    }
+
+    private void SetSubtotal()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                ui_matrix_subvalues.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_subtotal[i, j].ToString("F2");
             }
         }
     }
