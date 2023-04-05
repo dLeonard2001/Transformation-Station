@@ -28,7 +28,7 @@ public class InputDataExtract : MonoBehaviour
         if (Physics.Raycast(ray, out var hit, Mathf.Infinity) && hit.collider.CompareTag(detectTagObject))
         {
             planet = hit.transform.gameObject;
-            if (planet.GetComponent<MatrixTransformation>().getSize() == 0)
+            if (planet.GetComponent<MatrixTransformation>().GetSize() == 0)
             {
                 planet.GetComponent<MatrixTransformation>().AddMatrix();
             }
@@ -105,7 +105,7 @@ public class InputDataExtract : MonoBehaviour
             cardNumber
             );
         
-        matrixTransformations.ApplyTransformations();
+        matrixTransformations.ApplyTransformations(cardNumber);
     }
     
     // Debug.log() does not like to output a lot of stuff at once
