@@ -83,15 +83,15 @@ public class MatrixTransformation : MonoBehaviour
         }
     }
 
-    // add a matrix to the end of the list for this object
+    // add a matrix to the list of matrices
     public void AddMatrix()
     {
         currentTransformations.Add(Matrix4x4.identity);
     }
-    
+
     public void DeleteMatrix()
     {
-        currentTransformations.RemoveAt(currentTransformations.Count-1);
+        currentTransformations.RemoveAt(GetSize() - 1);
     }
 
     // remove a matrix at a certain index within the list

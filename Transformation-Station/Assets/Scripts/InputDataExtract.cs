@@ -99,11 +99,11 @@ public class InputDataExtract : MonoBehaviour
         if (d.text.Length != 0) y = float.Parse(d.text);
         if (e.text.Length != 0) z = float.Parse(e.text);
             
-        matrixTransformations.EditMatrix(
-            new Vector3(x, y, z),
-            transformationStr,
-            cardNumber
-            );
+        // matrixTransformations.EditMatrix(
+        //     new Vector3(x, y, z),
+        //     transformationStr,
+        //     cardNumber
+        //     );
         
         matrixTransformations.ApplyTransformations(cardNumber);
     }

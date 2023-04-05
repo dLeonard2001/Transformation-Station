@@ -59,7 +59,7 @@ public class UI_Manager : MonoBehaviour
                     
                     // display the totals
                     matrix_total = currentObject.GetTotal();
-                    SetValues();
+                    //SetValues();
                 }
             }
             else
@@ -76,7 +76,7 @@ public class UI_Manager : MonoBehaviour
                 
                 // hide the totals
                 matrix_total = Matrix4x4.identity;
-                SetValues();
+                //SetValues();
             }
 
         }
@@ -146,7 +146,7 @@ public class UI_Manager : MonoBehaviour
         // adjust the second screen
         currentObject.ResetTotal();
         matrix_total = currentObject.GetTotal();
-        SetValues();
+        //SetValues();
     }
 
     // updates the current card's value to correspond with the input
@@ -224,7 +224,7 @@ public class UI_Manager : MonoBehaviour
 
             // adjust the second screen
         matrix_total = currentObject.GetTotal();
-        SetValues();
+        //SetValues();
     }
 
     // returns the type of transformation on the current card
@@ -241,14 +241,14 @@ public class UI_Manager : MonoBehaviour
     }
 
     // sets the total values in the ui
-    private void SetValues()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                ui_matrix_values.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
-            }
-        }
-    }
+    // private void SetValues()
+    // {
+    //     for (int i = 0; i < 4; i++)
+    //     {
+    //         for (int j = 0; j < 4; j++)
+    //         {
+    //             ui_matrix_values.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
+    //         }
+    //     }
+    // }
 }
