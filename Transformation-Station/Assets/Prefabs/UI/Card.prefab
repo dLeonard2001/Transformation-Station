@@ -1086,7 +1086,11 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Rotate Z
       m_Image: {fileID: 0}
-    - m_Text: Scale
+    - m_Text: Scale X
+      m_Image: {fileID: 0}
+    - m_Text: Scale Y
+      m_Image: {fileID: 0}
+    - m_Text: Scale Z
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
