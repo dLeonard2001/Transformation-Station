@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Transformation-Station/Assets/MainMenu/#OnePotatoKingdom_FULL/Materials/Materials/Alien/Alien_Designs1.meta
+guid: e75e02369fcdb3840ab6bdb292acfd84
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+========
 guid: 2ba5a89af983f2d4ba005f36afd6503f
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
+>>>>>>>> development:Transformation-Station/Assets/Jason/UIAnimJason/Crossfade_End.anim.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
