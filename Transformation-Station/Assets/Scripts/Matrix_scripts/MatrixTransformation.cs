@@ -9,6 +9,8 @@ public class MatrixTransformation : MonoBehaviour
     [SerializeField] private Transform _transform;
     private List<Matrix4x4> currentTransformations;
     private List<GameObject> currentCards;
+
+    private Matrix4x4 origin;
     
     // keeps track of all transformations
     public Matrix4x4 totalTransformations;
@@ -32,7 +34,9 @@ public class MatrixTransformation : MonoBehaviour
         currentCards = new List<GameObject>();
 
         totalTransformations = Matrix4x4.identity;
-		subtotalTransformations = Matrix4x4.identity;
+		    subtotalTransformations = Matrix4x4.identity;
+
+        origin = transform.localToWorldMatrix;
     }
 
     // apply all the input transformations into here in an empty matrix
@@ -51,14 +55,16 @@ public class MatrixTransformation : MonoBehaviour
             m = currentTransformations[i] * m;
         }
 
-		// set total values
-		totalTransformations = m;
+		    // set total values
+		    totalTransformations = m;
 
         _transform.localScale = m.lossyScale;
+        m = origin * m;
+
+        _transform.localScale = GetMatrixScale(m);
         _transform.rotation = Quaternion.Euler(m.rotation.eulerAngles);
         _transform.position = m.GetPosition();
     }
-
 
     // edit any matrix at a certain index 
         // (Not very scalable/readability later on because this function will get messy the more transformations we 
@@ -84,16 +90,27 @@ public class MatrixTransformation : MonoBehaviour
             case "Rotate Z":
                 currentTransformations[index] = makeRotationZ(num);
                 break;
-            case "Scale":
-                // currentTransformations[index] = NewScaleMatrix(num);
+            case "Scale X":
+                currentTransformations[index] = ScaleX(num);
+                break;
+            case "Scale Y":
+                currentTransformations[index] = ScaleY(num);
+                break;
+            case "Scale Z":
+                currentTransformations[index] = ScaleZ(num);
                 break;
         }
     }
 
-    // add a matrix to the end of the list for this object
+    // add a matrix to the list of matrices
     public void AddMatrix()
     {
         currentTransformations.Add(Matrix4x4.identity);
+    }
+
+    public void DeleteMatrix()
+    {
+        currentTransformations.RemoveAt(GetSize() - 1);
     }
 
     // remove a matrix at a certain index within the list
@@ -124,9 +141,9 @@ public class MatrixTransformation : MonoBehaviour
     // simple reset function (doesn't account for the origin)
     public void Reset()
     {
-        _transform.position = Matrix4x4.identity.GetPosition();
-        _transform.rotation = Matrix4x4.identity.rotation;
-        _transform.localScale = Matrix4x4.identity.lossyScale;
+        _transform.position = origin.GetPosition();
+        _transform.rotation = origin.rotation;
+        _transform.localScale = GetMatrixScale(origin);
         
         // reset the total
         totalTransformations = Matrix4x4.identity;
@@ -134,18 +151,39 @@ public class MatrixTransformation : MonoBehaviour
 
     #region makeScaleTransformation
 
+    private Vector3 GetMatrixScale(Matrix4x4 m)
+    {
+        return new Vector3(m.m00, m.m11, m.m22);
+    }
+
     // scale transformation
         // | sx  0   0   0 |
         // | 0   sy  0   0 |
         // | 0   0   sz  0 |
         // | 0   0   0   1 |
-    private Matrix4x4 NewScaleMatrix(Vector3 vec)
+    private Matrix4x4 ScaleX(float num)
     {
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m00 = vec.x == 0 ? 1 : vec.x;
-        m.m11 = vec.y == 0 ? 1 : vec.y;
-        m.m22 = vec.z == 0 ? 1 : vec.z;
+        m.m00 = num == 0 ? 1 : num;
+
+        return m;
+    }
+    
+    private Matrix4x4 ScaleY(float num)
+    {
+        Matrix4x4 m = Matrix4x4.identity;
+        
+        m.m11 = num == 0 ? 1 : num;
+
+        return m;
+    }
+    
+    private Matrix4x4 ScaleZ(float num)
+    {
+        Matrix4x4 m = Matrix4x4.identity;
+        
+        m.m22 = num == 0 ? 1 : num;
 
         return m;
     }

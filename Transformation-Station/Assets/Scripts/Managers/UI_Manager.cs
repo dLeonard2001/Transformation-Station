@@ -47,8 +47,7 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        animControlBoard.CrossFade("UI_slide_out", 0f, 0);
-        
+
         matrix_total = Matrix4x4.identity;
         matrix_subtotal = Matrix4x4.identity;
         
@@ -107,6 +106,7 @@ public class UI_Manager : MonoBehaviour
                 
                 // hide the totals
                 matrix_total = Matrix4x4.identity;
+
                 matrix_subtotal = Matrix4x4.identity;
                 SetValues();
                 SetSubtotal();
@@ -213,7 +213,7 @@ public class UI_Manager : MonoBehaviour
         // adjust the second screen
         currentObject.ResetTotal();
         matrix_total = currentObject.GetTotal();
-        SetValues();
+        //SetValues();
     }
 
     // updates the current card's value to correspond with the input
@@ -291,7 +291,7 @@ public class UI_Manager : MonoBehaviour
 
             // adjust the second screen
         matrix_total = currentObject.GetTotal();
-        SetValues();
+        //SetValues();
     }
 
     // returns the type of transformation on the current card
@@ -308,6 +308,7 @@ public class UI_Manager : MonoBehaviour
     }
 
     // sets the total values in the ui
+
     private void SetValues()
     {
         for (int i = 0; i < 4; i++)
