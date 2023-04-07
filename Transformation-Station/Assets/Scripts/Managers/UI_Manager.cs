@@ -33,8 +33,7 @@ public class UI_Manager : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        animControlBoard.CrossFade("UI_slide_out", 0f, 0);
-        
+
         matrix_total = Matrix4x4.identity;
     }
 

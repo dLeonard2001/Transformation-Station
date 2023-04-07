@@ -24,6 +24,8 @@ namespace RuntimeSceneGizmo
         private void Awake()
         {
             mainCamParent = Camera.main.transform.parent;
+            
+            
         }
 
         private void Update()
