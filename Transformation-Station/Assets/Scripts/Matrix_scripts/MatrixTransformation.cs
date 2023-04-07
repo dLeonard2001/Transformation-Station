@@ -301,7 +301,16 @@ public class MatrixTransformation : MonoBehaviour
 
     public Matrix4x4 GetTotal()
     {
-        return totalTransformations;
+        //return totalTransformations;
+		Matrix4x4 m = Matrix4x4.identity;
+
+		for (int i = 0; i < currentCards.Count; i++)
+        {
+            // second transformation * first transformation
+            m = currentTransformations[i] * m;
+        }
+
+		return m;
     }
 
     public void ResetTotal()
