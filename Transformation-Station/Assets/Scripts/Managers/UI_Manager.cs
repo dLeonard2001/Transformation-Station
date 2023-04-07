@@ -33,6 +33,12 @@ public class UI_Manager : MonoBehaviour
     private Matrix4x4 matrix_total;
     private Matrix4x4 matrix_subtotal;
 
+    private float valueCamDestination;
+    private float subvalueCamDestination;
+
+    private bool moveValue;
+    private bool moveSubvalue;
+
     // needed for raycast
     private Camera mainCamera;
     private Ray myRay;
@@ -49,6 +55,12 @@ public class UI_Manager : MonoBehaviour
         // hides screen values
         valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
         subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);
+
+        valueCamDestination = -1.0f;
+        subvalueCamDestination = -1.0f;
+
+        moveSubvalue = false;
+        moveValue = false;
     }
 
     private void Update()
@@ -75,8 +87,10 @@ public class UI_Manager : MonoBehaviour
                     SetValues();
                     
                     // show screen values
-                    valueCamera.rect = new Rect (-0.8f, 0.7f, 1, 1);
-                    subvalueCamera.rect = new Rect(-0.82f, -0.8f, 1, 1);
+                    valueCamDestination = -0.8f;
+                    moveValue = true;
+                    subvalueCamDestination = -0.82f;
+                    moveSubvalue = true;
                 }
             }
             else
@@ -98,8 +112,10 @@ public class UI_Manager : MonoBehaviour
                 SetSubtotal();
                 
                 // hide screen values
-                valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
-                subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);
+                valueCamDestination = -1.0f;
+                moveValue = true;
+                subvalueCamDestination = -1.0f;
+                moveSubvalue = true;
             }
 
         }
@@ -118,6 +134,19 @@ public class UI_Manager : MonoBehaviour
         }
 
         
+    }
+
+    private void FixedUpdate()
+    {
+        if (moveSubvalue)
+        {
+            MoveSubCam(subvalueCamDestination);
+        }
+
+        if (moveValue)
+        {
+            MoveValueCam(valueCamDestination);
+        }
     }
 
     #region CardFunctions
@@ -285,7 +314,7 @@ public class UI_Manager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                ui_matrix_values.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
+                ui_matrix_values.transform.GetChild(i+1).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
             }
         }
     }
@@ -296,8 +325,54 @@ public class UI_Manager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                ui_matrix_subvalues.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_subtotal[i, j].ToString("F2");
+                ui_matrix_subvalues.transform.GetChild(i+1).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_subtotal[i, j].ToString("F2");
             }
+        }
+    }
+
+    private void MoveSubCam(float destination)
+    {
+        if (subvalueCamera.rect.x < destination)
+        {
+            subvalueCamera.rect = new Rect((subvalueCamera.rect.x + 0.01f), -0.8f, 1, 1);
+        }
+        
+        if (subvalueCamera.rect.x == destination)
+        {
+            moveSubvalue = false;
+        }
+        
+        if (subvalueCamera.rect.x > destination)
+        {
+            subvalueCamera.rect = new Rect((subvalueCamera.rect.x - 0.01f), -0.8f, 1, 1);
+        }
+
+        if (subvalueCamera.rect.x == destination)
+        {
+            moveSubvalue = false;
+        }
+    }
+
+    private void MoveValueCam(float destination)
+    {
+        if (valueCamera.rect.x < destination)
+        {
+            valueCamera.rect = new Rect((valueCamera.rect.x + 0.01f),  0.7f, 1, 1);
+        }
+        
+        if (valueCamera.rect.x == destination)
+        {
+            moveValue = false;
+        }
+        
+        if (valueCamera.rect.x > destination)
+        {
+            valueCamera.rect = new Rect((valueCamera.rect.x - 0.01f),  0.7f, 1, 1);
+        }
+
+        if (valueCamera.rect.x == destination)
+        {
+            moveSubvalue = false;
         }
     }
 }
