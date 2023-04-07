@@ -18,12 +18,26 @@ public class UI_Manager : MonoBehaviour
     private static MatrixTransformation currentObject;
     private static GameObject currentCard;
 
+    [SerializeField] private Camera valueCamera;
+    [SerializeField] private Camera subvalueCamera;
+
     [Header("Color References")] 
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color selectedColor;
+    
+    [Header("Matrix Values")]
     [SerializeField] private GameObject ui_matrix_values;
 
+    [SerializeField] private GameObject ui_matrix_subvalues;
+
     private Matrix4x4 matrix_total;
+    private Matrix4x4 matrix_subtotal;
+
+    private float valueCamDestination;
+    private float subvalueCamDestination;
+
+    private bool moveValue;
+    private bool moveSubvalue;
 
     // needed for raycast
     private Camera mainCamera;
@@ -35,6 +49,17 @@ public class UI_Manager : MonoBehaviour
         mainCamera = Camera.main;
 
         matrix_total = Matrix4x4.identity;
+        matrix_subtotal = Matrix4x4.identity;
+        
+        // hides screen values
+        valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
+        subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);
+
+        valueCamDestination = -1.0f;
+        subvalueCamDestination = -1.0f;
+
+        moveSubvalue = false;
+        moveValue = false;
     }
 
     private void Update()
@@ -58,7 +83,13 @@ public class UI_Manager : MonoBehaviour
                     
                     // display the totals
                     matrix_total = currentObject.GetTotal();
-                    //SetValues();
+                    SetValues();
+                    
+                    // show screen values
+                    valueCamDestination = -0.8f;
+                    moveValue = true;
+                    subvalueCamDestination = -0.82f;
+                    moveSubvalue = true;
                 }
             }
             else
@@ -75,9 +106,46 @@ public class UI_Manager : MonoBehaviour
                 
                 // hide the totals
                 matrix_total = Matrix4x4.identity;
-                //SetValues();
+
+                matrix_subtotal = Matrix4x4.identity;
+                SetValues();
+                SetSubtotal();
+                
+                // hide screen values
+                valueCamDestination = -1.0f;
+                moveValue = true;
+                subvalueCamDestination = -1.0f;
+                moveSubvalue = true;
             }
 
+        }
+        // set screen values
+        if (currentObject != null)
+        {
+            matrix_total = currentObject.GetTotal();
+            SetValues();
+            
+            // set the subvalues
+            if (currentCard != null)
+            {
+                matrix_subtotal = currentObject.GetSubtotal((int) Char.GetNumericValue(currentCard.name[0]));
+                SetSubtotal();
+            }
+        }
+
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (moveSubvalue)
+        {
+            MoveSubCam(subvalueCamDestination);
+        }
+
+        if (moveValue)
+        {
+            MoveValueCam(valueCamDestination);
         }
     }
 
@@ -240,14 +308,72 @@ public class UI_Manager : MonoBehaviour
     }
 
     // sets the total values in the ui
-    // private void SetValues()
-    // {
-    //     for (int i = 0; i < 4; i++)
-    //     {
-    //         for (int j = 0; j < 4; j++)
-    //         {
-    //             ui_matrix_values.transform.GetChild(i).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
-    //         }
-    //     }
-    // }
+
+    private void SetValues()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                ui_matrix_values.transform.GetChild(i+1).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_total[i, j].ToString("F2");
+            }
+        }
+    }
+
+    private void SetSubtotal()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                ui_matrix_subvalues.transform.GetChild(i+1).GetChild(j).GetComponent<TMPro.TextMeshProUGUI>().text = matrix_subtotal[i, j].ToString("F2");
+            }
+        }
+    }
+
+    private void MoveSubCam(float destination)
+    {
+        if (subvalueCamera.rect.x < destination)
+        {
+            subvalueCamera.rect = new Rect((subvalueCamera.rect.x + 0.01f), -0.8f, 1, 1);
+        }
+        
+        if (subvalueCamera.rect.x == destination)
+        {
+            moveSubvalue = false;
+        }
+        
+        if (subvalueCamera.rect.x > destination)
+        {
+            subvalueCamera.rect = new Rect((subvalueCamera.rect.x - 0.01f), -0.8f, 1, 1);
+        }
+
+        if (subvalueCamera.rect.x == destination)
+        {
+            moveSubvalue = false;
+        }
+    }
+
+    private void MoveValueCam(float destination)
+    {
+        if (valueCamera.rect.x < destination)
+        {
+            valueCamera.rect = new Rect((valueCamera.rect.x + 0.01f),  0.7f, 1, 1);
+        }
+        
+        if (valueCamera.rect.x == destination)
+        {
+            moveValue = false;
+        }
+        
+        if (valueCamera.rect.x > destination)
+        {
+            valueCamera.rect = new Rect((valueCamera.rect.x - 0.01f),  0.7f, 1, 1);
+        }
+
+        if (valueCamera.rect.x == destination)
+        {
+            moveSubvalue = false;
+        }
+    }
 }
