@@ -47,4 +47,7 @@ MonoBehaviour:
   cardParent: {fileID: 0}
   ui_card_prefab: {fileID: 8562319326803130994, guid: 7da1380ce9fdbb247b2e2d85e32fcc09,
     type: 3}
-  ui_animator: {fileID: 0}
+  animControlBoard: {fileID: 0}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0.29411766}
+  selectedColor: {r: 1, g: 0.86857516, b: 0.2216981, a: 0.29411766}
+  ui_matrix_values: {fileID: 0}
