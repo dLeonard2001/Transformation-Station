@@ -7,25 +7,24 @@ public class LevelLoader : MonoBehaviour
 {
 
     [SerializeField] private Animator transition;
-    [SerializeField] private string sceneNameToLoad = "SceneStart";
     [SerializeField] private int transitionTime = 1;
     
     private static readonly int Start = Animator.StringToHash("Start");
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            LoadNextLevel();
-        }
+        // if (Input.GetKeyDown(KeyCode.RightShift))
+        // {
+        //     LoadNextLevel();
+        // }
     }
 
-    private void LoadNextLevel()
+    public void LoadLevel(string sceneName)
     {
-        StartCoroutine(LoadLevel(sceneNameToLoad));
+        StartCoroutine(LoadNextLevel(sceneName));
     }
 
-    IEnumerator LoadLevel(string sceneName)
+    IEnumerator LoadNextLevel(string sceneName)
     {
         if (sceneName.Equals("Debug"))
         {
@@ -37,6 +36,6 @@ public class LevelLoader : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
     }
 }
