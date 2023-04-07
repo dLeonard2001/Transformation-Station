@@ -53,7 +53,7 @@ public class MatrixTransformation : MonoBehaviour
 
         m = origin * m;
 
-        _transform.localScale = m.lossyScale;
+        _transform.localScale = GetMatrixScale(m);
         _transform.rotation = Quaternion.Euler(m.rotation.eulerAngles);
         _transform.position = m.GetPosition();
     }
@@ -133,15 +133,20 @@ public class MatrixTransformation : MonoBehaviour
     // simple reset function (doesn't account for the origin)
     public void Reset()
     {
-        _transform.position = Matrix4x4.identity.GetPosition();
-        _transform.rotation = Matrix4x4.identity.rotation;
-        _transform.localScale = Matrix4x4.identity.lossyScale;
+        _transform.position = origin.GetPosition();
+        _transform.rotation = origin.rotation;
+        _transform.localScale = GetMatrixScale(origin);
         
         // reset the total
         totalTransformations = Matrix4x4.identity;
     }
 
     #region makeScaleTransformation
+
+    private Vector3 GetMatrixScale(Matrix4x4 m)
+    {
+        return new Vector3(m.m00, m.m11, m.m22);
+    }
 
     // scale transformation
         // | sx  0   0   0 |

@@ -169,7 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transition: {fileID: 2021815840729629795}
-  sceneNameToLoad: SceneStart
   transitionTime: 1
 --- !u!1 &365527698926446820
 GameObject:
