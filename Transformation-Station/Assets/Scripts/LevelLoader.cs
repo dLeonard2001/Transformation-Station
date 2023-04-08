@@ -11,14 +11,6 @@ public class LevelLoader : MonoBehaviour
     
     private static readonly int Start = Animator.StringToHash("Start");
 
-    void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.RightShift))
-        // {
-        //     LoadNextLevel();
-        // }
-    }
-
     public void LoadLevel(string sceneName)
     {
         StartCoroutine(LoadNextLevel(sceneName));
