@@ -5,19 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/MainGame/Menu/Scenes/Menu.unity
+    path: Assets/Scenes/Menu/Scenes/Menu.unity
     guid: 5b8a1a3008869574aa2bb1f84950010a
   - enabled: 1
-    path: Assets/Scenes/MainGame/Menu/Scenes/PuzzleMode.unity
+    path: Assets/Scenes/Menu/Scenes/PuzzleMode.unity
     guid: 111b3a155a0e71240a2a97c6434f7c35
   - enabled: 1
-    path: Assets/Jason/SceneTransitionDemo/SceneStart.unity
-    guid: 9e9e5b4c4c657c84a86e50cef81b1427
-  - enabled: 1
-    path: Assets/Jason/SceneTransitionDemo/SceneEnd.unity
-    guid: b16261dd2ed2ad342b91324293e5ab89
+    path: Assets/Scenes/MainGame/Basic Puzzles/Level_1.unity
+    guid: 4e94a8c117c7b3c429253792b8f2ee89
   m_configObjects: {}
