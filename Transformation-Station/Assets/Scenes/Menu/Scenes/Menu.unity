@@ -1549,6 +1549,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea9fe4f87ac474c8e97f8f8d66e4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1642820074 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 365527697814754873, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1762555830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1762555830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1556,6 +1562,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 365527697814754868, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 365527698232494961, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
         type: 3}
       propertyPath: m_Name
@@ -1614,6 +1625,16 @@ PrefabInstance:
     - target: {fileID: 365527698232494966, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 365527698232494967, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+        type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 1642820074}
+    - target: {fileID: 3690675908850869153, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
