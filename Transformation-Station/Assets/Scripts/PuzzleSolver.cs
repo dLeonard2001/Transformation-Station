@@ -25,8 +25,15 @@ public class PuzzleSolver : MonoBehaviour
         if (CheckPosition() && CheckRotation() && CheckScale())
         {
             // completed a puzzle
-            Debug.Log("puzzle finished");
+            PassPuzzle();
         }
+    }
+
+    private void PassPuzzle()
+    {
+        // insert whatever you want when the player finishes the a puzzle
+            // for now it only prints to the console that we have passed the level
+        Debug.Log("A puzzle was completed");
     }
 
     private bool CheckPosition()
