@@ -46,7 +46,7 @@ public class MatrixTransformation : MonoBehaviour
             return;
         
         // first matrix in sequence
-        Matrix4x4 m = Matrix4x4.identity;
+        Matrix4x4 m = origin;
 
         // multiply all matrices into one matrix, right to left style
         for (int i = 0; i < index + 1; i++)
@@ -55,11 +55,8 @@ public class MatrixTransformation : MonoBehaviour
             m = currentTransformations[i] * m;
         }
 
-		    // set total values
-		    totalTransformations = m;
-
-        _transform.localScale = m.lossyScale;
-        m = origin * m;
+        // set total values
+        totalTransformations = m;
 
         _transform.localScale = GetMatrixScale(m);
         _transform.rotation = Quaternion.Euler(m.rotation.eulerAngles);
@@ -153,7 +150,7 @@ public class MatrixTransformation : MonoBehaviour
 
     private Vector3 GetMatrixScale(Matrix4x4 m)
     {
-        return new Vector3(m.m00, m.m11, m.m22);
+        return m.lossyScale;
     }
 
     // scale transformation
