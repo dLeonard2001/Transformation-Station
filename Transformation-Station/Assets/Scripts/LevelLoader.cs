@@ -7,7 +7,7 @@ public class LevelLoader : MonoBehaviour
 {
 
     [SerializeField] private Animator transition;
-    [SerializeField] private int transitionTime = 1;
+    [SerializeField] private int transitionTime = 2;
     
     private static readonly int Start = Animator.StringToHash("Start");
 
