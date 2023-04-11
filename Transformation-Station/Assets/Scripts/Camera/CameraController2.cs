@@ -5,6 +5,8 @@ namespace RuntimeSceneGizmo
 {
     public class CameraController2 : MonoBehaviour
     {
+        [SerializeField] private bool TutorialMode = false;
+        
         [SerializeField] private Transform mainCamera;
         
         // Negative values so the camera faces and sees the mapOrigin rather than overshooting it (using positive values) 
@@ -24,12 +26,12 @@ namespace RuntimeSceneGizmo
         private void Awake()
         {
             mainCamParent = Camera.main.transform.parent;
-            
-            
         }
 
         private void Update()
         {
+            if (TutorialMode) return;
+            
             CameraShift();
             
             float horizontal = -Input.GetAxis("Horizontal");
@@ -52,6 +54,8 @@ namespace RuntimeSceneGizmo
 
         private void LateUpdate()
         {
+            if (TutorialMode) return;
+            
             // Note: The camera is looking in the direction of the camera parent game object
             // Zooming in and out using the main camera's local position based on scroll wheel input
             float scroll = Input.GetAxis("Mouse ScrollWheel");
