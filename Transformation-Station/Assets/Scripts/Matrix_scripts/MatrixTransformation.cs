@@ -305,12 +305,21 @@ public class MatrixTransformation : MonoBehaviour
             // also cannot have zero transformations
         if (UI_Manager.HasCardSelected() && GetSize() != 0)
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            
             // gets the current input
             float inputVal = DirectionalInput();
             
             // apply the current input
             UI_Manager.UpdateCardValue(Mathf.Clamp(inputVal, -1, 1));
         }
+    }
+
+    private void OnMouseUp()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // get directional input depending on the type of transformation
