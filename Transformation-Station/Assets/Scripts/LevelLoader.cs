@@ -10,9 +10,16 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private int transitionTime = 1;
     
     private static readonly int Start = Animator.StringToHash("Start");
+    
+    [SerializeField] private AudioSource sceneStartSource;
+
+    [SerializeField] private AudioClip sceneStartSound;
 
     public void LoadLevel(string sceneName)
     {
+        // play the "SceneStart" sound
+        sceneStartSource.PlayOneShot(sceneStartSound);
+
         StartCoroutine(LoadNextLevel(sceneName));
     }
 

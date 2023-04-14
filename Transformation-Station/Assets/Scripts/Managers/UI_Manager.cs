@@ -39,6 +39,28 @@ public class UI_Manager : MonoBehaviour
     private bool moveValue;
     private bool moveSubvalue;
 
+    [Header("UI Sounds")] 
+    [SerializeField] private AudioSource openBoardSource;
+
+    [SerializeField] private AudioSource closeBoardSource;
+    
+    [SerializeField] private AudioSource selectCardSource;
+
+    [SerializeField] private AudioSource changeCardTypeSource;
+
+    [SerializeField] private AudioSource deleteCardSource;
+
+    [SerializeField] private AudioClip openBoardSound;
+
+    [SerializeField] private AudioClip closeBoardSound;
+    
+    [SerializeField] private AudioClip selectCardSound;
+
+    [SerializeField] private AudioClip changeCardTypeSound;
+
+    [SerializeField] private AudioClip deleteCardSound;
+    
+
     // needed for raycast
     private Camera mainCamera;
     private Ray myRay;
@@ -90,6 +112,9 @@ public class UI_Manager : MonoBehaviour
                     moveValue = true;
                     subvalueCamDestination = -0.82f;
                     moveSubvalue = true;
+                    
+                    // play the "OpenBoard" sound
+                    openBoardSource.PlayOneShot(openBoardSound);
                 }
             }
             else
@@ -116,6 +141,8 @@ public class UI_Manager : MonoBehaviour
                 moveValue = true;
                 subvalueCamDestination = -1.0f;
                 moveSubvalue = true;
+                
+                // play the "CloseBoard" sound
             }
 
         }
@@ -168,6 +195,9 @@ public class UI_Manager : MonoBehaviour
         currentObject.RemoveMatrix(index);
         
         UpdateCardNames();
+        
+        // play the "DeleteCard" sound
+        deleteCardSource.PlayOneShot(deleteCardSound);
     }
 
     // update card names to match the correct index position
@@ -290,8 +320,10 @@ public class UI_Manager : MonoBehaviour
             }
 
             // adjust the second screen
-        matrix_total = currentObject.GetTotal();
-        //SetValues();
+            matrix_total = currentObject.GetTotal();
+            
+            // play the "SelectCard" sound
+            selectCardSource.PlayOneShot(selectCardSound);
     }
 
     // returns the type of transformation on the current card
@@ -375,5 +407,11 @@ public class UI_Manager : MonoBehaviour
         {
             moveSubvalue = false;
         }
+    }
+
+    public void PlayChangeSound()
+    {
+        // play the "ChangeCardType" sound
+        changeCardTypeSource.PlayOneShot(changeCardTypeSound);
     }
 }

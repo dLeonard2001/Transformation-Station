@@ -11,6 +11,10 @@ public class PuzzleSolver : MonoBehaviour
     [SerializeField] [Range(1, 0)] private float errorMargin;
     [SerializeField] private Transform puzzleSolution;
     [SerializeField] private Transform puzzlePieces;
+    
+    [SerializeField] private AudioSource levelCompleteSource;
+
+    [SerializeField] private AudioClip levelCompleteSound;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,9 @@ public class PuzzleSolver : MonoBehaviour
         // insert whatever you want when the player finishes the a puzzle
             // for now it only prints to the console that we have passed the level
         Debug.Log("A puzzle was completed");
+        
+        // play the "LevelComplete" sound
+        levelCompleteSource.PlayOneShot(levelCompleteSound);
     }
 
     private bool CheckPosition()

@@ -40,6 +40,9 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
         char value = dropdown.captionText.text[^1];
         TextMeshProUGUI tmp = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         
+        // play the changesound
+        ui_manager.PlayChangeSound();
+        
         switch (value)
         {
             case 'X':
