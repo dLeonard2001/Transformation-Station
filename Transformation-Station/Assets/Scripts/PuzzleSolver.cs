@@ -12,6 +12,10 @@ public class PuzzleSolver : MonoBehaviour
     [SerializeField] [Range(1, 0)] private float errorMargin;
     [SerializeField] private Transform puzzleSolution;
     [SerializeField] private Transform puzzlePieces;
+    
+    [SerializeField] private AudioSource levelCompleteSource;
+
+    [SerializeField] private AudioClip levelCompleteSound;
 
     private ParticleSystem particle;
     private bool isFinished;
@@ -45,6 +49,9 @@ public class PuzzleSolver : MonoBehaviour
     {
         isFinished = true;
         // insert whatever you want when the player finishes the a puzzle
+
+        // play the "LevelComplete" sound
+        
         // for now it only prints to the console that we have passed the level
 
         float time = 20;
@@ -54,6 +61,7 @@ public class PuzzleSolver : MonoBehaviour
             if (Mathf.FloorToInt(time) % 5 == 0)
             {
                 particle.Play();
+                levelCompleteSource.PlayOneShot(levelCompleteSound);
             }
 
             yield return new WaitForSeconds(1);
