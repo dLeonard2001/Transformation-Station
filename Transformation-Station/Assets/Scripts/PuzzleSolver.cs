@@ -7,9 +7,8 @@ using UnityEngine;
 public class PuzzleSolver : MonoBehaviour
 {
     [Tooltip("How much the object must be correct in order to pass the puzzle \n" +
-             "1 = 100% correctness needed \n" +
-             "0 = 0% correctness needed")]
-    [SerializeField] [Range(1, 0)] private float errorMargin;
+             "This represents the number of units the object can be incorrect for position and rotation")]
+    [SerializeField] [Range(10, 0)] private float errorMargin;
     [SerializeField] private Transform puzzleSolution;
     [SerializeField] private Transform puzzlePieces;
     
