@@ -17,9 +17,6 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string sceneName)
     {
-        // play the "SceneStart" sound
-        sceneStartSource.PlayOneShot(sceneStartSound);
-
         StartCoroutine(LoadNextLevel(sceneName));
     }
 
@@ -36,5 +33,10 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        
+        yield return new WaitForSeconds(2.0f);
+        
+        // play the "SceneStart" sound
+        sceneStartSource.PlayOneShot(sceneStartSound);
     }
 }

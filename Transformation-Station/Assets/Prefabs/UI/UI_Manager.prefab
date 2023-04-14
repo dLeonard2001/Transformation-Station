@@ -48,6 +48,24 @@ MonoBehaviour:
   ui_card_prefab: {fileID: 8562319326803130994, guid: 7da1380ce9fdbb247b2e2d85e32fcc09,
     type: 3}
   animControlBoard: {fileID: 0}
+  valueCamera: {fileID: 0}
+  subvalueCamera: {fileID: 0}
   defaultColor: {r: 1, g: 1, b: 1, a: 0.29411766}
   selectedColor: {r: 1, g: 0.86857516, b: 0.2216981, a: 0.29411766}
   ui_matrix_values: {fileID: 0}
+  ui_matrix_subvalues: {fileID: 0}
+  openBoardSource: {fileID: 7892788027498670792, guid: 0687c005113b039409c28e1f71285b5d,
+    type: 3}
+  closeBoardSource: {fileID: 8900867933941522508, guid: 1a07c97d5894eec42ae734cfae279c4d,
+    type: 3}
+  selectCardSource: {fileID: 2331586145600832691, guid: 1fe51d8b0a53b9a46afefe61d898035a,
+    type: 3}
+  changeCardTypeSource: {fileID: 5604846546834495165, guid: ff16a43d14fa6474a9beb6422dddfd17,
+    type: 3}
+  deleteCardSource: {fileID: 6605339624469830704, guid: f6e1c759468ce2045a29bbf02c894b15,
+    type: 3}
+  openBoardSound: {fileID: 8300000, guid: ab3ee6403cf2fe14e9358d08b0600376, type: 3}
+  closeBoardSound: {fileID: 8300000, guid: 2d625eaa236a88540afc4f3a3f729384, type: 3}
+  selectCardSound: {fileID: 8300000, guid: 3c3fcad6376049a49a8fa42aeecfe002, type: 3}
+  changeCardTypeSound: {fileID: 8300000, guid: 043c9f4f2b2981e45b9de1cbf952b952, type: 3}
+  deleteCardSound: {fileID: 8300000, guid: 2519e9e2f4a8ed84e9dfa7d37d5ab114, type: 3}

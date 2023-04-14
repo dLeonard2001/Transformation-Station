@@ -59,7 +59,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private AudioClip changeCardTypeSound;
 
     [SerializeField] private AudioClip deleteCardSound;
-    
+
 
     // needed for raycast
     private Camera mainCamera;
