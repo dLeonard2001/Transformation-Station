@@ -56,11 +56,12 @@ public class PuzzleSolver : MonoBehaviour
                 particle.Play();
             }
 
-            time -= Time.deltaTime;
-            yield return null;
+            yield return new WaitForSeconds(1);
+
+            time--;
         }
 
-        Debug.Log("passed");
+        Debug.Log("puzzle solved ");
     }
 
     private bool CheckPosition()
