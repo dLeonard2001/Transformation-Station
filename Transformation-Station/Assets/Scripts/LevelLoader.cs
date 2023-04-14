@@ -20,6 +20,8 @@ public class LevelLoader : MonoBehaviour
     private void Start()
     {
         // play the "SceneStart" sound
+
+        AudioListener.volume = 1;
         
         if(playStartSound) 
             sceneStartSource.PlayOneShot(sceneStartSound);
@@ -39,6 +41,21 @@ public class LevelLoader : MonoBehaviour
         }
         
         transition.SetTrigger(fadeIn);
+
+        float time = 2;
+
+        while (time >= 0)
+        {
+            AudioListener.volume -= Time.fixedDeltaTime;
+            
+            Debug.Log(AudioListener.volume);
+
+            time -= Time.fixedDeltaTime;
+
+            yield return null;
+        }
+
+        AudioListener.volume = 0;
 
         yield return new WaitForSeconds(transitionTime);
 
