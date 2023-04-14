@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -44,6 +45,11 @@ public class UI_Manager : MonoBehaviour
     private Ray myRay;
     private RaycastHit hitTarget;
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -68,7 +74,7 @@ public class UI_Manager : MonoBehaviour
         {
             // make ray from camera to where mouseclick
             myRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-
+            
             if (Physics.Raycast(myRay, out hitTarget, Mathf.Infinity))
             {
                 // check if clicked object should have a board
