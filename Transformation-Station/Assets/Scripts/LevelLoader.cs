@@ -9,7 +9,7 @@ public class LevelLoader : MonoBehaviour
     public static Action FinishedLevel;
     
     [SerializeField] private Animator transition;
-    [SerializeField] private int transitionTime = 1;
+    [SerializeField] private int transitionTime = 2;
     
     private static readonly int fadeIn = Animator.StringToHash("Start");
     
