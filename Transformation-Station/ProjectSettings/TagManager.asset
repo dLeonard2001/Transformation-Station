@@ -7,6 +7,7 @@ TagManager:
   - Planet
   - Wall
   - Canvas
+  - TrackingObject
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Matrix
-  - 
+  - Post-Processing
   - 
   - 
   - 

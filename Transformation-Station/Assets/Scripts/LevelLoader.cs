@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-
+    public static Action FinishedLevel;
+    
     [SerializeField] private Animator transition;
     [SerializeField] private int transitionTime = 2;
     
@@ -21,6 +23,8 @@ public class LevelLoader : MonoBehaviour
     {
         // play the "SceneStart" sound
 
+        FinishedLevel = LoadNextLevel;
+
         AudioListener.volume = 1;
         
         if(playStartSound) 
@@ -29,17 +33,11 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string sceneName)
     {
-        StartCoroutine(LoadNextLevel(sceneName));
+        StartCoroutine(LoadNextScene(sceneName));
     }
 
-    IEnumerator LoadNextLevel(string sceneName)
+    IEnumerator LoadNextScene(string sceneName)
     {
-        if (sceneName.Equals("Debug"))
-        {
-            Debug.Log("Debugging: Choose scene name to transition");
-            yield break;
-        }
-        
         transition.SetTrigger(fadeIn);
 
         float time = 2;
@@ -60,6 +58,35 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-
     }
+    
+    IEnumerator LoadNextScene(int i)
+    {
+        transition.SetTrigger(fadeIn);
+
+        float time = 2;
+
+        while (time >= 0)
+        {
+            AudioListener.volume -= Time.fixedDeltaTime;
+            
+            Debug.Log(AudioListener.volume);
+
+            time -= Time.fixedDeltaTime;
+
+            yield return null;
+        }
+
+        AudioListener.volume = 0;
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadSceneAsync(i, LoadSceneMode.Single);
+    }
+
+    private void LoadNextLevel()
+    {
+        StartCoroutine(LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
 }

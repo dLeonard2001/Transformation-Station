@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PuzzleSolver : MonoBehaviour
 {
@@ -53,12 +54,13 @@ public class PuzzleSolver : MonoBehaviour
         
         // for now it only prints to the console that we have passed the level
 
-        float time = 20;
+        float time = 4;
 
-        while (time >= 0)
+        while (time > 0)
         {
-            if (Mathf.FloorToInt(time) % 5 == 0)
+            if (Mathf.FloorToInt(time) % 2 == 0)
             {
+                Debug.Log(time);
                 particle.Play();
                 levelCompleteSource.PlayOneShot(levelCompleteSound);
             }
@@ -68,7 +70,9 @@ public class PuzzleSolver : MonoBehaviour
             time--;
         }
 
-        Debug.Log("puzzle solved ");
+        yield return new WaitForSeconds(0.5f);
+        
+        LevelLoader.FinishedLevel.Invoke();
     }
 
     private bool CheckPosition()
