@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame/Basic Puzzles/Level_1.unity
     guid: 4e94a8c117c7b3c429253792b8f2ee89
+  - enabled: 1
+    path: Assets/Scenes/MainGame/Basic Puzzles/Level_2.unity
+    guid: f3d86d3e9ea4c7e40963cb32cb0c112a
+  - enabled: 1
+    path: Assets/Scenes/MainGame/Basic Puzzles/Level_3.unity
+    guid: 529a9287dd957454eb1e87f3e2ac7563
   m_configObjects: {}
