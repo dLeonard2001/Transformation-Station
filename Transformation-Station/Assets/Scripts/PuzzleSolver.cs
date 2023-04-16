@@ -16,6 +16,8 @@ public class PuzzleSolver : MonoBehaviour
 
     [SerializeField] private AudioClip levelCompleteSound;
 
+    [SerializeField] private GameObject levelFinishedUI;
+
     private ParticleSystem particle;
     private bool isFinished;
 
@@ -61,6 +63,10 @@ public class PuzzleSolver : MonoBehaviour
             {
                 particle.Play();
                 levelCompleteSource.PlayOneShot(levelCompleteSound);
+                
+                // Using a the UI pop up card prefab to notify that the player completed the level
+                if (levelFinishedUI) levelFinishedUI.SetActive(true);
+                else Debug.Log("Missing UI pop up card prefab");
             }
 
             yield return new WaitForSeconds(1);
