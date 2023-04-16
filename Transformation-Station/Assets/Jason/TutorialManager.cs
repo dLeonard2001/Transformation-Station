@@ -23,9 +23,6 @@ public class TutorialManager : MonoBehaviour
 
     private void SetActiveCardUI(bool x)
     {
-        // Missing UI popup card or index out of range
-        if (_tutorialProgress >= tutorialCardsUI.Length) return;
-
         if (_tutorialProgress < tutorialCardsUI.Length && tutorialCardsUI[_tutorialProgress])
         {
             tutorialCardsUI[_tutorialProgress].SetActive(x);
@@ -34,6 +31,9 @@ public class TutorialManager : MonoBehaviour
 
     public void PauseGame()
     {
+        // Missing UI popup card or index out of range or if there is no more tutorial
+        if (_tutorialProgress >= tutorialCardsUI.Length) return;
+        
         _tutorialMode = true;
 
         SetActiveCardUI(_tutorialMode);
