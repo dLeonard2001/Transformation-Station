@@ -27,15 +27,12 @@ public class TutorialManager : MonoBehaviour
         {
             tutorialCardsUI[_tutorialProgress].SetActive(x);
         }
-        else
-        {
-            Debug.Log($"GameObject DNE or index out of range");
-        }
     }
 
     public void PauseGame()
     {
-        Debug.Log("Game has been paused!");
+        // Missing UI popup card or index out of range or if there is no more tutorial
+        if (_tutorialProgress >= tutorialCardsUI.Length) return;
         
         _tutorialMode = true;
 
@@ -44,8 +41,6 @@ public class TutorialManager : MonoBehaviour
     
     public void UnPauseGame()
     {
-        Debug.Log("Game has been unpaused!");
-        
         _tutorialMode = false;
         
         SetActiveCardUI(_tutorialMode);
