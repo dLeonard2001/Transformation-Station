@@ -1005,7 +1005,7 @@ PrefabInstance:
     - target: {fileID: 2512815868768059489, guid: 8b18bb4f15ab12e468b1ba0fcbd47d1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 112
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2512815868768059489, guid: 8b18bb4f15ab12e468b1ba0fcbd47d1d,
         type: 3}
@@ -2462,6 +2462,7 @@ RectTransform:
   m_Children:
   - {fileID: 1758639362}
   - {fileID: 1457760503}
+  - {fileID: 1917218444}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2547,11 +2548,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 40.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40.4
+      objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: This time you have more access to other transformation types. Try using
-        different combinations to get the object to its destination.
+      value: At this point, you have access to additional transformation types. We
+        encourage you to experiment with different combinations in order to successfully
+        move the object to its destination
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2611,12 +2623,12 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 863.963
+      value: 949.423
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 442.452
+      value: 544
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2661,7 +2673,7 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -272
+      value: -220.04523
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -4179,18 +4191,19 @@ PrefabInstance:
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSize
-      value: 43.21
+      value: 30.3
       objectReference: {fileID: 0}
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 43.21
+      value: 30.3
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: On the top left, you will see a 4 by 4 (4x4) matrix. This matrix will
-        show you ALL the transformation values being applied to an object.
+      value: Located on the upper left side, there is a 4 by 4 matrix that displays
+        all of the transformation values that are currently being applied to the
+        object.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -4310,12 +4323,12 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -207
+      value: -205
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 336.81
+      value: 306.17
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -6940,18 +6953,18 @@ PrefabInstance:
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSize
-      value: 43.21
+      value: 30.9
       objectReference: {fileID: 0}
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 43.21
+      value: 30.9
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: On the bottom left, you'll see another 4x4 matrix. This should the individual
-        transformation you're applying to an object
+      value: Meanwhile, the lower left side shows another 4 by 4 matrix that displays
+        the individual transformation that you are currently applying to the object.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -7031,12 +7044,12 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 671.4
+      value: 716.379
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 447.735
+      value: 474.722
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -7076,12 +7089,12 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -640.39
+      value: -601.81
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -120.598
+      value: -117.87
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -7188,6 +7201,131 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1889263889}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1917218443
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 966998877}
+    m_Modifications:
+    - target: {fileID: 81323424172072486, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_Name
+      value: Game HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f0265b327d41804e8805b7dc56ac34a, type: 3}
+--- !u!224 &1917218444 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1917218443}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1975587021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7283,20 +7421,21 @@ PrefabInstance:
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSize
-      value: 43.21
+      value: 40.4
       objectReference: {fileID: 0}
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 43.21
+      value: 40.4
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: "If you noticed, there is a gizmo on the top right of your screen. By
-        clicking on the gizmo or using the `WASD` keys, you can move the camera around.
-        The red sphere is the camera's origin point. \nTry scrolling to see the room
-        better."
+      value: Please be advised that there is a gizmo located on the upper right side
+        of your screen, which can be operated by either clicking on it or using the
+        WASD keys. This gizmo enables you to move the camera around, with the red
+        sphere serving as the camera's origin point. Please try scrolling to locate
+        the objects in the room
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -7371,12 +7510,12 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1060.63
+      value: 1184.15
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 625.949
+      value: 710.463
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -7441,7 +7580,7 @@ PrefabInstance:
     - target: {fileID: 9161914380576579752, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -7.000122
+      value: -7.0001526
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83393c050cd3c204782e6c34cf537e44, type: 3}
@@ -8254,7 +8393,7 @@ PrefabInstance:
     - target: {fileID: 2512815868768059489, guid: 8b18bb4f15ab12e468b1ba0fcbd47d1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 66.25
+      value: 80.5
       objectReference: {fileID: 0}
     - target: {fileID: 2512815868768059489, guid: 8b18bb4f15ab12e468b1ba0fcbd47d1d,
         type: 3}

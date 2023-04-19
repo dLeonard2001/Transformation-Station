@@ -2448,6 +2448,7 @@ RectTransform:
   m_Children:
   - {fileID: 1758639362}
   - {fileID: 1457760503}
+  - {fileID: 1498461766}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2503,12 +2504,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36.7
+      objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: The bottom panel is where you will apply many different transformations
-        to the selected object. Click the green plus button to the right of the control
-        panel.
+      value: The lower panel is where you can apply a diverse set of transformations
+        to the currently selected object. To add a new transformation, kindly click
+        on the green plus button located on the right-hand side of the control panel.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2568,12 +2579,12 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 863.963
+      value: 935.474
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 442.452
+      value: 585.475
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2618,7 +2629,7 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -272
+      value: -184.37479
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -4116,9 +4127,10 @@ PrefabInstance:
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: You just added a matrix card. In order to apply the desired transformation,
-        select the card then drag the object. For now you only can translate on the
-        objects local x axis.
+      value: Congratulations, a matrix card has been successfully added. In order
+        to implement the desired transformation, please select the card, and then
+        drag the object. At this stage, you can only perform translations on the
+        object's local x-axis.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -5105,6 +5117,131 @@ PrefabInstance:
       objectReference: {fileID: 419492655}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a, type: 3}
+--- !u!1001 &1498461765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 966998877}
+    m_Modifications:
+    - target: {fileID: 81323424172072486, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_Name
+      value: Game HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f0265b327d41804e8805b7dc56ac34a, type: 3}
+--- !u!224 &1498461766 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1498461765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1566441892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6934,18 +7071,19 @@ PrefabInstance:
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSize
-      value: 43.21
+      value: 46.8
       objectReference: {fileID: 0}
     - target: {fileID: 8744802776379088372, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 43.21
+      value: 46.8
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: Welcome! Lets move that spaceship to its desired placement. Go ahead
-        and click on the left object. (Click close button to exit)
+      value: Greetings. Your objective is to manipulate an object and move it to
+        a target position by using a variety of transformations. Please initiate
+        the process by selecting the left object.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -6971,6 +7109,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 9161914380421423476, guid: 83393c050cd3c204782e6c34cf537e44,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030296, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
