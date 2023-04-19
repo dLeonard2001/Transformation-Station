@@ -1479,7 +1479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &645863177
 Transform:
   m_ObjectHideFlags: 0
@@ -5476,8 +5476,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 789.65
-  m_Range: 36.62942
+  m_Intensity: 250
+  m_Range: 646.9
   m_SpotAngle: 78.06669
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
