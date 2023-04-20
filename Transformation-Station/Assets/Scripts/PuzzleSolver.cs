@@ -67,8 +67,12 @@ public class PuzzleSolver : MonoBehaviour
                 levelCompleteSource.PlayOneShot(levelCompleteSound);
                 
                 // Using a the UI pop up card prefab to notify that the player completed the level
-                if (levelFinishedUI) levelFinishedUI.SetActive(true);
-                else Debug.Log("Missing UI pop up card prefab");
+                if (levelFinishedUI)
+                {
+                    levelFinishedUI.SetActive(true);
+                    break;
+                }
+                Debug.Log("Missing UI pop up card prefab");
             }
 
             yield return new WaitForSeconds(1);
