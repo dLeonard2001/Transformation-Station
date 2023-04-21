@@ -5,7 +5,9 @@ namespace RuntimeSceneGizmo
 {
     public class CameraController2 : MonoBehaviour
     {
-        [SerializeField] private bool TutorialMode = false;
+        [SerializeField] private bool RestrictRotate = false;
+        [SerializeField] private bool RestrictShift = false;
+        [SerializeField] private bool RestrictZoom = false;
         
         [SerializeField] private Transform mainCamera;
         
@@ -30,9 +32,9 @@ namespace RuntimeSceneGizmo
 
         private void Update()
         {
-            if (TutorialMode) return;
-            
             CameraShift();
+
+            if (RestrictRotate) return;
             
             float horizontal = -Input.GetAxis("Horizontal");
             float vertical = -Input.GetAxis("Vertical");
@@ -54,7 +56,7 @@ namespace RuntimeSceneGizmo
 
         private void LateUpdate()
         {
-            if (TutorialMode) return;
+            if (RestrictZoom) return;
             
             // Note: The camera is looking in the direction of the camera parent game object
             // Zooming in and out using the main camera's local position based on scroll wheel input
@@ -75,6 +77,8 @@ namespace RuntimeSceneGizmo
 
         private void CameraShift()
         {
+            if (RestrictShift) return;
+            
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 Vector3 mPos = mainCamParent.position;
