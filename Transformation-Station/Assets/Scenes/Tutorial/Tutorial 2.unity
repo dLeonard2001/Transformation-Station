@@ -2561,9 +2561,9 @@ PrefabInstance:
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: At this point, you have access to additional transformation types. We
-        encourage you to experiment with different combinations in order to successfully
-        move the object to its destination
+      value: A new transformation type has been added to your arsenal, which will
+        enable you to successfully complete the level you are currently on. To activate
+        this new transformation type, simply use the dropdown button.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2628,7 +2628,7 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 544
+      value: 564.67
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2673,7 +2673,7 @@ PrefabInstance:
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -220.04523
+      value: -209.71
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380529030303, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
@@ -2856,6 +2856,12 @@ PrefabInstance:
       propertyPath: subvalueCamera
       value: 
       objectReference: {fileID: 1807257083}
+    - target: {fileID: 2027684922078675697, guid: a5b550767283f3640a7113c1fc9b4f5a,
+        type: 3}
+      propertyPath: ui_card_prefab
+      value: 
+      objectReference: {fileID: 8562319326803130994, guid: 6d9c57debcd9f0f4b8b2062a7fc1daa0,
+        type: 3}
     - target: {fileID: 2027684922078675697, guid: a5b550767283f3640a7113c1fc9b4f5a,
         type: 3}
       propertyPath: openBoardSource
@@ -5260,7 +5266,7 @@ PrefabInstance:
     - target: {fileID: 2207789449435392892, guid: 467ef9991f4abd6418da1d0e285bc0de,
         type: 3}
       propertyPath: RestrictShift
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2207789449435392892, guid: 467ef9991f4abd6418da1d0e285bc0de,
         type: 3}
