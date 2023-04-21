@@ -2574,6 +2574,12 @@ PrefabInstance:
       objectReference: {fileID: 1807257083}
     - target: {fileID: 2027684922078675697, guid: a5b550767283f3640a7113c1fc9b4f5a,
         type: 3}
+      propertyPath: ui_card_prefab
+      value: 
+      objectReference: {fileID: 8562319326803130994, guid: 0c6719079a173b04ea77fe1117df59da,
+        type: 3}
+    - target: {fileID: 2027684922078675697, guid: a5b550767283f3640a7113c1fc9b4f5a,
+        type: 3}
       propertyPath: openBoardSource
       value: 
       objectReference: {fileID: 1986580086}
