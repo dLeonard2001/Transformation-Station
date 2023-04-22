@@ -2770,7 +2770,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1758639362}
   - {fileID: 1457760503}
   - {fileID: 1917218444}
   m_Father: {fileID: 0}
@@ -3135,18 +3134,6 @@ Transform:
   m_Father: {fileID: 731846858}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1081267570 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2207789449435392891, guid: 467ef9991f4abd6418da1d0e285bc0de,
-    type: 3}
-  m_PrefabInstance: {fileID: 1566441892}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead9ad2f476f68c42bdaec7ed5239c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1090516686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5729,205 +5716,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1001 &1758639361
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 966998877}
-    m_Modifications:
-    - target: {fileID: 1378467028300716, guid: 5814e191475da55449e996c6052e2ef7, type: 3}
-      propertyPath: m_Name
-      value: GizmoRenderer
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_referenceTransform
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1081267570}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnGizmoComponentClicked
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: RuntimeSceneGizmo.CameraGizmoListener, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: RuntimeSceneGizmo.CameraGizmoListener, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 114355531903325768, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_onComponentClicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 267.178
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 267.178
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224808028645613936, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224808028645613936, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224808028645613936, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224808028645613936, guid: 5814e191475da55449e996c6052e2ef7,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5814e191475da55449e996c6052e2ef7, type: 3}
---- !u!224 &1758639362 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224153425668364128, guid: 5814e191475da55449e996c6052e2ef7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1758639361}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1781174296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7317,9 +7105,9 @@ PrefabInstance:
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
       propertyPath: m_text
-      value: Looks like your camera has been disabled. Sometimes that happens. The
-        red dot you see is the camera's origin point. You can move your origin point
-        up and down by using the `shift` and `space` keys.
+      value: Looks like your camera rotation has been disabled. Sometimes that happens.
+        The red dot you see is the camera's origin point. You can move your origin
+        point up and down by using the `shift` and `space` keys.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
