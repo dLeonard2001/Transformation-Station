@@ -2519,7 +2519,7 @@ PrefabInstance:
       propertyPath: m_text
       value: The lower panel is where you can apply a diverse set of transformations
         to the currently selected object. To add a new transformation, kindly click
-        on the green plus button located on the right-hand side of the control panel.
+        on the plus icon located on the right-hand side of the control panel.
       objectReference: {fileID: 0}
     - target: {fileID: 9161914380421423466, guid: 83393c050cd3c204782e6c34cf537e44,
         type: 3}
