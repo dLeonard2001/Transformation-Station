@@ -3259,6 +3259,7 @@ MonoBehaviour:
   puzzlePieces: {fileID: 785198640}
   levelCompleteSource: {fileID: 1986580081}
   levelCompleteSound: {fileID: 8300000, guid: e6d4c20110af0004ebfb0d496825b7ac, type: 3}
+  levelFinishedUI: {fileID: 0}
 --- !u!199 &1151962571
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -8629,6 +8630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261b445efd382d04eb6c99b9c77f068c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RestrictRotate: 0
+  RestrictShift: 0
+  RestrictZoom: 0
   mainCamera: {fileID: 1315681707}
   maxCamDistance: -10
   minCamDistance: -70

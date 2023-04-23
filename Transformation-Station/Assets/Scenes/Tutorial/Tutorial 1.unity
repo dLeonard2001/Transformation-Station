@@ -6870,7 +6870,7 @@ PrefabInstance:
     - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6871093454062994688, guid: 0f0265b327d41804e8805b7dc56ac34a,
         type: 3}
@@ -7885,7 +7885,7 @@ PrefabInstance:
     - target: {fileID: 6488397455836217595, guid: 09571f516ef19184ebf32f212891c8c9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6488397455836217595, guid: 09571f516ef19184ebf32f212891c8c9,
         type: 3}
@@ -8128,7 +8128,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9000081312944733210, guid: c5e12de1cf6ea5549bcffefa8f7e4f27,
         type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7965405915739582396, guid: 8b18bb4f15ab12e468b1ba0fcbd47d1d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8b18bb4f15ab12e468b1ba0fcbd47d1d, type: 3}
 --- !u!1 &2094667751 stripped
 GameObject:
