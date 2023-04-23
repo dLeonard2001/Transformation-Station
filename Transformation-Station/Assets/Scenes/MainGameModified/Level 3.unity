@@ -7375,7 +7375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb92217212ecc24c837716530a346e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  errorMargin: 0.1
+  errorMargin: 0.5
   puzzleSolution: {fileID: 0}
   puzzlePieces: {fileID: 480494215}
   levelCompleteSource: {fileID: 1986580081}
