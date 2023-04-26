@@ -39,6 +39,7 @@ public class UI_Manager : MonoBehaviour
 
     private bool moveValue;
     private bool moveSubvalue;
+    private bool hideCam;
 
     [Header("UI Sounds")] 
     [SerializeField] private AudioSource openBoardSource;
@@ -88,6 +89,7 @@ public class UI_Manager : MonoBehaviour
 
         moveSubvalue = false;
         moveValue = false;
+        hideCam = true;
     }
 
     private void Update()
@@ -118,7 +120,8 @@ public class UI_Manager : MonoBehaviour
                     moveValue = true;
                     subvalueCamDestination = -0.82f;
                     moveSubvalue = true;
-                    
+                    hideCam = false;
+
                     // play the "OpenBoard" sound
                     openBoardSource.PlayOneShot(openBoardSound);
                 }
@@ -147,7 +150,8 @@ public class UI_Manager : MonoBehaviour
                 moveValue = true;
                 subvalueCamDestination = -1.0f;
                 moveSubvalue = true;
-                
+                hideCam = true;
+
                 // play the "CloseBoard" sound
             }
 
@@ -166,19 +170,42 @@ public class UI_Manager : MonoBehaviour
             }
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (hideCam)
+            {
+                // show screen values
+                valueCamDestination = -0.8f;
+                moveValue = true;
+                subvalueCamDestination = -0.82f;
+                moveSubvalue = true;
+            
+                hideCam = false;
+            }
+
+            else
+            {
+                // hide screen values
+                valueCamDestination = -1.0f;
+                moveValue = true;
+                subvalueCamDestination = -1.0f;
+                moveSubvalue = true;
+
+                hideCam = true;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         if (moveSubvalue)
         {
-            MoveSubCam(subvalueCamDestination);
+            MoveSubCam(subvalueCamDestination, hideCam);
         }
 
         if (moveValue)
         {
-            MoveValueCam(valueCamDestination);
+            MoveValueCam(valueCamDestination, hideCam);
         }
     }
 
@@ -369,7 +396,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    private void MoveSubCam(float destination)
+    private void MoveSubCam(float destination, bool hiddenCam)
     {
         if (subvalueCamera.rect.x < destination)
         {
@@ -392,7 +419,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    private void MoveValueCam(float destination)
+    private void MoveValueCam(float destination, bool hiddenCam)
     {
         if (valueCamera.rect.x < destination)
         {
@@ -411,7 +438,7 @@ public class UI_Manager : MonoBehaviour
 
         if (valueCamera.rect.x == destination)
         {
-            moveSubvalue = false;
+            moveValue = false;
         }
     }
 

@@ -7239,6 +7239,37 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 9090477147712708257, guid: 09571f516ef19184ebf32f212891c8c9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090477147712708257, guid: 09571f516ef19184ebf32f212891c8c9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090477147712708257, guid: 09571f516ef19184ebf32f212891c8c9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2027684922078675697, guid: a5b550767283f3640a7113c1fc9b4f5a,
+        type: 3}
+    - target: {fileID: 9090477147712708257, guid: 09571f516ef19184ebf32f212891c8c9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCameraDestination
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090477147712708257, guid: 09571f516ef19184ebf32f212891c8c9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_Manager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090477147712708257, guid: 09571f516ef19184ebf32f212891c8c9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09571f516ef19184ebf32f212891c8c9, type: 3}
 --- !u!1001 &2094667750
