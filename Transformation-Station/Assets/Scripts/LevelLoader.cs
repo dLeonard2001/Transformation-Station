@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    // Loading back to puzzle mode menu (needs modification via inspector for the tutorial levels)
+    [SerializeField] private String loadSceneName = "PuzzleMode";
+    
     public static Action FinishedLevel;
     
     [SerializeField] private Animator transition;
@@ -86,7 +89,7 @@ public class LevelLoader : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        StartCoroutine(LoadNextScene(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(LoadNextScene(loadSceneName));
     }
 
 }
