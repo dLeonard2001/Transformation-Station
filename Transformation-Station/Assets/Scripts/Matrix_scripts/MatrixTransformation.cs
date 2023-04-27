@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class MatrixTransformation : MonoBehaviour
 {
@@ -9,14 +7,6 @@ public class MatrixTransformation : MonoBehaviour
     [SerializeField] private Transform _transform;
     private List<Matrix4x4> currentTransformations;
     private List<GameObject> currentCards;
-
-    private Matrix4x4 origin;
-    
-    // keeps track of all transformations
-    public Matrix4x4 totalTransformations;
-
-	// keeps track of all subvalues
-	public Matrix4x4 subtotalTransformations;
 
     // Overview of a matrix4x4
         // |  Xv  Yv  Zv  Tv | 
@@ -32,11 +22,6 @@ public class MatrixTransformation : MonoBehaviour
 
         currentTransformations = new List<Matrix4x4>();
         currentCards = new List<GameObject>();
-
-        totalTransformations = Matrix4x4.identity;
-		    subtotalTransformations = Matrix4x4.identity;
-
-        origin = transform.localToWorldMatrix;
     }
 
     // apply all the input transformations into here in an empty matrix
@@ -47,140 +32,130 @@ public class MatrixTransformation : MonoBehaviour
         
         // first matrix in sequence
         Matrix4x4 m = Matrix4x4.identity;
-
+        
         // multiply all matrices into one matrix, right to left style
-        for (int i = 0; i < index + 1; i++)
+        for (int i = 0; i < index; i++)
         {
             // second transformation * first transformation
             m = currentTransformations[i] * m;
         }
 
-        // set total values
-        totalTransformations = m;
-
-        _transform.localScale = GetMatrixScale(m * origin);
-        _transform.rotation = Quaternion.Euler(m.rotation.eulerAngles);
-        _transform.position = m.GetPosition();
+        _transform.localScale = m.lossyScale;
+        _transform.Rotate(m.rotation.eulerAngles, Space.World);
+        _transform.Translate(m.GetPosition(), Space.World);
     }
 
-    // edit any matrix at a certain index 
-        // (Not very scalable/readability later on because this function will get messy the more transformations we 
-    public void EditMatrix(float num, string transformation, int index)
+    public void RevertTransformation(int index)
+    {
+        // to revert multiple transformations
+        // you must find the inverse of each transformation then apply them 
+        // this is because matrix multiplication is not communtative
+        
+        // ex. We have matrix A, B, C
+            // our final matrix would be the multiplication of A * (B * C)
+            // to inverse this transformation
+                // we perform A^-1 * (B^-1 * C^-1) on a new matrix
+        // then apply that new transformation to inverse/revert the previous transformation
+
+        Matrix4x4 m = Matrix4x4.identity;
+
+        for (int i = 0; i < index; i++)
+        {
+            m = currentTransformations[i].inverse * m;
+        }
+            
+        _transform.localScale = m.lossyScale;
+        _transform.Rotate(m.rotation.eulerAngles, Space.World);
+        _transform.Translate(m.GetPosition(), Space.World);
+    }
+
+    public void EditMatrix(Vector3 vec, string transformation, int index)
     {
         switch (transformation)
         {
-            case "Translate X":
-                currentTransformations[index] = TranslateX(num);
-                break;
-            case "Translate Y":
-                currentTransformations[index] = TranslateY(num);
-                break;
-            case "Translate Z":
-                currentTransformations[index] = TranslateZ(num);
+            case "Translate":
+                currentTransformations[index] = Translate(vec);
                 break;
             case "Rotate X":
-                currentTransformations[index] = makeRotationX(num);
+                currentTransformations[index] = makeRotationX(vec.x);
                 break;
             case "Rotate Y":
-                currentTransformations[index] = makeRotationY(num);
+                currentTransformations[index] = makeRotationY(vec.y);
                 break;
             case "Rotate Z":
-                currentTransformations[index] = makeRotationZ(num);
+                currentTransformations[index] = makeRotationZ(vec.z);
                 break;
-            case "Scale X":
-                currentTransformations[index] = ScaleX(num);
-                break;
-            case "Scale Y":
-                currentTransformations[index] = ScaleY(num);
-                break;
-            case "Scale Z":
-                currentTransformations[index] = ScaleZ(num);
+            case "Scale":
+                currentTransformations[index] = NewScaleMatrix(vec);
                 break;
         }
     }
 
-    // add a matrix to the list of matrices
     public void AddMatrix()
     {
         currentTransformations.Add(Matrix4x4.identity);
     }
 
-    public void DeleteMatrix()
-    {
-        currentTransformations.RemoveAt(GetSize() - 1);
-    }
-
-    // remove a matrix at a certain index within the list
     public void RemoveMatrix(int index)
     {
         currentTransformations.RemoveAt(index);
         currentCards.RemoveAt(index);
     }
     
-    // adds a card to object's current card
     public void AddCard(GameObject newCard)
     {
         currentCards.Add(newCard);
     }
 
-    // returns the size of transformations
     public int GetSize()
     {
         return currentTransformations.Count;
     }
     
-    // returns the current cards correlated with this object
     public List<GameObject> GetCurrentCards()
     {
         return currentCards;
     }
 
-    // simple reset function (doesn't account for the origin)
+    public Matrix4x4 GetMatrix(int index)
+    {
+        return currentTransformations[index];
+    }
+
+    public void ResetTransformations()
+    {
+        for (int i = 0; i < GetSize(); i++)
+        {
+            currentTransformations[i] = Matrix4x4.identity;
+        }
+    }
+
+    public Matrix4x4 BeforePreviewMatrix()
+    {
+        return transform.localToWorldMatrix;
+    }
+
     public void Reset()
     {
-        _transform.position = origin.GetPosition();
-        _transform.rotation = origin.rotation;
-        _transform.localScale = GetMatrixScale(origin);
-        
-        // reset the total
-        totalTransformations = Matrix4x4.identity;
+        _transform.position = Matrix4x4.identity.GetPosition();
+        _transform.rotation = Matrix4x4.identity.rotation;
+        _transform.localScale = Matrix4x4.identity.lossyScale;
     }
 
     #region makeScaleTransformation
-
-    private Vector3 GetMatrixScale(Matrix4x4 m)
-    {
-        return m.lossyScale;
-    }
 
     // scale transformation
         // | sx  0   0   0 |
         // | 0   sy  0   0 |
         // | 0   0   sz  0 |
         // | 0   0   0   1 |
-    private Matrix4x4 ScaleX(float num)
+    private Matrix4x4 NewScaleMatrix(Vector3 vec)
     {
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m00 = num == 0 ? 1 : num;
-
-        return m;
-    }
-    
-    private Matrix4x4 ScaleY(float num)
-    {
-        Matrix4x4 m = Matrix4x4.identity;
-        
-        m.m11 = num == 0 ? 1 : num;
-
-        return m;
-    }
-    
-    private Matrix4x4 ScaleZ(float num)
-    {
-        Matrix4x4 m = Matrix4x4.identity;
-        
-        m.m22 = num == 0 ? 1 : num;
+        m.m00 = vec.x == 0 ? 1 : vec.x;
+        m.m11 = vec.y == 0 ? 1 : vec.y;
+        m.m22 = vec.z == 0 ? 1 : vec.z;
 
         return m;
     }
@@ -248,7 +223,7 @@ public class MatrixTransformation : MonoBehaviour
         matrix.m00 = c;
         matrix.m01 = -s;
         matrix.m10 = s;
-        matrix.m11 = c;
+        matrix.m12 = c;
 
         return matrix;
     }
@@ -268,111 +243,20 @@ public class MatrixTransformation : MonoBehaviour
     // and m33 represents a scaling factor
 
     // translation transformation
-    private Matrix4x4 TranslateX(float num)
+    private Matrix4x4 Translate(Vector3 t)
     {
         Matrix4x4 m = Matrix4x4.identity;
 
-        m.m03 = num;
-        // m.m13 = t.y;
-        // m.m23 = t.z;
+        m.m03 = t.x;
+        m.m13 = t.y;
+        m.m23 = t.z;
 
-        return m;
-    }
-    private Matrix4x4 TranslateY(float num)
-    {
-        Matrix4x4 m = Matrix4x4.identity;
-        
-        m.m13 = num;
-        
-        return m;
-    }
-    private Matrix4x4 TranslateZ(float num)
-    {
-        Matrix4x4 m = Matrix4x4.identity;
-
-        m.m23 = num;
+        // Debug.Log(newMatrix.MultiplyPoint3x4(Vector3.zero));
+        // _transform.position = newMatrix.MultiplyPoint3x4(Vector3.zero);
 
         return m;
     }
 
     #endregion
-
     
-    // move an object according to the mouse input, while the object is selected
-    private void OnMouseDrag()
-    {
-        // must have a card selected to edit
-            // also cannot have zero transformations
-        if (UI_Manager.HasCardSelected() && GetSize() != 0)
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            
-            // gets the current input
-            float inputVal = DirectionalInput();
-            
-            // apply the current input
-            UI_Manager.UpdateCardValue(Mathf.Clamp(inputVal, -1, 1));
-        }
-    }
-
-    private void OnMouseUp()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-    }
-
-    // get directional input depending on the type of transformation
-    private float DirectionalInput()
-    {
-        float num = 0;
-
-        switch (UI_Manager.TransformationType().Split(' ')[0])
-        {
-            case "Translate":
-                num = UI_Manager.CardDirection() == 'X' ? Input.GetAxis("Mouse X") : Input.GetAxis("Mouse Y");
-                break;
-            case "Rotate":
-                num = UI_Manager.CardDirection() == 'X' ? Input.GetAxis("Mouse Y") : Input.GetAxis("Mouse X");
-                break;
-            case "Scale":
-                num = UI_Manager.CardDirection() == 'X' ? Input.GetAxis("Mouse X") : Input.GetAxis("Mouse Y");
-                break;
-        }
-
-        return num;
-    }
-
-    public Matrix4x4 GetTotal()
-    {
-        //return totalTransformations;
-		Matrix4x4 m = Matrix4x4.identity;
-
-		for (int i = 0; i < currentCards.Count; i++)
-        {
-            // second transformation * first transformation
-            m = currentTransformations[i] * m;
-        }
-
-		return m;
-    }
-
-    public void ResetTotal()
-    {
-        totalTransformations = Matrix4x4.identity;
-    }
-
-	public Matrix4x4 GetSubtotal(int cardNumber)
-	{
-		Matrix4x4 m = Matrix4x4.identity;
-
-        // multiply all matrices into one matrix, right to left style
-        for (int i = 0; i < cardNumber + 1; i++)
-        {
-            // second transformation * first transformation
-            m = currentTransformations[i] * m;
-        }
-
-		return m;
-	}
 }
