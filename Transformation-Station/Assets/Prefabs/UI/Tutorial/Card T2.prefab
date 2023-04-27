@@ -1076,6 +1076,8 @@ MonoBehaviour:
     m_Options:
     - m_Text: Translate X
       m_Image: {fileID: 0}
+    - m_Text: Translate Y
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1566,7 +1568,7 @@ GameObject:
   - component: {fileID: 1465695993050516604}
   - component: {fileID: 7378218493066657043}
   m_Layer: 5
-  m_Name: Card (Restricted)
+  m_Name: Card T2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
