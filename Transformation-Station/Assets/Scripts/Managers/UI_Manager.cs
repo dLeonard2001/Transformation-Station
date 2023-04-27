@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
+    [Header("Disable Mode")]
+    [SerializeField] private bool disabled;
+    
     [Header("References")]
     [SerializeField] private RectTransform cardParent;
     [SerializeField] private GameObject ui_card_prefab;
@@ -80,8 +83,11 @@ public class UI_Manager : MonoBehaviour
         matrix_subtotal = Matrix4x4.identity;
         
         // hides screen values
-        valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
-        subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);
+        if (!disabled)
+        {
+            valueCamera.rect = new Rect (-1.0f, 0.7f, 1, 1);
+            subvalueCamera.rect = new Rect(-1.0f, -0.8f, 1, 1);            
+        }
 
         valueCamDestination = -1.0f;
         subvalueCamDestination = -1.0f;
@@ -349,6 +355,8 @@ public class UI_Manager : MonoBehaviour
 
     private void SetValues()
     {
+        if (disabled) return;
+        
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
@@ -360,6 +368,8 @@ public class UI_Manager : MonoBehaviour
 
     private void SetSubtotal()
     {
+        if (disabled) return;
+        
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
@@ -371,6 +381,8 @@ public class UI_Manager : MonoBehaviour
 
     private void MoveSubCam(float destination)
     {
+        if (disabled) return;
+        
         if (subvalueCamera.rect.x < destination)
         {
             subvalueCamera.rect = new Rect((subvalueCamera.rect.x + 0.01f), -0.8f, 1, 1);
@@ -394,6 +406,8 @@ public class UI_Manager : MonoBehaviour
 
     private void MoveValueCam(float destination)
     {
+        if (disabled) return;
+        
         if (valueCamera.rect.x < destination)
         {
             valueCamera.rect = new Rect((valueCamera.rect.x + 0.01f),  0.7f, 1, 1);

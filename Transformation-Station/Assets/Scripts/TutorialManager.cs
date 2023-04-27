@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] tutorialCardsUI;
+    [SerializeField] private AudioClip[] tutorialVoicelines;
+    [SerializeField] private AudioSource audioSource;
     
     private bool _tutorialMode = false;
     private int _tutorialProgress = 0;
@@ -18,7 +20,7 @@ public class TutorialManager : MonoBehaviour
 
     private void SetTimeScale()
     {
-        Time.timeScale = _tutorialMode ? 0 : 1;
+        // Do Nothing
     }
 
     private void SetActiveCardUI(bool x)
@@ -33,6 +35,9 @@ public class TutorialManager : MonoBehaviour
     {
         // Missing UI popup card or index out of range or if there is no more tutorial
         if (_tutorialProgress >= tutorialCardsUI.Length) return;
+
+        audioSource.clip = tutorialVoicelines[_tutorialProgress];
+        audioSource.Play();
         
         _tutorialMode = true;
 
@@ -41,6 +46,8 @@ public class TutorialManager : MonoBehaviour
     
     public void UnPauseGame()
     {
+        audioSource.Stop();
+        
         _tutorialMode = false;
         
         SetActiveCardUI(_tutorialMode);

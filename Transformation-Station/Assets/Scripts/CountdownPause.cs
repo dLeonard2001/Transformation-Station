@@ -28,7 +28,7 @@ public class CountdownPause : MonoBehaviour
 
         CountdownFinished();
         
-        if (startCountdown) countdownTimer -= Time.deltaTime;
+        if (startCountdown && !_hasDoneCountdown) countdownTimer -= Time.deltaTime;
     }
 
     private bool CheckTutorialManager()

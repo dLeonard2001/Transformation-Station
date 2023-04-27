@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PuzzleSolver : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class PuzzleSolver : MonoBehaviour
 
     [SerializeField] private AudioClip levelCompleteSound;
 
+    [SerializeField] private AudioSource selfAudioSource;
+    [SerializeField] private AudioClip levelCompleteVoiceline;
+    
     [SerializeField] private GameObject levelFinishedUI;
 
     private ParticleSystem particle;
@@ -29,6 +33,7 @@ public class PuzzleSolver : MonoBehaviour
 
         particle = GetComponent<ParticleSystem>();
 
+        selfAudioSource.clip = levelCompleteVoiceline;
     }
 
     // Update is called once per frame
@@ -66,6 +71,8 @@ public class PuzzleSolver : MonoBehaviour
                 particle.Play();
                 levelCompleteSource.PlayOneShot(levelCompleteSound);
                 
+                selfAudioSource.Play();
+                
                 // Using a the UI pop up card prefab to notify that the player completed the level
                 if (levelFinishedUI)
                 {
@@ -80,7 +87,7 @@ public class PuzzleSolver : MonoBehaviour
             time--;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         
         LevelLoader.FinishedLevel.Invoke();
     }

@@ -12,12 +12,24 @@ EditorBuildSettings:
     path: Assets/Scenes/MainGame/Menu/Scenes/PuzzleMode.unity
     guid: 111b3a155a0e71240a2a97c6434f7c35
   - enabled: 1
-    path: Assets/Scenes/MainGame/Basic Puzzles/Level_1.unity
-    guid: 4e94a8c117c7b3c429253792b8f2ee89
+    path: Assets/Scenes/Tutorial/Tutorial 0.unity
+    guid: badce17bc136e114cab0ca78ed1ba576
   - enabled: 1
-    path: Assets/Scenes/MainGame/Basic Puzzles/Level_2.unity
-    guid: f3d86d3e9ea4c7e40963cb32cb0c112a
+    path: Assets/Scenes/Tutorial/Tutorial 1.unity
+    guid: 9a0cd196b66380841bd674a68127af2f
   - enabled: 1
-    path: Assets/Scenes/MainGame/Basic Puzzles/Level_3.unity
-    guid: 529a9287dd957454eb1e87f3e2ac7563
+    path: Assets/Scenes/Tutorial/Tutorial 2.unity
+    guid: d6546c95d02999f42ae32527f152e297
+  - enabled: 1
+    path: Assets/Scenes/MainGameModified/Level 1.unity
+    guid: 7ebd4a8ac4347984eafcd0dcd98d57ad
+  - enabled: 1
+    path: Assets/Scenes/MainGameModified/Level 2.unity
+    guid: bde60fd6e997f374283539e4a5b562af
+  - enabled: 1
+    path: Assets/Scenes/MainGameModified/Level 3.unity
+    guid: 1e5b19c7c2751254aba5b8b0632484b6
+  - enabled: 1
+    path: Assets/Scenes/MainGameModified/Jason Level 0.unity
+    guid: 85c6a31a6e3d988468005e26b6b39968
   m_configObjects: {}

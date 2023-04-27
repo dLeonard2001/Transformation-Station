@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -233,7 +233,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level_2
+          m_StringArgument: Level 2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &4465520
@@ -1829,7 +1829,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 567281124}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 989410431}
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Jason Level 0
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &567281124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2328,7 +2340,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level_1
+          m_StringArgument: Level 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &672407697
@@ -2830,6 +2842,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365527698232494967, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
         type: 3}
+      propertyPath: loadSceneName
+      value: PuzzleMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 365527698232494967, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+        type: 3}
       propertyPath: sceneStartSound
       value: 
       objectReference: {fileID: 8300000, guid: 3aefb754e71242d49ba75dae2271edc3, type: 3}
@@ -2838,6 +2855,12 @@ PrefabInstance:
       propertyPath: sceneStartSource
       value: 
       objectReference: {fileID: 2037876962}
+    - target: {fileID: 2021815840729629795, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: c366203fc35bdce44b54030a0d8df7b7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a, type: 3}
 --- !u!114 &989410431 stripped
@@ -3964,7 +3987,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level_3
+          m_StringArgument: Level 3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1808467424
