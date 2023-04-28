@@ -28,7 +28,7 @@ public class CountdownPause : MonoBehaviour
 
         CountdownFinished();
         
-        if (startCountdown) countdownTimer -= Time.deltaTime;
+        if (startCountdown && !_hasDoneCountdown) countdownTimer -= Time.deltaTime;
     }
 
     private bool CheckTutorialManager()
@@ -47,7 +47,7 @@ public class CountdownPause : MonoBehaviour
 
     private void OnMouseDown()
     {
-        StartCountdown();
+        _tutorialManager.NextTutorial();
     }
 
     private void StartCountdown()

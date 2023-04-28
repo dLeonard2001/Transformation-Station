@@ -87,14 +87,8 @@ public class MatrixTransformation : MonoBehaviour
             case "Rotate Z":
                 currentTransformations[index] = makeRotationZ(num);
                 break;
-            case "Scale X":
-                currentTransformations[index] = ScaleX(num);
-                break;
-            case "Scale Y":
-                currentTransformations[index] = ScaleY(num);
-                break;
-            case "Scale Z":
-                currentTransformations[index] = ScaleZ(num);
+            case "Scale":
+                currentTransformations[index] = ScaleUniformly(num);
                 break;
         }
     }
@@ -158,28 +152,12 @@ public class MatrixTransformation : MonoBehaviour
         // | 0   sy  0   0 |
         // | 0   0   sz  0 |
         // | 0   0   0   1 |
-    private Matrix4x4 ScaleX(float num)
+    private Matrix4x4 ScaleUniformly(float num)
     {
         Matrix4x4 m = Matrix4x4.identity;
 
         m.m00 = num == 0 ? 1 : num;
-
-        return m;
-    }
-    
-    private Matrix4x4 ScaleY(float num)
-    {
-        Matrix4x4 m = Matrix4x4.identity;
-        
         m.m11 = num == 0 ? 1 : num;
-
-        return m;
-    }
-    
-    private Matrix4x4 ScaleZ(float num)
-    {
-        Matrix4x4 m = Matrix4x4.identity;
-        
         m.m22 = num == 0 ? 1 : num;
 
         return m;

@@ -67,8 +67,8 @@ MonoBehaviour:
   minCamDistance: -70
   sensitivity: 200
   rotationSpeed: 100
-  maxShiftDistance: 100
-  minShiftDistance: 70
+  maxShiftDistance: 5
+  minShiftDistance: -20
   downShiftSpeed: 30
   upShiftSpeed: 30
 --- !u!1 &2207789449761139701
