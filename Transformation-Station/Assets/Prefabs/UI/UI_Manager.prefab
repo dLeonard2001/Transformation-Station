@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardParent: {fileID: 0}
-  ui_card_prefab: {fileID: 8562319326803130994, guid: 7da1380ce9fdbb247b2e2d85e32fcc09,
+  ui_card_prefab: {fileID: 8562319326803130994, guid: 0c6719079a173b04ea77fe1117df59da,
     type: 3}
   animControlBoard: {fileID: 0}
   valueCamera: {fileID: 0}
