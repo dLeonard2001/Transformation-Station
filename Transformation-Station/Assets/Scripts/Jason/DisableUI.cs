@@ -11,7 +11,7 @@ public class DisableUI : MonoBehaviour
         }
     }
 
-    private void Disable()
+    public void Disable()
     {
         gameObject.SetActive(false);
     }
