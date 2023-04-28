@@ -11453,6 +11453,16 @@ PrefabInstance:
       propertyPath: TutorialMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2207789449435392892, guid: 467ef9991f4abd6418da1d0e285bc0de,
+        type: 3}
+      propertyPath: maxShiftDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2207789449435392892, guid: 467ef9991f4abd6418da1d0e285bc0de,
+        type: 3}
+      propertyPath: minShiftDistance
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 2207789449435392893, guid: 467ef9991f4abd6418da1d0e285bc0de,
         type: 3}
       propertyPath: m_Name
