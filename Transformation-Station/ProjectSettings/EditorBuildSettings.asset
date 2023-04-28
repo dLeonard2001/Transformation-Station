@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGameModified/Jason Level 0.unity
     guid: 85c6a31a6e3d988468005e26b6b39968
+  - enabled: 1
+    path: Assets/Scenes/MainGame/Menu/Scenes/Credits.unity
+    guid: ea1d51ba7abd2874fafee76cf10e12bd
   m_configObjects: {}
