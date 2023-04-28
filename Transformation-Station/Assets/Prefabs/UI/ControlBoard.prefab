@@ -936,7 +936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9c44664e6e4d84993e9ae41e222f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICard: {fileID: 9147874691338556870, guid: e294797d3dd19e440bcd95c521d378c7, type: 3}
+  UICard: {fileID: 8562319326803130994, guid: 0c6719079a173b04ea77fe1117df59da, type: 3}
 --- !u!95 &3933891237818834978
 Animator:
   serializedVersion: 5

@@ -54,6 +54,9 @@ public class ChangeCard : MonoBehaviour, IPointerClickHandler
             case 'Z':
                 tmp.text = "Z: 0";
                 break;
+            default:
+                tmp.text = "S: 0";
+                break;
         }
     }
 }
