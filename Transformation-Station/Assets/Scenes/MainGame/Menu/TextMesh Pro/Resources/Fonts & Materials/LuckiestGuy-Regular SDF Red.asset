@@ -57,11 +57,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LuckiestGuy-Regular SDF
+  m_Name: LuckiestGuy-Regular SDF Red
   m_EditorClassIdentifier: 
-  hashCode: -1536617929
+  hashCode: -90728220
   material: {fileID: 5011669582037335366}
-  materialHashCode: 684492983
+  materialHashCode: 1016889284
   m_Version: 1.1.0
   m_SourceFontFileGUID: 732c6b13cb90f9948923611769504828
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 732c6b13cb90f9948923611769504828,
@@ -2808,7 +2808,7 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 0, g: 0.21372673, b: 0.9433962, a: 0.5}
+    - _GlowColor: {r: 0.7169812, g: 0, b: 0.014187814, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
