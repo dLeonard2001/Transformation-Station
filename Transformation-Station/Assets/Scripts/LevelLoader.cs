@@ -48,8 +48,6 @@ public class LevelLoader : MonoBehaviour
         while (time >= 0)
         {
             AudioListener.volume -= Time.fixedDeltaTime;
-            
-            Debug.Log(AudioListener.volume);
 
             time -= Time.fixedDeltaTime;
 
@@ -72,8 +70,6 @@ public class LevelLoader : MonoBehaviour
         while (time >= 0)
         {
             AudioListener.volume -= Time.fixedDeltaTime;
-            
-            Debug.Log(AudioListener.volume);
 
             time -= Time.fixedDeltaTime;
 

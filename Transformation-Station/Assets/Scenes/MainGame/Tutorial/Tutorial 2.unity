@@ -7976,7 +7976,7 @@ PrefabInstance:
     - target: {fileID: 6488397455921969067, guid: 09571f516ef19184ebf32f212891c8c9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PauseGame
+      value: NextTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 6488397455921969067, guid: 09571f516ef19184ebf32f212891c8c9,
         type: 3}

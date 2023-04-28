@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadPuzzleScene : MonoBehaviour
 {
-    public void LoadScene()
+    public void LoadScene(String input)
     {
-        Debug.Log("Inside");
-        SceneManager.LoadScene("PuzzleMode");
+        SceneManager.LoadScene(input);
     }
 }

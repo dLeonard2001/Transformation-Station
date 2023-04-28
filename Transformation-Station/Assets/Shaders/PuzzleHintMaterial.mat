@@ -35,7 +35,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CorrectPercentage: 0.59888893
+    - _CorrectPercentage: 0.52834344
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors: []

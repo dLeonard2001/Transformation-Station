@@ -50,10 +50,10 @@ public class PuzzleSolver : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            puzzlePieces.position = puzzleSolution.position;
-        }
+        // if (Input.GetKeyDown(KeyCode.F1))
+        // {
+        //     puzzlePieces.position = puzzleSolution.position;
+        // }
 
         
         bool isPosCorrect = CheckPosition();
@@ -112,7 +112,7 @@ public class PuzzleSolver : MonoBehaviour
         {
             if (time % 2 == 0)
             {
-                Debug.Log(time);
+                // Debug.Log(time);
                 particle.Play();
                 levelCompleteSource.Play();
                 
@@ -122,7 +122,7 @@ public class PuzzleSolver : MonoBehaviour
                     levelFinishedUI.SetActive(true);
                     break;
                 }
-                Debug.Log("Missing UI pop up card prefab");
+                // Debug.Log("Missing UI pop up card prefab");
             }
 
             yield return new WaitForSeconds(1);

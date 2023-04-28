@@ -13,8 +13,8 @@ public class TutorialManager : MonoBehaviour
     
     private float textGenerateTime;
 
-    private bool _tutorialMode = false;
-    private int _tutorialProgress = 0;
+    private bool _tutorialMode;
+    private int _tutorialProgress;
     private int maxTutorialParts;
 
     private bool cr;
@@ -22,16 +22,6 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         maxTutorialParts = tutorialCardsUI.Length;
-    }
-
-    private void Update()
-    {
-        SetTimeScale();
-    }
-
-    private void SetTimeScale()
-    {
-        // Do Nothing
     }
 
     private void SetActiveCardUI(bool x)
@@ -53,7 +43,7 @@ public class TutorialManager : MonoBehaviour
     public void PauseGame()
     {
         // Missing UI popup card or index out of range or if there is no more tutorial
-        if (_tutorialProgress >= tutorialCardsUI.Length) return;
+        if (_tutorialProgress >= tutorialCardsUI.Length ) return;
 
         // audioSource.clip = tutorialVoicelines[_tutorialProgress];
         // audioSource.Play();
@@ -145,6 +135,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         _tutorialProgress++;
+        _tutorialMode = false;
     }
     
     private IEnumerator DegenerateThenGenerateMessage(Transform t)
@@ -167,7 +158,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("going to next card");
 
         _tutorialProgress++;
-        
+
         SetActiveCardUI(true);
     }
     
