@@ -47,7 +47,7 @@ public class CountdownPause : MonoBehaviour
 
     private void OnMouseDown()
     {
-        StartCountdown();
+        _tutorialManager.NextTutorial();
     }
 
     private void StartCountdown()
