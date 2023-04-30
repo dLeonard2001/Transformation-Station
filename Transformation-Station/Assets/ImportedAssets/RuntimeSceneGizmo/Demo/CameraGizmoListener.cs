@@ -31,9 +31,10 @@ namespace RuntimeSceneGizmo
 
 		public void OnGizmoComponentClicked( GizmoComponent component )
 		{
-			if( component == GizmoComponent.Center )
-				SwitchOrthographicMode();
-			else if( component == GizmoComponent.XNegative )
+			// if( component == GizmoComponent.Center )
+			// 	SwitchOrthographicMode();
+			// else
+			if( component == GizmoComponent.XNegative )
 				RotateCameraInDirection( Vector3.right );
 			else if( component == GizmoComponent.XPositive )
 				RotateCameraInDirection( -Vector3.right );
