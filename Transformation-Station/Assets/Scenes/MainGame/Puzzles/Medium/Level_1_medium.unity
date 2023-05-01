@@ -2551,7 +2551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb92217212ecc24c837716530a346e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  errorMargin: 0.391
+  errorMargin: 1
   hintMargin: 10
   puzzleSolution: {fileID: 0}
   puzzlePieces: {fileID: 2012693223}
@@ -7432,7 +7432,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
