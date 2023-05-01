@@ -226,6 +226,8 @@ public class UI_Manager : MonoBehaviour
 
         currentObject.AddCard(newCard);
         currentObject.AddMatrix();
+        
+        SetCurrentCard(newCard);
     }
 
     // add remove button to individual cards
