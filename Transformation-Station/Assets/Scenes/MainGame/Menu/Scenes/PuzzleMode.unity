@@ -1492,7 +1492,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Level_2_hard
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &555458201
@@ -1898,7 +1898,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level_3_medium
+          m_StringArgument: Level_1_hard
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &641886158

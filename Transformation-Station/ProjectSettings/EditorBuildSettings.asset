@@ -45,8 +45,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainGame/Puzzles/Medium/Level_2_medium.unity
     guid: c53c1182b857ccf498100250998c8f88
   - enabled: 1
-    path: Assets/Scenes/MainGame/Puzzles/Medium/Level_3_medium.unity
+    path: Assets/Scenes/MainGame/Puzzles/Hard/Level_1_hard.unity
     guid: 1e5b19c7c2751254aba5b8b0632484b6
+  - enabled: 1
+    path: Assets/Scenes/MainGame/Puzzles/Hard/Level_2_hard.unity
+    guid: 7f6b4cb2c03aec74184ce622246bc3ac
   - enabled: 1
     path: Assets/Scenes/MainGame/Menu/Scenes/Credits.unity
     guid: ea1d51ba7abd2874fafee76cf10e12bd

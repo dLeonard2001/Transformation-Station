@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c8880922e48394d92e2d221a220441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disabled: 0
   cardParent: {fileID: 0}
   ui_card_prefab: {fileID: 8562319326803130994, guid: 0c6719079a173b04ea77fe1117df59da,
     type: 3}
@@ -54,6 +55,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 0.86857516, b: 0.2216981, a: 0.29411766}
   ui_matrix_values: {fileID: 0}
   ui_matrix_subvalues: {fileID: 0}
+  pausePanel: {fileID: 0}
   openBoardSource: {fileID: 7892788027498670792, guid: 0687c005113b039409c28e1f71285b5d,
     type: 3}
   closeBoardSource: {fileID: 8900867933941522508, guid: 1a07c97d5894eec42ae734cfae279c4d,

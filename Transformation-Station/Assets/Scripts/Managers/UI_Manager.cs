@@ -34,6 +34,8 @@ public class UI_Manager : MonoBehaviour
 
     [SerializeField] private GameObject ui_matrix_subvalues;
 
+    [SerializeField] private GameObject pausePanel;
+
     private Matrix4x4 matrix_total;
     private Matrix4x4 matrix_subtotal;
 
@@ -64,6 +66,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private AudioClip changeCardTypeSound;
 
     [SerializeField] private AudioClip deleteCardSound;
+
+    private bool crActive;
 
 
     // needed for raycast
@@ -100,6 +104,14 @@ public class UI_Manager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pausePanel.SetActive(!pausePanel.activeSelf);
+        }
+
+        if (pausePanel.activeSelf)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             // make ray from camera to where mouseclick

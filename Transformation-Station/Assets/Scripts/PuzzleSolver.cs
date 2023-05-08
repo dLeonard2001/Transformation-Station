@@ -5,7 +5,7 @@ public class PuzzleSolver : MonoBehaviour
 {
     [Tooltip("How much the object must be correct in order to pass the puzzle \n" +
              "This represents the number of units the object can be incorrect for position and rotation")]
-    [SerializeField] [Range(1, 0)] private float errorMargin;
+    [SerializeField] [Range(3, 0)] private float errorMargin;
     [SerializeField] private float hintMargin;
     [SerializeField] private Transform puzzleSolution;
     [SerializeField] private Transform puzzlePieces;

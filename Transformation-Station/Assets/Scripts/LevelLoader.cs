@@ -88,4 +88,19 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadNextScene(loadSceneName));
     }
 
+    public void LoadMainMenu()
+    {
+        StartCoroutine(LoadNextScene("Menu"));
+    }
+
+    public void LoadPuzzleSelection()
+    {
+        StartCoroutine(LoadNextScene("PuzzleMode"));
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 }

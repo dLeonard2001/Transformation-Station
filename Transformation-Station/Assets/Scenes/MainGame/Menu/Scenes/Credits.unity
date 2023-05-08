@@ -1224,6 +1224,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632973407}
   m_CullTransparentMesh: 1
+--- !u!114 &1690986502 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 365527698232494967, guid: 9ef60bb327a34fd4fb5f23bd1bbbb03a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1712006437}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1178e3cfd101749bf021b318ac9d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1712006437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1613,10 +1625,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6115221485294281018}
-        m_TargetAssemblyTypeName: LoadPuzzleScene, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1690986502}
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
